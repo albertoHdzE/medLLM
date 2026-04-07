@@ -1,0 +1,254 @@
+\section{Comparative Analysis of LLM Families: Trends, Capabilities, and Performance Evolution}
+
+This section presents a comprehensive analysis of the evolution of major Large Language Model (LLM) families. Unlike standard technical reports that often highlight cherry-picked improvements, this study reveals a concerning trend of degradation in general intelligence, specifically in the ability to generate valid, accurate mathematical scripts and formulae across model generations.
+
+\subsection{Model Characteristics and Claims}
+Table \ref{tab:model_characteristics} summarizes the key characteristics and technical claims of the model families evaluated.
+
+\begin{table}[ht]
+\centering
+\caption{Summary of Evaluated Model Families and Key Characteristics (2024-2025)}
+\label{tab:model_characteristics}
+\begin{tabular}{|>{\bfseries}l|p{3.5cm}|p{5cm}|p{3cm}|}
+\hline
+\textbf{Family} & \textbf{Models Evaluated} & \textbf{Key Characteristics \& Claims} & \textbf{References} \\ \hline
+OpenAI & GPT-4o, GPT-4o-Mini, o1-Preview, o1-Mini, ChatGPT-5, ChatGPT-5.2 & Claims dominance in "Reasoning" (o-series) and deep thought (GPT-5.2). & \cite{OpenAI2024GPT4o, OpenAI2024o1, OpenAI2025GPT5} \\ \hline
+Google & Gemini, Gemini 1.5, Gemini 3 Pro & Claims to be a "Reasoning Powerhouse" with multimodal native capabilities. & \cite{Google2024Gemini15, Google2025Gemini3} \\ \hline
+Anthropic & Claude 3.5, Claude 3.7, Claude 4.5 & Focus on safety and "Computer Use" agents. & \cite{Anthropic2024Claude35, Anthropic2025Claude45} \\ \hline
+xAI & Grok-3, Grok-4, Grok-4.1 & Emphasizes real-time truth-seeking and uninhibited reasoning. & \cite{xAI2024Grok1, xAI2025Grok4} \\ \hline
+Meta & Llama 3, Llama 4 Scout & Open-weights leaders for enterprise deployment. & \cite{Meta2024Llama3, Meta2025Llama4} \\ \hline
+Mistral & Mistral Large 2, Mistral Large 3 & Efficiency and reasoning density. & \cite{Mistral2024Large, Mistral2025Large3} \\ \hline
+DeepSeek & DeepSeek V2, DeepSeek V3, DeepSeek R1 & Cost-efficiency and MoE innovation. & \cite{DeepSeek2024V2, DeepSeek2025V3} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Performance Evolution: The Reality of Degradation}
+We analyze the trajectory of each family by examining \textbf{Accuracy}, \textbf{Equivalence}, and \textbf{Valid Instances}. The data strongly suggests that newer models are not necessarily "smarter" but are often "lazier" or more restricted, showing a regression in generalization capabilities.
+
+\subsubsection{OpenAI Family: The Illusion of Progress}
+\textbf{Trend:} \textcolor{red}{\textbf{Severe Degradation in Generalization}}
+
+A critical comparison between the older \textit{ChatGPT-4o} \cite{OpenAI2024GPT4o} and the newer \textit{ChatGPT-5.2} \cite{OpenAI2025GPT5} reveals a stark regression:
+
+\begin{itemize}
+    \item \textbf{Scripts - Collapse of Intelligence:} 
+    While \textit{ChatGPT-4o} achieved \textbf{100\% Accuracy} in Complexity 1, the newer \textit{ChatGPT-5} plummeted to \textbf{20\% Accuracy}. Furthermore, \textit{Valid Instances} show a consistent downward trend: \textit{ChatGPT-4o-Mini} generated up to \textbf{300} valid instances (albeit with low accuracy), whereas \textit{ChatGPT-5.2} generated as few as \textbf{5} valid instances in Complexity 2.
+    
+    \item \textbf{The "Mini" Trap:} 
+    The transition from \textit{4o} to \textit{4o-Mini} showed an exponential decrease in accuracy despite a high volume of "Pure Math" attempts. This indicates that while the model tried to be mathematical, it lacked the reasoning depth to be correct.
+    
+    \item \textbf{Formulae - Incapacity for Complexity:} 
+    In the Formulae task, the newer models exhibit a disturbing increase in \textbf{Not Found} instances (e.g., \textit{ChatGPT-5} reaching \textbf{60} Not Found cases in Complexity 2 compared to \textit{4o}'s \textbf{28}). This explicitly demonstrates an incapacity to find complex answers. Comparing \textit{ChatGPT-4o} directly to \textit{ChatGPT-5.2}, we see a massive degradation in \textit{Valid Instances} (from \textbf{62} down to \textbf{22} in Complexity 2), confirming that the "reasoning" models are failing to generalize.
+\end{itemize}
+
+\subsubsection{Grok Family: From Ambition to Laziness}
+\textbf{Trend:} \textcolor{red}{\textbf{Degradation via Laziness and Overfitting}}
+
+The evolution of the Grok family illustrates a shift from trying to be intelligent to taking the "easy way out":
+
+\begin{itemize}
+    \item \textbf{Scripts - The "Print" Shift:} 
+    Early versions like \textit{Grok-3} showed a strong tendency towards \textbf{Pure Math} (60 instances in C1), demonstrating an attempt at algorithmic reasoning. However, \textit{Grok-4} \cite{xAI2025Grok4} shifted significantly towards \textbf{Print} instances (11 in C1, 15 in C2). This shift to "Print" represents a naive, silly approach to problem-solving—simply hardcoding the output rather than deriving it. This is a clear marker of degradation.
+    
+    \item \textbf{Explicit Degradation:} 
+    The later versions show an augmentation of \textbf{Not Found} instances, signaling a failure to engage with the problem. Moreover, both \textbf{Accuracy} and \textbf{Valid Instances} are lower in the newest versions compared to the first ones, confirming a regression in capability.
+    
+    \item \textbf{Formulae - Inverse Correlation:} 
+    In Formulae, \textit{Grok-4} appears to recognize \textbf{Known Sequences} better, which suggests overfitting to training data rather than genuine reasoning. Crucially, we observe an \textbf{inverse correlation}: while the count of Pure Math instances increased in some cases, the \textbf{Accuracy} dropped (from \textbf{100\%} in Grok-3 to \textbf{86\%} in Grok-4 for C1).
+    
+    \item \textbf{Equivalence Collapse:} 
+    The \textbf{Equivalence} metric mirrors this degradation perfectly. For Formulae (C1), \textit{Grok-3} achieved \textbf{93.3\%} Equivalence, while \textit{Grok-4} dropped to \textbf{16.7\%}. This proves that even when the model produces an output, its semantic logic is fundamentally broken compared to its predecessor.
+\end{itemize}
+
+\subsubsection{Google Family (Gemini)}
+\textbf{Trend:} \textcolor{red}{Degradation (Valid Instances)}
+\begin{itemize}
+    \item \textbf{Analysis:} Despite claims of being a "Reasoning Powerhouse," \textit{Gemini 3 Pro} produces significantly fewer \textbf{Valid Instances} (30 in Formulae C1) compared to the older \textit{Gemini} (60). The model has become restricted, refusing to engage with mathematical tasks that older models handled with ease.
+\end{itemize}
+
+\subsubsection{Claude Family: The Paradox of "Smart" Degradation}
+\textbf{Trend:} \textcolor{red}{\textbf{Sacrificing Accuracy for Complexity}}
+
+Claude presents a unique case of degradation where the model attempts to be "smarter" (using Pure Math) but ends up becoming less accurate and less reliable.
+
+\begin{itemize}
+    \item \textbf{Scripts - The Complexity Trap:} 
+    Comparing early versions like \textit{Claude-3.5} \cite{Anthropic2024Claude35} to the latest \textit{Claude-4.5} \cite{Anthropic2025Claude45}, we see a clear degradation in \textbf{Valid Instances}. While \textit{Claude-3.5} maintained a balance, newer models show an exponential drop in valid outputs (e.g., \textit{Claude-4.5} dropping to just 6 valid instances in Complexity 2). 
+    Crucially, the data shows that high accuracy in Claude is often directly correlated with a high number of \textbf{Print} statements. When the model attempts to use \textbf{Pure Math} (as seen in \textit{Claude-3.7} with 169 instances), the accuracy collapses (down to 30\%). This indicates that Claude tries to use sophisticated logic but lacks the competence to execute it correctly, sacrificing accuracy for an attempt at intelligence.
+
+    \item \textbf{Formulae - Overfitting and "Modesty":} 
+    In Formulae, the slight increase in accuracy for newer models is misleading. It correlates strongly with an increase in \textbf{Known Sequences}, suggesting the improvement comes from overfitting to richer training datasets rather than genuine reasoning.
+    Simultaneously, we observe a massive increase in \textbf{Not Found} instances (especially in models like \textit{Claude-Sonnet-4}). While this could be interpreted as "honesty" or modesty—admitting it cannot solve the problem—it ultimately represents a degradation in capability. The model is either overfitting (Known Sequences) or giving up (Not Found), rather than solving novel problems with general intelligence.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/ALL_FAMILIES_evolution_Part1.png}
+    \caption{Evolution of Model Performance (Part 1): OpenAI, Grok, Google, Claude. Note the degradation trends in Valid Instances and Accuracy across generations.}
+    \label{fig:evolution_part1}
+\end{figure}
+
+\subsubsection{Other Families (Llama, Mistral, DeepSeek)}
+\textbf{Trend:} \textcolor{blue}{Mixed / Specialized}
+\begin{itemize}
+    \item \textbf{DeepSeek:} \textit{DeepSeek-R1} rivals proprietary models with 98\% Valid Instances, showing that open-weight models are catching up while closed models regress.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/ALL_FAMILIES_evolution_Part2.png}
+    \caption{Evolution of Model Performance (Part 2): Mistral, DeepSeek, Meta, Qwen. Comparing open-weights vs proprietary model evolution.}
+    \label{fig:evolution_part2}
+\end{figure}
+
+\subsection{Summary of Evolution}
+Table \ref{tab:evolution_summary} re-evaluates the evolutionary trends based on this critical analysis.
+
+
+
+\begin{table}[ht]
+\centering
+\caption{Evolutionary Trend Summary: Enhancement vs. Degradation}
+\label{tab:evolution_summary}
+\begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Family} & \textbf{Overall Trend} & \textbf{Key Observation} \\ \hline
+OpenAI & \textcolor{red}{Degradation} & Collapse in generalization; newer models are "dumber" on scripts. \\ \hline
+xAI (Grok) & \textcolor{red}{Degradation} & Shift from Math to "Lazy" Prints; inverse accuracy correlation. \\ \hline
+Google (Gemini) & \textcolor{red}{Degradation} & Severe drop in valid instances; restricted output. \\ \hline
+Claude & \textcolor{red}{Degradation} & "Smart" but error-prone; reliability sacrificed for complexity. \\ \hline
+Mistral & \textcolor{red}{Degradation} & Accuracy via "Prints"; Valid Instances collapse. \\ \hline
+DeepSeek & \textcolor{red}{Degradation} & Increased output volume but collapsed accuracy. \\ \hline
+Meta (Llama) & \textcolor{red}{Degradation} & Stagnant accuracy despite more "math"; reliance on Prints. \\ \hline
+Qwen & \textcolor{blue}{Neutral} & Trying to "think" more (Pure Math); stable accuracy. \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+Please refer to Figure \ref{fig:evolution_part1} and Figure \ref{fig:evolution_part2} for the chronological plots supporting these critical conclusions.
+
+
+\newpage
+\section*{Bibliography (BibTeX)}
+\begin{verbatim}
+@misc{OpenAI2024GPT4o,
+  author = {OpenAI},
+  title = {Hello GPT-4o},
+  year = {2024},
+  url = {https://openai.com/index/hello-gpt-4o/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{OpenAI2024o1,
+  author = {OpenAI},
+  title = {Learning to Reason with LLMs},
+  year = {2024},
+  url = {https://openai.com/index/learning-to-reason-with-llms/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{OpenAI2025GPT5,
+  author = {OpenAI},
+  title = {GPT-5.2 System Card},
+  year = {2025},
+  url = {https://openai.com/index/gpt-5-2-codex-system-card/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Google2024Gemini15,
+  author = {Google},
+  title = {Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context},
+  year = {2024},
+  url = {https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Google2025Gemini3,
+  author = {Google},
+  title = {Gemini 3: Introducing the latest Gemini AI model from Google},
+  year = {2025},
+  url = {https://blog.google/products/gemini/gemini-3/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Anthropic2024Claude35,
+  author = {Anthropic},
+  title = {Claude 3.5 Sonnet},
+  year = {2024},
+  url = {https://www.anthropic.com/news/claude-3-5-sonnet},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Anthropic2025Claude45,
+  author = {Anthropic},
+  title = {Claude 4.5 Sonnet},
+  year = {2025},
+  url = {https://www.anthropic.com/news/claude-4-5-sonnet},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{xAI2024Grok1,
+  author = {xAI},
+  title = {Open Release of Grok-1},
+  year = {2024},
+  url = {https://x.ai/blog/grok-1},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{xAI2025Grok4,
+  author = {xAI},
+  title = {Grok 4 Fast},
+  year = {2025},
+  url = {https://x.ai/news/grok-4-fast},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Meta2024Llama3,
+  author = {Meta AI},
+  title = {The Llama 3 Herd of Models},
+  year = {2024},
+  url = {https://ai.meta.com/blog/meta-llama-3/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Meta2025Llama4,
+  author = {Meta AI},
+  title = {The Llama 4 Herd: The Beginning of a New Era of Natively Multimodal Intelligence},
+  year = {2025},
+  url = {https://ai.meta.com/blog/llama-4-multimodal-intelligence/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{DeepSeek2024V2,
+  author = {DeepSeek-AI},
+  title = {DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.04434},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{DeepSeek2025V3,
+  author = {DeepSeek-AI},
+  title = {DeepSeek-V3 Technical Report},
+  year = {2024},
+  url = {https://arxiv.org/abs/2412.19437},
+  note = {Published Dec 2024, Accessed December 28, 2025}
+}
+
+@misc{Mistral2024Large,
+  author = {Mistral AI},
+  title = {Au Large},
+  year = {2024},
+  url = {https://mistral.ai/news/mistral-large/},
+  note = {Accessed December 28, 2025}
+}
+
+@misc{Mistral2025Large3,
+  author = {Mistral AI},
+  title = {Introducing Mistral 3},
+  year = {2025},
+  url = {https://mistral.ai/news/mistral-3},
+  note = {Accessed December 28, 2025}
+}
+\end{verbatim}
