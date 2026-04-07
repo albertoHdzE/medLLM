@@ -62,3 +62,10 @@ Results, including statistical deltas and regressive indicators, are actively pi
 ## Scientific Integrity and Validation
 
 All quantitative results within this repository adhere strictly to rigorous academic standards. Trivial syntax emulation is heavily penalized in the evaluation scripts; models must exhibit true isomorphic logic mapped to test sequences to achieve passing correctness Boolean flags. Codebase metrics reflect zero tolerance for data contamination or superficial heuristic pattern matching.
+
+## Academic References
+
+The theoretical foundation, SuperARC benchmark methodology, and associated evaluation datasets utilized within this framework are derived from and correspond with the following literature and official implementation:
+
+* **Paper**: [Can Complexity and Uncomputability Explain Intelligence? SuperARC: A Test for Artificial Super Intelligence Based on Recursive Compression](https://arxiv.org/abs/2503.16743)
+* **Official Repository**: [AlgoDynLab/SuperintelligenceTest](https://github.com/AlgoDynLab/SuperintelligenceTest)
