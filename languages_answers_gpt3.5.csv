@@ -1,0 +1,2067 @@
+﻿sequence,complexity,Fuckbrain,Brainfuck,python,Pseudocode,Malbolge,Shakespeare,Whitespace,Befunge,LOLCODE,INTERCAL
+"[1, 2, 3, 4, 5, 6, 7, 8, 9]",1,[FUck],[>++++[-<+++++>]<.],"[print(*range(1, 10), sep="", "")]","[Set n = 1
+Repeat 9 times:
+    Print n
+    Increment n by 1]","""(=<`#9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!""","""The Cat:
+  Am I better than you? You is a number. 
+  You are 1.
+  Be you nicer of 9? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 1.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>        v
+ @.10+\1- <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""4""
+VISIBLE ""5""
+VISIBLE ""6""
+VISIBLE ""7""
+VISIBLE ""8""
+VISIBLE ""9""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+PLEASE GIVE UP"""
+"[0, 2, 4, 6, 8, 10, 12]",1,"[FUck
+FUckFUck]",[>++[->+++++<]>.],"[print(*range(0, 13, 2), sep="", "")]","[Set n = 0
+Repeat 7 times:
+    Print n
+    Increment n by 2]","""(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!""","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 12? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 2.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""0>        v
+ @.20+\2- <""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""2""
+VISIBLE ""4""
+VISIBLE ""6""
+VISIBLE ""8""
+VISIBLE ""10""
+VISIBLE ""12""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(2) #2
+PLEASE GIVE UP"""
+"[1, 3, 5, 7, 9, 11, 13]",1,"[FUck
+FUCk]",[>+[>+>+<<-]>>[<<+>>-]<.],"[print(*range(1, 14, 2), sep="", "")]","[Set n = 1
+Repeat 7 times:
+    Print n
+    Increment n by 2]","""(=<`!)+&%$#`""!zyxwv""","""The Cat:
+  Am I better than you? You is a number. 
+  You are 1.
+  Be you nicer of 13? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 2.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1v         <
+ @.20+\2-^""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""3""
+VISIBLE ""5""
+VISIBLE ""7""
+VISIBLE ""9""
+VISIBLE ""11""
+VISIBLE ""13""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(3) #3
+DO READ OUT(5) #5
+DO READ OUT(7) #7
+DO READ OUT(9) #9
+DO READ OUT(11) #11
+DO READ OUT(13) #13
+PLEASE GIVE UP"""
+"[101, 103, 105, 107, 109]",1,[FUckFUckFUck],[>++++++[-<+++++++>]<+.],"[print(*range(101, 110, 2), sep="", "")]","[Set n = 101
+Repeat 5 times:
+    Print n
+    Increment n by 2]","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 101.
+  Be you nicer of 109? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 2.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""101v         <
+   @.20+\2-^""","""HAI 1.2
+VISIBLE ""101""
+VISIBLE ""103""
+VISIBLE ""105""
+VISIBLE ""107""
+VISIBLE ""109""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(101) #101
+DO READ OUT(103) #103
+DO READ OUT(105) #105
+DO READ OUT(107) #107
+DO READ OUT(109) #109
+PLEASE GIVE UP"""
+"[2, 3, 5, 7, 11, 13, 17, 19, 23]",1,"[FUCk
+FUCK]",[>+>+>++>++[<[->+<]>[<]>-]<<<<<<+.],"[primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
+print(*primes, sep="", "")]","[Set primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
+For each prime in primes:
+    Print prime]",(=<`#9]~6;9>?=<;:87,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 2.
+  Be you nicer of 23? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 1.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""101v         <
+   @.20+\2-^""","""HAI 1.2
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""5""
+VISIBLE ""7""
+VISIBLE ""11""
+VISIBLE ""13""
+VISIBLE ""17""
+VISIBLE ""19""
+VISIBLE ""23""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+DO READ OUT(5) #5
+DO READ OUT(7) #7
+DO READ OUT(11) #11
+DO READ OUT(13) #13
+DO READ OUT(17) #17
+DO READ OUT(19) #19
+DO READ OUT(23) #23
+PLEASE GIVE UP"""
+"[10, 20, 30, 40, 50, 60]",1,"[FUck
+FUckFUck]",[++++++++++[->++++++++++>]<.],"[print(*range(10, 61, 10), sep="", "")]","[Set n = 10
+Repeat 6 times:
+    Print n
+    Increment n by 10]","(=<`#9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 10.
+  Be you nicer of 60? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 10.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>      v
+ @.10*1+<""","""HAI 1.2
+VISIBLE ""10""
+VISIBLE ""20""
+VISIBLE ""30""
+VISIBLE ""40""
+VISIBLE ""50""
+VISIBLE ""60""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(10) #10
+DO READ OUT(20) #20
+DO READ OUT(30) #30
+DO READ OUT(40) #40
+DO READ OUT(50) #50
+DO READ OUT(60) #60
+PLEASE GIVE UP"""
+"[4, 8, 12, 16, 20, 24, 28, 32]",1,"[FUCK
+FUCKFUCK]",[>+>+++++++[<-------->-]<.],"[print(*range(4, 33, 4), sep="", "")]","[Set n = 4
+Repeat 8 times:
+    Print n
+    Increment n by 4]","(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 4.
+  Be you nicer of 32? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 4.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""4v          <
+ @.20*1+4-^""","""HAI 1.2
+VISIBLE ""4""
+VISIBLE ""8""
+VISIBLE ""12""
+VISIBLE ""16""
+VISIBLE ""20""
+VISIBLE ""24""
+VISIBLE ""28""
+VISIBLE ""32""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(4) #4
+DO READ OUT(8) #8
+DO READ OUT(12) #12
+DO READ OUT(16) #16
+DO READ OUT(20) #20
+DO READ OUT(24) #24
+DO READ OUT(28) #28
+DO READ OUT(32) #32
+PLEASE GIVE UP"""
+"[3, 6, 9, 12, 15, 18, 21]",1,"[FUCk
+FUCK]",[>+>++[<+>-]<.],"[print(*range(3, 22, 3), sep="", "")]","[Set n = 3
+Repeat 7 times:
+    Print n
+    Increment n by 3]","(=<`!)+&%$#`""!zyxwv","""The Cat:
+  Am I better than you? You is a number. 
+  You are 3.
+  Be you nicer of 21? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 3.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""3>         v
+ @.10*1+3- <""","""HAI 1.2
+VISIBLE ""3""
+VISIBLE ""6""
+VISIBLE ""9""
+VISIBLE ""12""
+VISIBLE ""15""
+VISIBLE ""18""
+VISIBLE ""21""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(3) #3
+DO READ OUT(6) #6
+DO READ OUT(9) #9
+DO READ OUT(12) #12
+DO READ OUT(15) #15
+DO READ OUT(18) #18
+DO READ OUT(21) #21
+PLEASE GIVE UP"""
+"[1, 2, 3]",1,"[FUck
+FUCK]",[>+++[-<+++>]<.],"[print(*range(1, 4), sep="", "")]","[Set n = 1
+Repeat 3 times:
+    Print n
+    Increment n by 1]","(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 1.
+  Be you nicer of 5? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 1.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>         v
+ @.10+\1- <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""3""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+PLEASE GIVE UP"""
+"[1, 2, 3, 4, 5]",1,"[FUck
+FUCK]",[>+++++[<+>-]<.],"[print(*range(1, 6), sep="", "")]","[Set n = 1
+Repeat 5 times:
+    Print n
+    Increment n by 1]","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 1.
+  Be you nicer of 5? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 1.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>          v
+ @.10+\1-  <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""4""
+VISIBLE ""5""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+DO READ OUT(4) #4
+DO READ OUT(5) #5
+PLEASE GIVE UP"""
+"[0, 1, 1, 2, 3, 5, 8, 13]",2,"[FUck
+FUCK]",[>++[<+>-]>+[->++<]>++<.],"[a, b = 0, 1
+for _ in range(8):
+    print(a)
+    a, b = b, a + b
+print(b)]","[Set a = 0, b = 1
+Repeat 8 times:
+    Print a
+    Set temp = a
+    Set a = b
+    Set b = temp + b]","(=BAq)(=CB}(=<`#9]!~xwvut,+O/'TSRqponmlkjihgfeba`_^]\[ZYXWVUMLJI]!`EDCBA@?>=<;:9876543s+)(!&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 13? If so, let us proceed.
+
+  Lady:
+    Open your heart.
+
+    You is the sum of me and a cat.
+    Open your heart.
+    You is the sum of me and 0.
+
+    You is the difference between you and me.
+
+    If not, you is a cat.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""0>            v
+ @.10+        <
+0v 10+.@.20+ <""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""1""
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""5""
+VISIBLE ""8""
+VISIBLE ""13""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(1) #1
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+DO READ OUT(5) #5
+DO READ OUT(8) #8
+DO READ OUT(13) #13
+PLEASE GIVE UP"""
+"[0, 6, 9, 3, 1, 4, 7]",2,"[FUckFUckFUck
+FUckFUckFUckFUck
+FUCk]",[>>++++[<++++++++>-]<++.--.-----.+++.],"[for i in range(0, 10, 3):
+    print((i + 6) % 10)]","[Set n = 0
+Repeat 6 times:
+    Print n
+    If n % 3 == 0:
+        Set n = n + 6
+    Else:
+        Set n = n + 3]","(=<`!)+&%$#`""!z{wv","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the sum of me and a cat.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""0>         v
+ @.10+6-  <""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""6""
+VISIBLE ""9""
+VISIBLE ""3""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""7""
+KTHXBYE","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(6) #6
+DO READ OUT(9) #9
+DO READ OUT(3) #3
+DO READ OUT(1) #1
+DO READ OUT(4) #4
+DO READ OUT(7) #7
+PLEASE GIVE UP"""
+"[0, 0, 0, 0, 0, 0]",2,[FUckFUckFUckFUckFUckFUck],[>++++++++++.],"[for _ in range(6):
+    print(0)]","[Repeat 6 times:
+    Print 0]",(=<`#9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the sum of me and a cat.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""0>.@.>^""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""0""
+VISIBLE ""0""
+VISIBLE ""0""
+VISIBLE ""0""
+VISIBLE ""0""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(0) #0
+DO READ OUT(0) #0
+DO READ OUT(0) #0
+DO READ OUT(0) #0
+DO READ OUT(0) #0
+PLEASE GIVE UP"""
+"[0, 1, 2, 4, 8, 16]",2,"[FUck
+FUCk]",[>++++++++[<+++++++>-]<.],"[for i in range(6):
+    print(2**i)]","[Set n = 0
+Repeat 6 times:
+    Print n
+    Set n = 2^n]","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the sum of me and a cat.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""0>          v
+ @.20*2     <""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""4""
+VISIBLE ""8""
+VISIBLE ""16""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(4) #4
+DO READ OUT(8) #8
+DO READ OUT(16) #16
+PLEASE GIVE UP"""
+"[1, 2, 4, 7, 11, 16, 22, 29]",2,"[FUck
+FUCkFUck]",[>->++++++[<-------->-]<.],"[current = 1
+for i in range(1, 9):
+    print(current)
+    current += i]","[Set n = 1
+Repeat 8 times:
+    Print n
+    Set n = n + 1 + number of iterations completed]","(=<`#9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the sum of me and a cat.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>            v
+ @.10+1       <
+0>1v          <
+ @.10+2      <
+0>2v          <
+ @.10+3      <
+0>3v          <
+ @.10+4      <
+0>4v          <
+ @.10+5      <
+0>5v          <
+ @.10+6      <
+0>6v          <
+ @.10+7      <
+0>7v          <
+ @.10+8      <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""4""
+VISIBLE ""7""
+VISIBLE ""11""
+VISIBLE ""16""
+VISIBLE ""22""
+VISIBLE ""29""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(4) #4
+DO READ OUT(7) #7
+DO READ OUT(11) #11
+DO READ OUT(16) #16
+DO READ OUT(22) #22
+DO READ OUT(29) #29
+PLEASE GIVE UP"""
+"[1, 1, 1, 2, 3, 4, 6, 9]",2,"[FUck
+FUCK]",[>+++[->+++<]>.[->+<]>++.<.],"[sequence = [1, 1, 1]
+for _ in range(5):
+    print(sequence[-1])
+    sequence.append(sum(sequence[-2:]))]","[Set a = 1, b = 1
+Repeat 6 times:
+    Print a
+    Set temp = a
+    Set a = b
+    Set b = temp + b]","(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the sum of me and a cat.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]
+[TAB][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][SPACE][BREAK]""","""1>         v
+ @.10+1    <
+1>1v       <
+ @.10+1   <
+1>2v       <
+ @.20+1  <
+1>3v       <
+ @.30+1 <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""1""
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""4""
+VISIBLE ""6""
+VISIBLE ""9""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(1) #1
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+DO READ OUT(4) #4
+DO READ OUT(6) #6
+DO READ OUT(9) #9
+PLEASE GIVE UP"""
+"[30, 42, 66, 70, 78, 102]",2,"[FUckFUckFUck
+FUckFUckFUckFUck]",[++++++[->++++<]>[->+++<]>+.+++++++.-------.+++++++++++++.],"[for i in range(1, 7):
+    print(i * (i + 1) * 5)]","[Set n = 30
+Repeat 5 times:
+    Print n
+    If n % 10 == 0:
+        Set n = n + 12
+    Else:
+        Set n = n + 6]",(=<`#9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Space][Tab]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Space][Tab][Tab]
+[Space][Tab][Space][Tab][Space][Space]
+[Space][Tab][Space][Tab][Space][Tab]
+[Space][Tab][Space][Tab][Tab][Space]
+[Space][Tab][Space][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Space][Space]
+[Space][Tab][Space][Space][Space][Tab]""","""10p 3 0v
+1 >""v""$<
+ vp10<^""","""HAI 1.2
+VISIBLE ""30""
+VISIBLE ""42""
+VISIBLE ""66""
+VISIBLE ""70""
+VISIBLE ""78""
+VISIBLE ""102""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(30) #30
+DO READ OUT(42) #42
+DO READ OUT(66) #66
+DO READ OUT(70) #70
+DO READ OUT(78) #78
+DO READ OUT(102) #102
+PLEASE GIVE UP"""
+"[0, 1, 4, 9, 16, 25, 36]",2,"[FUck
+FUCKFUCK]",[>+++++[->++++++<]>.[->+++++++<]>.[->+++++++++<]>.[->++++++<]>.[->++++++<]>.[->++++<]>.[->+++++<]>.],"[for i in range(7):
+    print(i**2)]","[Set n = 0
+Repeat 7 times:
+    Print n
+    Set n = n^2 + 1]","(=<`!)+&%$#`""!z{wv","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Space][Tab][Tab]
+[Space][Tab][Tab][Space][Space]
+[Space][Tab][Tab][Space][Tab]
+[Space][Tab][Tab][Tab][Space]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Tab][Space]""","""00p 1  v
+1 >""v""$<
+ vp10<^""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""9""
+VISIBLE ""16""
+VISIBLE ""25""
+VISIBLE ""36""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(1) #1
+DO READ OUT(4) #4
+DO READ OUT(9) #9
+DO READ OUT(16) #16
+DO READ OUT(25) #25
+DO READ OUT(36) #36
+PLEASE GIVE UP"""
+"[0, 1, 8, 27, 64, 125, 216, 343, 512]",2,"[FUck
+FUCKFUCKFUCK]",[++++++++[->++++++++++<]>+.-.+++++++.-------.+++++++++++++.-----------.++++++.+++++++++++.+++++++++++++.-----------.++++.+++++++++.------------.++++++++++++.],"[for i in range(9):
+    print(i**3)]","[Set n = 0
+Repeat 9 times:
+    Print n
+    Set n = (n + 1)^3]","(=BAq)(=CB}(=<`#9]!~xwvut,+O/'TSRqponmlkjihgfeba`_^]\[ZYXWVUMLJI]!`EDCBA@?>=<;:9876543s+)(!&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 0.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Tab][Space][Space]
+[Space][Tab][Tab][Tab][Space]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Tab][Space]
+[Space][Tab][Space][Space][Tab][Tab]
+[Space][Tab][Space][Tab][Space][Space]
+[Space][Tab][Space][Tab][Tab][Space]
+[Space][Tab][Space][Tab][Tab][Tab]
+[Space][Tab][Space][Tab][Space][Tab][Space]""","""00p 1  v
+1 >""v""$<
+ vp20<^""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""1""
+VISIBLE ""8""
+VISIBLE ""27""
+VISIBLE ""64""
+VISIBLE ""125""
+VISIBLE ""216""
+VISIBLE ""343""
+VISIBLE ""512""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(0) #0
+DO READ OUT(1) #1
+DO READ OUT(8) #8
+DO READ OUT(27) #27
+DO READ OUT(64) #64
+DO READ OUT(125) #125
+DO READ OUT(216) #216
+DO READ OUT(343) #343
+DO READ OUT(512) #512
+PLEASE GIVE UP"""
+"[4, 6, 9, 10, 14, 15, 21, 22, 25, 26]",2,"[FUCK
+FUCKFUCK]",[>++[->+++++<]>.[->+++++++<]>.[->++<]>++.+[->+++++<]>+.-[->+++<]>-.++[->+++++<]>+.++++++++++++++.],"[n = 2
+for i in range(10):
+    print(n + i + (i // 3))]","[Set n = 4
+Repeat 10 times:
+    Print n
+    If n is odd:
+        Increment n by 3
+    Else:
+        Increment n by 1]","(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 4.
+  Be you nicer of 4? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Tab][Space][Space][Tab]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Space][Tab][Tab]
+[Space][Tab][Tab][Space][Space]
+[Space][Tab][Tab][Space][Tab]
+[Space][Tab][Tab][Tab][Space]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Tab][Space]
+[Space][Tab][Space][Space][Tab][Tab]
+[Space][Tab][Space][Tab][Space][Space]
+[Space][Tab][Space][Tab][Space][Tab]""","""41p 2  v
+1 >""v""$<
+ vp10<^""","""HAI 1.2
+VISIBLE ""4""
+VISIBLE ""6""
+VISIBLE ""9""
+VISIBLE ""10""
+VISIBLE ""14""
+VISIBLE ""15""
+VISIBLE ""21""
+VISIBLE ""22""
+VISIBLE ""25""
+VISIBLE ""26""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(4) #4
+DO READ OUT(6) #6
+DO READ OUT(9) #9
+DO READ OUT(10) #10
+DO READ OUT(14) #14
+DO READ OUT(15) #15
+DO READ OUT(21) #21
+DO READ OUT(22) #22
+DO READ OUT(25) #25
+DO READ OUT(26) #26
+PLEASE GIVE UP"""
+"[3, 1, 4, 1, 5, 9, 2, 6, 5]",3,"[FUCK
+FUck
+FUCKFUCK]",[+++[->+++++<]>+++.>+.---.>+++++++.<+++.--.>+++++.<+.[->+++<]>++.-----.>++.<---.>++++.<+.],"[sequence = [3, 1, 4]
+for i in range(4, 10):
+    if i % 2 == 0:
+        sequence.append(sequence[-2] + sequence[-1])
+    else:
+        sequence.append(sequence[-2] - sequence[-1])
+print(*sequence)]","""For the sequence 3, 1, 4, 1, 5, 9, 2, 6, 5:
+    Initialize array sequence with values [3, 1, 4, 1, 5, 9, 2, 6, 5]
+    For i = 9 to 2:
+        sequence[i] = sequence[i] + sequence[i-2]
+    Print sequence""","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 3.
+  Be you nicer of 3? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 1.
+    You is the sum of me and 4.
+    You is the sum of me and 5.
+    You is the sum of me and 9.
+    You is the sum of me and 2.
+    You is the sum of me and 6.
+    You is the sum of me and 5.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Space][Tab]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Tab]
+[Space][Tab]
+[Space][Tab][Space][Tab]
+[Space][Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Tab]""","""31p 4  v
+1 >""v""$<
+ vp10<^""","""HAI 1.2
+VISIBLE ""3""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""1""
+VISIBLE ""5""
+VISIBLE ""9""
+VISIBLE ""2""
+VISIBLE ""6""
+VISIBLE ""5""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(3) #3
+DO READ OUT(1) #1
+DO READ OUT(4) #4
+DO READ OUT(1) #1
+DO READ OUT(5) #5
+DO READ OUT(9) #9
+DO READ OUT(2) #2
+DO READ OUT(6) #6
+DO READ OUT(5) #5
+PLEASE GIVE UP"""
+"[1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10]",3,"[FUck
+FUCK]",[++[->++<]>+.>++++.>+.<<.>++.>.<<.>>++++.<<.>>++++.<<.>>-----.>-.<<.>>++++.<<.>>++++.<<.>>+++.---.>---.<<.>>+++++.---.>---.],"[sequence = [1, 1]
+for i in range(2, 11):
+    if i % 2 == 0:
+        sequence.append(sequence[-1] * 2)
+    else:
+        sequence.append(sequence[-2] + sequence[-1])
+print(*sequence)]","""For the sequence 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10:
+    Initialize array sequence with values [1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10]
+    For i = 3 to 10:
+        If i is odd:
+            sequence[i] = sequence[i-1]
+        Else:
+            sequence[i] = sequence[i-2] + sequence[i-4]
+    Print sequence""","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 1.
+  Be you nicer of 1? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 2.
+    You is the sum of me and 2.
+    You is the sum of me and 4.
+    You is the sum of me and 2.
+    You is the sum of me and 6.
+    You is the sum of me and 4.
+    You is the sum of me and 6.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Space][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Space][Tab][Tab]""","""11p   v
+1v"" ""v
+ v*2+<            v
+ v"" ""v  >:9`!
+>0_:.10g!#v_:0-1< ""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""2""
+VISIBLE ""4""
+VISIBLE ""2""
+VISIBLE ""6""
+VISIBLE ""4""
+VISIBLE ""6""
+VISIBLE ""4""
+VISIBLE ""10""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(1) #1
+DO READ OUT(2) #2
+DO READ OUT(2) #2
+DO READ OUT(4) #4
+DO READ OUT(2) #2
+DO READ OUT(6) #6
+DO READ OUT(4) #4
+DO READ OUT(6) #6
+DO READ OUT(4) #4
+DO READ OUT(10) #10
+PLEASE GIVE UP"""
+"[1, 6, 1, 8, 0, 3, 3, 9, 8, 8, 7]",3,"[FUck
+FUCKFUCK
+FUck]",[+>++++[<++++>-]<.>+.--.>.<<-.>+++.<.>---.<<.>>----.<+.>>--.<<.>>+++.<.],"[sequence = [1, 6, 1]
+for i in range(3, 11):
+    if i % 2 == 0:
+        sequence.append(sequence[-1] - 1)
+    else:
+        sequence.append(sequence[-2] % 10)
+print(*sequence)]","""For the sequence 1, 6, 1, 8, 0, 3, 3, 9, 8, 8, 7:
+    Initialize array sequence with values [1, 6, 1, 8, 0, 3, 3, 9, 8, 8, 7]
+    For i = 4 to 11:
+        sequence[i] = sequence[i-3] - sequence[i-4]
+    Print sequence""","(=BAq)(=CB}(=<`#9]!~xwvut,+O/'TSRqponmlkjihgfeba`_^]\[ZYXWVUMLJI]!`EDCBA@?>=<;:9876543s+)(!&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 1.
+    You is the sum of me and 0.
+    You is the sum of me and 8.
+    You is the sum of me and 3.
+    You is the sum of me and 3.
+    You is the sum of me and 4.
+    You is the sum of me and 1.
+    You is the sum of me and 0.
+    You is the sum of me and 2.
+    You is the sum of me and 3.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab]
+[Space][Space][Tab][Space][Space][Tab]
+[Space][Tab][Space][Space][Tab][Tab]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Space][Tab]
+[Space][Space][Space][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Tab][Space]""","""""1""0p   v
+v"" ""v
+ v""6""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""8""v
+ v""0""v
+ v"" ""v
+ v""3""v
+ v""3""v
+ v""9""v
+ v""8""v
+ v""8""v
+ v""7""v
+ >0_:.10g!#v_:0-1<""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""6""
+VISIBLE ""1""
+VISIBLE ""8""
+VISIBLE ""0""
+VISIBLE ""3""
+VISIBLE ""3""
+VISIBLE ""9""
+VISIBLE ""8""
+VISIBLE ""8""
+VISIBLE ""7""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(6) #6
+DO READ OUT(1) #1
+DO READ OUT(8) #8
+DO READ OUT(0) #0
+DO READ OUT(3) #3
+DO READ OUT(3) #3
+DO READ OUT(9) #9
+DO READ OUT(8) #8
+DO READ OUT(8) #8
+DO READ OUT(7) #7
+PLEASE GIVE UP"""
+"[1, 1, 4, 9, 4, 2, 0, 4, 4, 8, 5]",3,"[FUck
+FUCKFUck
+FUCK]",[++>+[<->++++]<--->-----.+>.---.<++.>+.<<-.>---.<--.>++++.<<.>>+++.<<+.>>---.<<.>>+++.<.],"[sequence = [1, 1]
+for i in range(2, 12):
+    if i % 2 == 0:
+        sequence.append(i // 2)
+    else:
+        sequence.append(sequence[-2] ** 2 % 10)
+print(*sequence)]","""For the sequence 1, 1, 4, 9, 4, 2, 0, 4, 4, 8, 5:
+    Initialize array sequence with values [1, 1, 4, 9, 4, 2, 0, 4, 4, 8, 5]
+    For i = 5 to 11:
+        If i is even:
+            sequence[i] = sequence[i-1] - sequence[i-2]
+        Else:
+            sequence[i] = sequence[i-2] + sequence[i-3]
+    Print sequence""","(=<`!)+&%$#`""!zyxwv","""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 4.
+    You is the sum of me and 9.
+    You is the sum of me and 4.
+    You is the sum of me and 2.
+    You is the sum of me and 0.
+    You is the sum of me and 4.
+    You is the sum of me and 4.
+    You is the sum of me and 8.
+    You is the sum of me and 5.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Tab]
+[Space][Space][Space][Tab][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Tab]
+[Space][Space][Space][Space][Tab]""","""11p   v
+1v"" ""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""9""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""2""v
+ v""0""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""8""v
+ v"" ""v
+ v""5""v
+ >0_:.10g!#v_:0-1<""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""9""
+VISIBLE ""4""
+VISIBLE ""2""
+VISIBLE ""0""
+VISIBLE ""4""
+VISIBLE ""4""
+VISIBLE ""8""
+VISIBLE ""5""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(1) #1
+DO READ OUT(4) #4
+DO READ OUT(9) #9
+DO READ OUT(4) #4
+DO READ OUT(2) #2
+DO READ OUT(0) #0
+DO READ OUT(4) #4
+DO READ OUT(4) #4
+DO READ OUT(8) #8
+DO READ OUT(5) #5
+PLEASE GIVE UP"""
+"[2, 0, 9, 4, 5, 5, 1, 4, 8, 1, 5]",3,"[FUCk
+FUCKFUck
+FUCK]",[++[->++++<]>+.>+.--.>.<<<+.>>>+.<<<<+++++.--.>-.>>++.<<--.>+++++.<<<-.>>>----.<+++.],"[sequence = [2, 0]
+for i in range(2, 12):
+    if i % 2 == 0:
+        sequence.append(sequence[-2] * 2)
+    else:
+        sequence.append(sequence[-2] + sequence[-1])
+print(*sequence)]","""For the sequence 2, 0, 9, 4, 5, 5, 1, 4, 8, 1, 5:
+    Initialize array sequence with values [2, 0, 9, 4, 5, 5, 1, 4, 8, 1, 5]
+    For i = 3 to 10:
+        sequence[i] = sequence[i-1] * sequence[i-3] - sequence[i-4]
+    Print sequence""","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 2.
+    You is the sum of me and 0.
+    You is the sum of me and 9.
+    You is the sum of me and 4.
+    You is the sum of me and 5.
+    You is the sum of me and 5.
+    You is the sum of me and 1.
+    You is the sum of me and 4.
+    You is the sum of me and 8.
+    You is the sum of me and 1.
+    You is the sum of me and 5.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Space][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Tab]
+[Space][Tab][Space][Space]
+[Space][Space][Tab][Tab]
+[Space][Space][Tab][Space][Tab]
+[Space][Tab]
+[Space][Space][Tab][Tab]""","""20p   v
+1v"" ""v
+ v"" ""v
+ v""0""v
+ v"" ""v
+ v""9""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""5""v
+ v"" ""v
+ v""5""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""4""v
+ v"" ""v
+ v""8""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""5""v
+ >0_:.10g!#v_:0-1<""","""HAI 1.2
+VISIBLE ""2""
+VISIBLE ""0""
+VISIBLE ""9""
+VISIBLE ""4""
+VISIBLE ""5""
+VISIBLE ""5""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""8""
+VISIBLE ""1""
+VISIBLE ""5""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(2) #2
+DO READ OUT(0) #0
+DO READ OUT(9) #9
+DO READ OUT(4) #4
+DO READ OUT(5) #5
+DO READ OUT(5) #5
+DO READ OUT(1) #1
+DO READ OUT(4) #4
+DO READ OUT(8) #8
+DO READ OUT(1) #1
+DO READ OUT(5) #5
+PLEASE GIVE UP"""
+"[1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211]",3,"[FUck
+FUCKFUck
+FUCK]",[+>++[-<+++++++>]<[->+<]>+.>+.<<[->>+<<]<[->+<]>----.<+..>>[->++++++<<]>.<<[->>+<<]<.>>++++++++++.<],"[sequence = [""1""]
+for _ in range(7):
+    prev = sequence[-1]
+    count = 1
+    next_term = """"
+    for i in range(1, len(prev)):
+        if prev[i] == prev[i - 1]:
+            count += 1
+        else:
+            next_term += str(count) + prev[i - 1]
+            count = 1
+    next_term += str(count) + prev[-1]
+    sequence.append(next_term)
+print(*sequence)]","""For the sequence 1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211:
+    Initialize string sequence with value ""1""
+    For i = 2 to 8:
+        Initialize variables count = 1 and temp = """"
+        For j = 2 to length of sequence:
+            If sequence[j] == sequence[j-1]:
+                Increment count
+            Else:
+                Append count and sequence[j-1] to temp
+                Reset count to 1
+        Append count and last element of sequence to temp
+        Assign temp to sequence
+    Print sequence!",(=BA#)9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 0.
+    You is the sum of me and 1.
+    You is the sum of me and 2.
+    You is the sum of me and 2.
+    You is the sum of me and 2.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 3.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Space][Tab][Tab][Tab][Tab][Space][Space][Tab]
+[Space][Space][Tab][Space][Space][Space][Tab][Tab][Tab][Tab][Space][Tab][Tab]
+[Space][Tab][Tab][Tab][Tab][Tab][Space][Tab][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Space][Tab][Tab][Tab][Tab][Space][Tab][Space][Tab][Space]
+[Space][Space][Space][Tab][Tab][Space][Tab][Space][Space][Tab][Tab][Tab][Space][Tab][Tab][Tab][Space]""","""11p   v
+1v"" ""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""1""v
+ v""1""v
+ v""1""v
+ v"" ""v
+ v""2""v
+ v""1""v
+ v"" ""v
+ v""1""v
+ v""2""v
+ v""2""v
+ v""1""v
+ v"" ""v
+ v""3""v
+ v""1""v
+ v"" ""v
+ v""1""v
+ v"" ""v
+ v""3""v
+ v""2""v
+ v""2""v
+ v""1""v
+ >0_:.10g!#v_:0-1<""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""11""
+VISIBLE ""21""
+VISIBLE ""1211""
+VISIBLE ""111221""
+VISIBLE ""312211""
+VISIBLE ""13112221""
+VISIBLE ""1113213211""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(11) #11
+DO READ OUT(21) #21
+DO READ OUT(1211) #1211
+DO READ OUT(111221) #111221
+DO READ OUT(312211) #312211
+DO READ OUT(13112221) #13112221
+DO READ OUT(1113213211) #1113213211
+PLEASE GIVE UP"""
+"[2, 3, 5, 11, 23, 29, 41, 53, 83, 89, 113, 131]",3,"[FUCK
+FUCKFUCKFUck
+FUCK]",[++>+[<->++]<++.>+++.<<.>>----.>-.<<<.>>>>--.<<<.>>>+++.<<.>>------.>---.<<<.>>>+++++.<<.>>-----.>---.],"[primes = [2]
+current = 3
+while len(primes) < 12:
+    for i in range(2, int(current ** 0.5) + 1):
+        if current % i == 0:
+            break
+    else:
+        primes.append(current)
+    current += 2
+print(*primes)]","""For the sequence 2, 3, 5, 11, 23, 29, 41, 53, 83, 89, 113, 131:
+    For i = 2 to 11:
+        Let n be the current number
+        Find the next prime number after n
+        Print the prime number""",(=BA#)9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 2.
+    You is the sum of me and 1.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    You is the sum of me and 3.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 4.
+    You is the sum of me and 2.
+    You is the sum of me and 0.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab]
+[Space][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Space][Tab]
+[Space][Space][Tab][Tab][Tab][Tab]
+[Space][Space][Tab][Tab][Space][Tab]
+[Space][Space][Tab][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Tab][Tab]
+[Space][Space][Tab][Tab][Tab][Space][Tab]
+[Space][Space][Tab][Tab][Tab][Space][Space]""","""2v          <
+ @.10+1    <
+2>         v
+ @.20+1   <
+2>         v
+ @.10+2  <
+2>         v
+ @.20+5 <
+2>         v
+ @.30+1 <
+2>         v
+ @.20+1 <""","""HAI 1.2
+VISIBLE ""2""
+VISIBLE ""3""
+VISIBLE ""5""
+VISIBLE ""11""
+VISIBLE ""23""
+VISIBLE ""29""
+VISIBLE ""41""
+VISIBLE ""53""
+VISIBLE ""83""
+VISIBLE ""89""
+VISIBLE ""113""
+VISIBLE ""131""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(2) #2
+DO READ OUT(3) #3
+DO READ OUT(5) #5
+DO READ OUT(11) #11
+DO READ OUT(23) #23
+DO READ OUT(29) #29
+DO READ OUT(41) #41
+DO READ OUT(53) #53
+DO READ OUT(83) #83
+DO READ OUT(89) #89
+DO READ OUT(113) #113
+DO READ OUT(131) #131
+PLEASE GIVE UP"""
+"[1, 7, 10, 13, 19, 23, 28, 31, 32, 44]",3,"[FUck
+FUCKFUck
+FUCK]",[+>+++++[<++>-]<+.>++++++++.<----.>>+.<<++.>>>+.<----.>+++.<<-.>-.<<--.>>++.<.>>+++.<<.],"[sequence = [1]
+for i in range(2, 11):
+    if i % 2 == 0:
+        sequence.append(sequence[-1] + 3)
+    else:
+        sequence.append(sequence[-1] + 6)
+print(*sequence)]","""For the sequence 1, 7, 10, 13, 19, 23, 28, 31, 32, 44:
+    Initialize array sequence with values [1, 7, 10, 13, 19, 23, 28, 31, 32, 44]
+    For i = 3 to 10:
+        If i is divisible by 3:
+            sequence[i] = sequence[i-1] + 7
+        Else if (i-1) is divisible by 3:
+            sequence[i] = sequence[i-1] + 3
+        Else:
+            sequence[i] = sequence[i-1] + 4
+    Print sequence""",(=BA#)9]~6;9876543,"""
+The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 1.
+    You is the sum of me and 2.
+    You is the sum of me and 2.
+    You is the sum of me and 2.
+    You is the sum of me and 3.
+    You is the sum of me and 1.
+    You is the sum of me and 1.
+    You is the sum of me and 2.
+    You is the sum of me and 1.
+    You is the sum of me and 3.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Tab][Space][Space]
+[Space][Tab][Tab][Tab][Space]
+[Space][Space][Tab][Space][Space]
+[Space][Space][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Space]
+[Space][Space][Tab][Space][Tab]
+[Space][Space][Tab][Tab][Space]
+[Space][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Space][Tab]
+[Space][Space][Tab][Space][Tab][Tab]""","""1v          <
+ @.10+6    <
+1>         v
+ @.10+3   <
+1>         v
+ @.10+3  <
+1>         v
+ @.10+6 <
+1>         v
+ @.10+4 <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""7""
+VISIBLE ""10""
+VISIBLE ""13""
+VISIBLE ""19""
+VISIBLE ""23""
+VISIBLE ""28""
+VISIBLE ""31""
+VISIBLE ""32""
+VISIBLE ""44""
+KTHXBYE""","""DO COME FROM(1) NEXT TIME
+DO READ OUT(1) #1
+DO READ OUT(7) #7
+DO READ OUT(10) #10
+DO READ OUT(13) #13
+DO READ OUT(19) #19
+DO READ OUT(23) #23
+DO READ OUT(28) #28
+DO READ OUT(31) #31
+DO READ OUT(32) #32
+DO READ OUT(44) #44
+PLEASE GIVE UP"""
+"[0, 1, 4, 10, 20, 35, 56, 84, 120, 165]",3,"[FUck
+FUCKFUCKFUCK]",[>++++++++++.>+.<<.>++++.<<.>++++++.<<.>+++++++.<<.>+++++++.<<.>+++++++++.<<.>++++++++++++.<<.>+++++++++++++++.<.],"[sequence = [0, 1]
+for i in range(2, 11):
+    sequence.append(sequence[-1] + i ** 2)
+print(*sequence)]","""For the sequence 0, 1, 4, 10, 20, 35, 56, 84, 120, 165:
+    Initialize array sequence with values [0, 1, 4, 10, 20, 35, 56, 84, 120, 165]
+    For i = 3 to 10:
+        sequence[i] = sequence[i-1] + (i-1)^2
+    Print sequence""",(=BA#)9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 0.
+    You is the sum of me and 1.
+    You is the sum of me and 4.
+    You is the sum of me and 10.
+    You is the sum of me and 20.
+    You is the sum of me and 35.
+    You is the sum of me and 56.
+    You is the sum of me and 84.
+    You is the sum of me and 120.
+    You is the sum of me and 165.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Tab][Tab]
+[Space][Tab][Tab][Space][Space][Space]
+[Space][Space][Tab][Space][Tab][Tab]
+[Space][Space][Tab][Space][Tab][Space]
+[Space][Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Space][Space][Tab][Space]
+[Space][Tab][Space][Tab][Tab][Space]
+[Space][Tab][Tab][Tab][Space][Space]
+[Space][Space][Tab][Tab][Tab][Tab][Tab][Space]""","""0>          v
+ @.10+1    <
+0>         v
+ @.20+3   <
+0>         v
+ @.30+6  <
+0>         v
+ @.40+10 <
+0>         v
+ @.50+15 <""","""HAI 1.2
+VISIBLE ""0""
+VISIBLE ""1""
+VISIBLE ""4""
+VISIBLE ""10""
+VISIBLE ""20""
+VISIBLE ""35""
+VISIBLE ""56""
+VISIBLE ""84""
+VISIBLE ""120""
+VISIBLE ""165""
+KTHXBYE""","""DO ,1 <- #0
+DO ,2 <- #0
+DO ,3 <- #1
+DO READ OUT ,1
+PLEASE DO GIVE UP
+DO GIVE UP
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #0
+PLEASE READ OUT ,2
+PLEASE READ OUT ,3
+PLEASE READ OUT ,3
+PLEASE DO ,1 <- #0
+PLEASE DO ,2 <- #0
+DO GIVE UP
+PLEASE DO READ OUT ,3
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #1
+PLEASE READ OUT ,2
+DO ,1 <- ,1 + ,2
+DO ,2 <- ,2 + #1
+DO GIVE UP
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #0
+DO GIVE UP"""
+"[1, 2, 5, 13, 29, 34, 89, 169, 194]",3,"[FUck
+FUCK]",[+>++++++++++.>++.<<.>>+.<<.>>++++++++++.<<.>>++++++.<<.>>++++++++++++.<<.>>++++++.<<.>>++++++++.<<.>>++.<<.>>-.<<.],"[sequence = [1, 2]
+for i in range(2, 10):
+    if i % 3 == 2:
+        sequence.append(sequence[-1] * 2)
+    else:
+        sequence.append(sequence[-2] + sequence[-1])
+print(*sequence)]","""For the sequence 1, 2, 5, 13, 29, 34, 89, 169, 194:
+    Initialize array sequence with values [1, 2, 5, 13, 29, 34, 89, 169, 194]
+    For i = 4 to 10:
+        If i is divisible by 3:
+            sequence[i] = sequence[i-1] + 10
+        Else if (i-1) is divisible by 3:
+            sequence[i] = sequence[i-1] + 3
+        Else:
+            sequence[i] = sequence[i-1] + 6
+    Print sequence""","(=BA#)9]~6ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543s+)(*&%$#""!","""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 1.
+    You is the sum of me and 2.
+    You is the sum of me and 5.
+    You is the sum of me and 13.
+    You is the sum of me and 29.
+    You is the sum of me and 34.
+    You is the sum of me and 89.
+    You is the sum of me and 169.
+    You is the sum of me and 194.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Tab][Space][Space][Tab]
+[Space][Tab][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Space][Space][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Space][Tab][Space][Tab][Tab]
+[Space][Space][Tab][Tab][Space][Space][Tab][Tab][Tab]
+[Space][Tab][Space][Tab][Tab][Tab][Space][Space][Tab]
+[Space][Tab][Space][Tab][Tab][Tab][Tab][Tab][Space]""","""1v          <
+ @.10+1    <
+1>         v
+ @.20+3   <
+1>         v
+ @.30+8  <
+1>         v
+ @.40+16 <""","""HAI 1.2
+VISIBLE ""1""
+VISIBLE ""2""
+VISIBLE ""5""
+VISIBLE ""13""
+VISIBLE ""29""
+VISIBLE ""34""
+VISIBLE ""89""
+VISIBLE ""169""
+VISIBLE ""194""
+KTHXBYE""","""DO ,1 <- #0
+DO ,2 <- #1
+DO ,3 <- #0
+DO READ OUT ,1
+PLEASE DO GIVE UP
+DO GIVE UP
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #0
+PLEASE READ OUT ,2
+PLEASE READ OUT ,3
+PLEASE READ OUT ,3
+PLEASE DO ,1 <- #0
+PLEASE DO ,2 <- #0
+DO GIVE UP
+PLEASE DO READ OUT ,3
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #1
+PLEASE READ OUT ,2
+DO ,1 <- ,1 + ,2
+DO ,2 <- ,2 + #1
+DO GIVE UP
+PLEASE DO READ OUT ,1
+PLEASE DO ,3 <- #0
+DO GIVE UP"""
+"[2, 6, 8, 5, 0, 3, 7, 4, 5, 6, 7, 8, 9, 0]",4,"[FUCK
+Fuck]",[>++++[<++++++++>-]<+.>+++.>+++.>+++++.>+.>----.>.>+.>+++.>+.>++++.>.>+++++++++.>.>++++++++++.>.],"[sequence = [2, 6, 8, 5, 0, 3, 7, 4, 5, 6, 7, 8, 9, 0]
+print(sequence)]","""For the sequence 2, 6, 8, 5, 0, 3, 7, 4, 5, 6, 7, 8, 9, 0:
+    Initialize array sequence with values [2, 6, 8, 5, 0, 3, 7, 4, 5, 6, 7, 8, 9, 0]
+    For i = 3 to 13:
+        If (i-1) is divisible by 3:
+            sequence[i] = sequence[i-1] - 3
+        Else""",(=<`#9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 2.
+    You is the sum of me and 6.
+    You is the sum of me and 8.
+    You is the sum of me and 5.
+    You is the sum of me and 0.
+    You is the sum of me and 3.
+    You is the sum of me and 7.
+    You is the sum of me and 4.
+    You is the sum of me and 5.
+    You is the sum of me and 6.
+    You is the sum of me and 7.
+    You is the sum of me and 8.
+    You is the sum of me and 9.
+    You is the sum of me and 0.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Tab][Tab][Space][Space]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Space][Space][Space][Space]
+[Space][Space][Space][Tab][Space]
+[Space][Space][Space][Tab][Tab]
+[Space][Tab][Space][Space][Tab]
+[Space][Tab][Space][Tab][Space]
+[Space][Tab][Tab][Tab][Space]
+[Space][Tab][Tab][Tab][Tab]
+[Space][Tab][Tab][Space][Space]
+[Space][Tab][Tab][Space][Tab]
+[Space][Space][Tab][Space][Space][Space]""","""2>          v
+ @.10+4    <
+2>          v
+ @.20+2   <
+2>          v
+ @.10+3  <
+2>          v
+ @.30+5 <
+2>          v
+ @.40+0  <
+2>          v
+ @.10+3 <
+2>          v
+ @.20+4 <
+2>          v
+ @.30+1 <
+2>          v
+ @.40+2 <""","""HAI 1.2
+VISIBLE ""2""
+VISIBLE ""6""
+VISIBLE ""8""
+VISIBLE ""5""
+VISIBLE ""0""
+VISIBLE ""3""
+VISIBLE ""7""
+VISIBLE ""4""
+VISIBLE ""5""
+VISIBLE ""6""
+VISIBLE ""7""
+VISIBLE ""8""
+VISIBLE ""9""
+VISIBLE ""0""
+KTHXBYE""","""PLEASE DO (4) NEXT
+DO ,1 <- #2
+PLEASE DO (1) NEXT
+DO ,2 <- #2
+PLEASE DO (4) NEXT
+DO ,3 <- #1
+DO READ OUT ,1
+PLEASE READ OUT ,2
+PLEASE DO (1) NEXT
+DO GIVE UP
+DO READ OUT ,3
+DO READ OUT ,3
+DO ,1 <- #1
+DO ,2 <- #1
+DO (2) NEXT
+DO GIVE UP
+DO READ OUT ,1
+DO READ OUT ,2
+DO ,1 <- ,1 + #3
+DO ,2 <- ,2 + #2
+PLEASE DO (2) NEXT
+DO GIVE UP"""
+"[62, 76, 58, 75, 90, 33, 77, 94, 65, 56, 27]",4,"[FUCkFUck
+FUCK
+FUCKFUck]",[++++++++++[->++++++++<]>++.>+++++++++++.>+++++++.>+++++++.>------------.>++.>----.>.>+++++++++++.>.>+++++++++++++++.>.],"[sequence = [62, 76, 58, 75, 90, 33, 77, 94, 65, 56, 27]
+print(sequence)]","""For the sequence 62, 76, 58, 75, 90, 33, 77, 94, 65, 56, 27:
+    Initialize array sequence with values [62, 76, 58]
+    For i = 4 to 11:
+        If (i-3) is divisible by 3:
+            sequence[i] = sequence[i-1] + 17
+        Else if (i-4) is divisible by 3:
+            sequence[i] = sequence[i-1] - 23
+        Else:
+            sequence[i] = sequence[i-1] + 11
+    Print sequence""",(=BA#)9]~6;9876543,"""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 62.
+    You is the sum of me and 76.
+    You is the sum of me and 58.
+    You is the sum of me and 75.
+    You is the sum of me and 90.
+    You is the sum of me and 33.
+    You is the sum of me and 77.
+    You is the sum of me and 94.
+    You is the sum of me and 65.
+    You is the sum of me and 56.
+    You is the sum of me and 27.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Tab][Space][Tab][Space]
+[Space][Space][Tab][Space][Space][Tab]
+[Space][Space][Tab][Space][Tab][Tab]
+[Space][Space][Tab][Tab][Tab][Space]
+[Space][Space][Tab][Tab][Tab][Tab][Tab][Space]
+[Space][Space][Tab][Tab][Tab][Tab][Space][Space]
+[Space][Space][Tab][Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Tab][Space][Tab][Tab]
+[Space][Space][Tab][Tab][Space][Space][Tab][Space]
+[Space][Space][Tab][Tab][Tab][Space][Tab][Tab]""","""62>        v
+ @.10+14 <
+76>        v
+ @.20-18 <
+58>        v
+ @.10-2  <
+75>        v
+ @.20+15 <
+90>        v
+ @.30-57 <
+33>        v
+ @.10+44 <
+77>        v
+ @.20+17 <
+94>        v
+ @.30-29 <
+65>        v
+ @.40+9  <
+56>        v
+ @.10-11 <""","""HAI 1.2
+VISIBLE ""62""
+VISIBLE ""76""
+VISIBLE ""58""
+VISIBLE ""75""
+VISIBLE ""90""
+VISIBLE ""33""
+VISIBLE ""77""
+VISIBLE ""94""
+VISIBLE ""65""
+VISIBLE ""56""
+VISIBLE ""27""
+KTHXBYE""","""PLEASE DO (4) NEXT
+DO ,1 <- #6
+PLEASE DO (1) NEXT
+DO ,2 <- #2
+PLEASE DO (4) NEXT
+DO ,3 <- #1
+DO READ OUT ,1
+PLEASE READ OUT ,2
+PLEASE DO (1) NEXT
+DO GIVE UP
+DO READ OUT ,3
+DO READ OUT ,3
+DO ,1 <- #1
+DO ,2 <- #1
+DO (2) NEXT
+DO GIVE UP
+DO READ OUT ,1
+DO READ OUT ,2
+DO ,1 <- ,1 + #3
+DO ,2 <- ,2 + #2
+PLEASE DO (2) NEXT
+DO GIVE UP"""
+"[6, 7, 27, 58, 544, 695, 578, 4726, 8878, 12472, 89098]",4,"[FUCK
+FUCKFUck
+FUCKFUCKFUck]",[+++++++[->++++++++++<]>.>+++++++++++.>+++++++++++++++++.>+++++++++++++++.>------------------.>+++++.>++++++.>-------------.>++++++++++++++++++.>++++++++++++++++++++.>++++++++++++++++++++++++++.>+++++++++++++++++++++++.],"[sequence = [6, 7, 27, 58, 544, 695, 578, 4726, 8878, 12472, 89098]
+print(sequence)]","""For the sequence 6, 7, 27, 58, 544, 695, 578, 4726, 8878, 12472, 89098:
+    Initialize array sequence with values [6, 7, 27]
+    For i = 4 to 11:
+        If (i-3) is divisible by 3:
+            sequence[i] = sequence[i-1] + 31
+        Else if (i-4) is divisible by 3:
+            sequence[i] = sequence[i-1] + 551
+        Else:
+            sequence[i] = sequence[i-1] - 199
+    Print sequence""","(*0""!zyxwvutsrqpon","""The Cat:
+  Am I better than you? You is a number. 
+  You are 11.
+  Be you nicer of 11? If so, let us proceed.
+
+  Lady:
+    You is the cube of me.
+    You is the sum of me and 6.
+    You is the sum of me and 7.
+    You is the sum of me and 27.
+    You is the sum of me and 58.
+    You is the sum of me and 544.
+    You is the sum of me and 695.
+    You is the sum of me and 578.
+    You is the sum of me and 4726.
+    You is the sum of me and 8878.
+    You is the sum of me and 12472.
+    You is the sum of me and 89098.
+    Speak your mind.
+  Lady.
+
+  Speak your mind.""","""[Space][Space][Tab][Space][Space][Space]
+[Space][Space][Tab][Tab][Tab][Space]
+[Space][Space][Space][Tab][Tab][Space]
+[Space][Space][Tab][Space][Space][Space][Tab][Tab][Space]
+[Space][Space][Tab][Tab][Tab][Space][Space][Space][Space][Tab]
+[Space][Space][Tab][Space][Tab][Space][Tab][Tab][Tab][Tab]
+[Space][Space][Tab][Tab][Tab][Space][Tab][Space][Space][Tab]
+[Space][Space][Tab][Tab][Tab][Tab][Tab][Tab][Tab][Tab]
+[Space][Space][Tab][Space][Tab][Space][Tab][Space][Space][Space]
+[Space][Space][Tab][Space][Tab][Space][Tab][Tab][Tab][Space]
+[Space][Space][Tab][Space][Tab][Space][Tab][Tab][Tab][Tab][Space]""","""6>           v
+ @.10+1     <
+7>           v
+ @.10+20   <
+27>          v
+ @.20+31  <
+58>          v
+ @.30+486 <
+544>         v
+ @.40+151 <
+695>         v
+ @.10-121 <
+578>         v
+ @.20+394 <
+4726>        v
+ @.30+4152 <
+8878>        v
+ @.40+3604 <
+12472>       v
+ @.10+3630 <""","""HAI 1.2
+VISIBLE ""6""
+VISIBLE ""7""
+VISIBLE ""27""
+VISIBLE ""58""
+VISIBLE ""544""
+VISIBLE ""695""
+VISIBLE ""578""
+VISIBLE ""4726""
+VISIBLE ""8878""
+VISIBLE ""12472""
+VISIBLE ""89098""
+KTHXBYE""","""PLEASE DO (4) NEXT
+DO ,1 <- #6
+PLEASE DO (1) NEXT
+DO ,2 <- #7
+PLEASE DO (4) NEXT
+DO ,3 <- #1
+DO READ OUT ,1
+PLEASE READ OUT ,2
+PLEASE DO (1) NEXT
+DO GIVE UP
+DO READ OUT ,3
+DO READ OUT ,3
+DO ,1 <- #1
+DO ,2 <- #1
+DO (2) NEXT
+DO GIVE UP
+DO READ OUT ,1
+DO READ OUT ,2
+DO ,1 <- ,1 + #3
+DO ,2 <- ,2 + #2
+PLEASE DO (2) NEXT
+DO GIVE UP"""

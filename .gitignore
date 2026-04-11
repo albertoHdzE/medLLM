@@ -3,7 +3,7 @@ venv/
 __pycache__/
 .mypy_cache/
 .DS_Store
-*.csv
+#*.csv
 *.jsonl
 *.txt
 !requirements*.txt

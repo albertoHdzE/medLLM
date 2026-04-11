@@ -1,0 +1,24 @@
+Agent,Agreement Count
+" ""Gemini""",12
+" ""LLaMa""",8
+" ""Grok-2""",7
+ChatGPT,6
+Gemini,6
+Mistral,6
+" ""ChatGPT""",5
+" ""Mistral""",4
+Mistral LLaMA,3
+Llama,3
+ChatGPT Grok-2,3
+Mistral Gemini LLaMA,2
+Grok-2 Gemini,2
+" ""chatGPT""",2
+Gemini and Grok-2,2
+Llama and Grok-2,2
+Grok-2 Mistral Gemini,1
+ChatGPT Grok-2 Mistral,1
+Grok-2,1
+Grok-2 Mistral Gemini LLaMA,1
+" ""Grok""",1
+Llama and Gemini,1
+ChatGPT Mistral,1
