@@ -2,7 +2,12 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-PLOTS_DIR = Path(__file__).resolve().parent / "new_plots"
+# Output directory. Overridable so a verification run can regenerate the
+# figures into a scratch path and diff them against the published ones
+# without touching the tracked originals.
+import os as _os
+PLOTS_DIR = Path(_os.environ.get("SUPERARC_PLOTS_DIR",
+                                 Path(__file__).resolve().parent / "new_plots"))
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
 df = pd.read_csv('multi-python-script-time-series.csv')
@@ -69,26 +74,24 @@ df.columns
 
 df['chatgpt-4.5_script_3'].head()
 
-# Function to safely execute code and capture output
-def execute_code_safely(code):
-    import sys
-    from io import StringIO
-    import contextlib
-    
-    # Create string buffer to capture output
-    output = StringIO()
-    
-    try:
-        # Replace semicolons with newlines
-        if isinstance(code, str):  # Check if code is a string
-            code = code.replace(';', '\n')
-            
-        # Redirect stdout to capture print output
-        with contextlib.redirect_stdout(output):
-            exec(code, globals())
-        return output.getvalue().strip()
-    except Exception as e:
-        return f"Error: {str(e)}"
+# Execute generated scripts under the declared environment.
+#
+# This replaces an inline exec(code, globals()) that had two problems: it let
+# every script import whatever happened to be installed on the machine, and it
+# ran all ~12,000 scripts in one shared namespace.
+#
+# The import question is not cosmetic. Four o1-Preview scripts are
+# `import sympy; print(list(sympy.primerange(2,31)))`. The published run had no
+# sympy installed so they failed; with sympy present they succeed and
+# o1-Preview's complexity-2 accuracy moves from 20.00% to 26.67%, changing
+# published Figures 5 and 6. superarc.sandbox pins this to the standard library.
+#
+# Namespace sharing is deliberately preserved (Executor defaults to
+# isolate=False) because it is what produced the published figures. See
+# superarc/sandbox.py for the measured cost of switching it off.
+from superarc.sandbox import Executor
+
+execute_code_safely = Executor()
 
 # Get list of script columns
 script_columns = [col for col in df.columns if 'script' in col]
