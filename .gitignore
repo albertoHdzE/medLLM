@@ -30,3 +30,7 @@ data/*
 # tracked: a reviewer should be able to see the table without running anything.
 !data/derived/
 !data/derived/**
+
+# Versioned regeneration runs. Each holds a manifest recording exactly what
+# produced it, so they are reproducible rather than precious.
+outputs/
