@@ -1,10 +1,30 @@
+"""Specification for the formulae pipeline, pending its extraction.
+
+This suite predates the current refactor and targets a ``scripts.`` package that
+was started and lost -- it has never run in this repository. It is kept, and
+skipped, because it is a useful statement of what the formulae pipeline is
+supposed to expose: the function names below are the API that
+``superarc.pipelines.formulae`` should present when 30-1_multiFormula_experiment.py
+is moved into the package (Phase 3).
+
+Remove the skip and repoint the import when that lands.
+"""
+
 import unittest
 from pathlib import Path
 import subprocess
 import sys
+
+import pytest
+
 import pandas as pd
 
-from scripts.multiFormula_analysis import (
+pytest.importorskip(
+    "scripts.multiFormula_analysis",
+    reason="pending Phase 3: formulae pipeline not yet extracted into superarc.pipelines",
+)
+
+from scripts.multiFormula_analysis import (  # noqa: E402
     get_model_display_name,
     compare_sequences,
     load_data,
