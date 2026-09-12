@@ -24,13 +24,38 @@ from pathlib import Path
 
 from . import REPO_ROOT
 
-# Producer scripts, in the order they must run.
+# Producers, in the order they must run. Either a script to run, or a module to
+# run with -m; the four scripts are the originals, the two modules are panels
+# that the notebooks drew and threw away (see superarc.timeseries).
 PRODUCERS = (
-    "30-1_multiFormula_experiment.py",
-    "31-1_multiScript_experiment.py",
-    "34-2_S-ARC_ext.py",
-    "35_summary_statistics.py",
+    ["30-1_multiFormula_experiment.py"],
+    ["31-1_multiScript_experiment.py"],
+    ["34-2_S-ARC_ext.py"],
+    ["35_summary_statistics.py"],
+    ["-m", "superarc.timeseries"],
+    ["-m", "superarc.complexity_measures"],
 )
+
+# Compared after rasterising both sides, for figures whose published artifact was
+# only ever saved as PDF and SVG.
+PDF_COMPARISONS = {
+    "figure01.pdf": (
+        "plots/highResolution/figure01.pdf",
+        "Fig 1 top  binary success, simple climbers",
+    ),
+}
+
+# Panels that are printed in the article but were never written to disk by any
+# code, so there is nothing to compare them against. They are still regenerated
+# on every run and held to run-to-run determinism, which is all the guarantee
+# available until an author signs off on a reference version.
+NEWLY_SAVED = {
+    "figure01-middle.png": "Fig 1 middle  binary success, random sequences",
+    "figure01-bottom.png": "Fig 1 bottom  BDM/Shannon/zip/lzw by complexity",
+    "figure02-chronos-original.png": "Fig 2  similarity, chronos (caption only in print)",
+    "figure02-timeGPT-1-original.png": "Fig 2  similarity, TimeGPT-1 (caption only in print)",
+    "figure02-lag-llama-original.png": "Fig 2  similarity, lag-llama (caption only in print)",
+}
 
 # Data-level checks. Comparing the numbers a figure is drawn from is stricter
 # than comparing its pixels and cheaper than rendering: 35_summary_statistics.py
@@ -83,9 +108,9 @@ def regenerate(out_dir: Path) -> list[str]:
     """Run every producer with its output redirected to ``out_dir``."""
     env = dict(os.environ, SUPERARC_PLOTS_DIR=str(out_dir))
     failures = []
-    for script in PRODUCERS:
+    for command in PRODUCERS:
         proc = subprocess.run(
-            [sys.executable, script],
+            [sys.executable, *command],
             cwd=REPO_ROOT,
             env=env,
             capture_output=True,
@@ -93,8 +118,21 @@ def regenerate(out_dir: Path) -> list[str]:
         )
         if proc.returncode != 0:
             tail = proc.stderr.strip().splitlines()[-3:]
-            failures.append(f"{script} exited {proc.returncode}: {' | '.join(tail)}")
+            name = command[-1]
+            failures.append(f"{name} exited {proc.returncode}: {' | '.join(tail)}")
     return failures
+
+
+def rasterise(pdf_path: Path, dpi: int = 150) -> Path:
+    """Render page 1 of a PDF to PNG so two PDFs can be compared by pixels."""
+    stem = Path(tempfile.mkdtemp(prefix="superarc-raster-")) / "page"
+    subprocess.run(
+        ["pdftoppm", "-r", str(dpi), "-png", "-f", "1", "-l", "1",
+         str(pdf_path), str(stem)],
+        check=True,
+        capture_output=True,
+    )
+    return stem.with_name("page-1.png")
 
 
 def pixel_difference(a_path: Path, b_path: Path) -> float | None:
@@ -113,23 +151,36 @@ def pixel_difference(a_path: Path, b_path: Path) -> float | None:
 
 def check(out_dir: Path) -> int:
     failures: list[str] = []
-    print(f"{'figure':42s} {'result':>14s}")
+    print(f"{'figure':52s} {'result':>14s}")
     for produced, (published, label) in COMPARISONS.items():
         new = out_dir / produced
         old = REPO_ROOT / published
         if not new.exists():
-            print(f"{label:42s} {'NOT PRODUCED':>14s}")
+            print(f"{label:52s} {'NOT PRODUCED':>14s}")
             failures.append(f"{label}: not produced")
             continue
         diff = pixel_difference(new, old)
         if diff is None:
-            print(f"{label:42s} {'SIZE CHANGED':>14s}")
+            print(f"{label:52s} {'SIZE CHANGED':>14s}")
             failures.append(f"{label}: image size changed")
         elif diff > 0:
-            print(f"{label:42s} {f'{diff:.4f}% diff':>14s}")
+            print(f"{label:52s} {f'{diff:.4f}% diff':>14s}")
             failures.append(f"{label}: {diff:.4f}% of pixels differ")
         else:
-            print(f"{label:42s} {'IDENTICAL':>14s}")
+            print(f"{label:52s} {'IDENTICAL':>14s}")
+
+    for produced, (published, label) in PDF_COMPARISONS.items():
+        new = out_dir / produced
+        if not new.exists():
+            print(f"{label:52s} {'NOT PRODUCED':>14s}")
+            failures.append(f"{label}: not produced")
+            continue
+        diff = pixel_difference(rasterise(new), rasterise(REPO_ROOT / published))
+        if diff:
+            print(f"{label:52s} {f'{diff:.4f}% diff':>14s}")
+            failures.append(f"{label}: {diff:.4f}% of pixels differ")
+        else:
+            print(f"{label:52s} {'IDENTICAL':>14s}")
 
     for relative, label in DATA_COMPARISONS.items():
         # 35_summary_statistics.py builds these under its output directory,
@@ -140,13 +191,20 @@ def check(out_dir: Path) -> int:
             produced_path = candidates[0] if candidates else produced_path
         published_path = REPO_ROOT / relative
         if not produced_path.exists():
-            print(f"{label:42s} {'NOT PRODUCED':>14s}")
+            print(f"{label:52s} {'NOT PRODUCED':>14s}")
             failures.append(f"{label}: not produced")
         elif produced_path.read_bytes() == published_path.read_bytes():
-            print(f"{label:42s} {'IDENTICAL':>14s}")
+            print(f"{label:52s} {'IDENTICAL':>14s}")
         else:
-            print(f"{label:42s} {'DIFFERS':>14s}")
+            print(f"{label:52s} {'DIFFERS':>14s}")
             failures.append(f"{label}: content differs from published")
+
+    for produced, label in NEWLY_SAVED.items():
+        if not (out_dir / produced).exists():
+            print(f"{label:52s} {'NOT PRODUCED':>14s}")
+            failures.append(f"{produced}: not produced")
+        else:
+            print(f"{label:52s} {'newly saved':>14s}")
 
     for produced, why in AUTHORISED_CHANGES.items():
         if not (out_dir / produced).exists():
@@ -168,11 +226,13 @@ def check_determinism(first: Path, second: Path) -> list[str]:
     """Corrected figures must at least be stable from one run to the next.
 
     Without this, an authorised correction would be a hole in the gate: any
-    further unintended change to those figures would go unnoticed.
+    further unintended change to those figures would go unnoticed. The same
+    applies to the panels that were never saved and so have no published
+    reference: determinism is the only guarantee available for them.
     """
     failures = []
-    print("\nrun-to-run determinism of corrected figures:")
-    for produced in AUTHORISED_CHANGES:
+    print("\nrun-to-run determinism of corrected and newly-saved figures:")
+    for produced in list(AUTHORISED_CHANGES) + list(NEWLY_SAVED):
         a, b = first / produced, second / produced
         if not (a.exists() and b.exists()):
             failures.append(f"{produced}: missing from one of the two runs")

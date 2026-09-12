@@ -12,3 +12,13 @@ and previously published values are never rewritten. See
 __version__ = "0.1.0"
 
 REPO_ROOT = __import__("pathlib").Path(__file__).resolve().parent.parent
+
+# pybdm imports pkg_resources at module load, which setuptools deprecated in 81
+# and removed in 84. We pin setuptools<81 on purpose (see requirements.txt), so
+# the warning is expected on every single run and is pure noise. Silenced here,
+# once, rather than in each module that touches BDM.
+__import__("warnings").filterwarnings(
+    "ignore",
+    message=r"pkg_resources is deprecated as an API.*",
+    category=UserWarning,
+)
