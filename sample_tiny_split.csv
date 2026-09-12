@@ -1,4 +1,0 @@
-sequence,Complexity,mistral_large2405,claude_sonnet_4,mistral_large2405_1,claude_sonnet_4_1
-seq_001,easy,"""x + y""","""a + b""","""x + y""","""a + b"""
-seq_002,medium,"""*not found""","""*not found""","""*not found""","""*not found"""
-seq_003,hard,"""1 + 2, 3 * 4""","""*not found""","""1 + 2, 3 * 4""","""*not found"""

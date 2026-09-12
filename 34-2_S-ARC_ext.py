@@ -52,8 +52,11 @@ from pybdm import PartitionRecursive
 
 # Load the CSV and apply name mapping
 # name_mapping = create_model_name_mapping()
-# exp_path = "/Users/alberto/Documents/projects/medLLM/seriesWithLLMs_ext_Aug2025.csv"
-exp_path = "/Users/alberto/Documents/projects/medLLM/seriesWithLLMs_ext_Dic2025.csv"
+# Repo-relative so the pipeline runs from a clean checkout on any machine.
+# The former sibling file seriesWithLLMs_ext_Aug2025.csv was byte-identical to
+# this one (same MD5) and has been removed.
+DATA_DIR = Path(__file__).resolve().parent
+exp_path = DATA_DIR / "seriesWithLLMs_ext_Dic2025.csv"
 bin_seq_df_input = pd.read_csv(exp_path, encoding='latin-1')
 # bin_seq_df_input = rename_model_columns(bin_seq_df_input_raw, name_mapping)
 
