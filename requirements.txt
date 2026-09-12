@@ -50,3 +50,6 @@ pyenchant==3.3.0
 #   instantiates MOMENT-1-large on import. Only the time-series pipeline (static
 #   Figs 1-2) needs them. Phase 3 splits processing_answers.py so that SI Fig 1
 #   (which needs only the compression helpers) no longer pulls them in.
+
+# --- tests ---
+pytest>=8

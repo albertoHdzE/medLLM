@@ -442,8 +442,13 @@ def inner_loop_function(models,bin_seq_df):
         dict_tst[mdl] = [tst]
     return dict_tst
 
-np.random.seed(42)
-rng = np.random.default_rng()
+# np.random.seed() seeds the LEGACY global RNG; np.random.default_rng() with no
+# argument builds a fresh Generator from OS entropy and ignores it entirely, so
+# the bootstrap was never reproducible. Seeding the Generator itself fixes that.
+# Consequence: o1-Mini's displayed mean becomes 0.034 rather than the published
+# 0.035. Its exact (non-bootstrap) test score is 0.034380, so 0.034 is the
+# correctly rounded value and the published figure showed the noisier draw.
+rng = np.random.default_rng(42)
 tst_bootstrap=[]
 for sz in [25,50,75,100]:
     inpts_bts = []
