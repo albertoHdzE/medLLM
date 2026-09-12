@@ -264,7 +264,6 @@ plt.ylabel('SuperARC-seq')
 # Set x-tick labels with model names
 plt.xticks(range(len(sorted_df)), sorted_df['Model'], rotation=45, ha='right')
 plt.tight_layout()
-# plt.savefig("rankingSuperARC.png", bbox_inches='tight',dpi=600)
 plt.savefig(PLOTS_DIR / "figure05.pdf", bbox_inches="tight")
 plt.savefig(PLOTS_DIR / "figure05.png", bbox_inches="tight", dpi=600)
 
