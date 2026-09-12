@@ -4,6 +4,8 @@ import seaborn as sns
 import numpy as np
 import os
 
+from superarc import plots_dir as _plots_dir
+
 # --- Mappings & Configuration ---
 
 # 1. New Maps from User Request
@@ -161,7 +163,7 @@ def process_data_and_generate_csvs():
 
     # Written alongside the figures so a parity run can redirect everything
     # this script produces with one environment variable.
-    _base = os.environ.get('SUPERARC_PLOTS_DIR', 'plots')
+    _base = str(_plots_dir())
     case_map = {
         'multiple script': os.path.join(_base, 'multi_script'),
         'multiple formulae': os.path.join(_base, 'multi_formula'),
@@ -283,8 +285,7 @@ def aggregate_data(df):
 
 def plot_evolution_subset(df_script, df_formula, families, part_num):
     # Overridable so a parity run can regenerate into a scratch path.
-    output_dir = os.environ.get('SUPERARC_PLOTS_DIR', 'plots/highResolution')
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = str(_plots_dir())
     
     n_rows = len(families)
     n_cols = 2 

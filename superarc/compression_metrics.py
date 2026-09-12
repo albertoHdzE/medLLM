@@ -55,14 +55,13 @@ Information, so it is reproduced that way here. Fixing it is an author's call.
 
 from __future__ import annotations
 
-import os
 import random
 import string
 from pathlib import Path
 
 import pandas as pd
 
-from . import REPO_ROOT
+from . import REPO_ROOT, plots_dir
 from .complexity_measures import (
     average_length_of_strings,
     list_of_strings_to_binary_lists,
@@ -262,8 +261,8 @@ def placeholder_sensitivity(seeds=(0, 1, 42, 1234, 99999)) -> pd.DataFrame:
 
 
 def output_dir() -> Path:
-    override = os.environ.get("SUPERARC_PLOTS_DIR")
-    return Path(override) if override else REPO_ROOT / "plots" / "highResolution"
+    """Where figures are written. See ``superarc.plots_dir``."""
+    return plots_dir()
 
 
 def plot(table: pd.DataFrame | None = None, out_dir: Path | None = None) -> list[Path]:

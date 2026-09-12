@@ -20,10 +20,8 @@ from statistics import harmonic_mean, geometric_mean
 # Output directory. Overridable so a verification run can regenerate the
 # figures into a scratch path and diff them against the published ones
 # without touching the tracked originals.
-import os as _os
-PLOTS_DIR = Path(_os.environ.get("SUPERARC_PLOTS_DIR",
-                                 Path(__file__).resolve().parent / "new_plots"))
-PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+from superarc import plots_dir as _plots_dir
+PLOTS_DIR = _plots_dir()
 
 N_JOBS = min(8, os.cpu_count() or 1)
 

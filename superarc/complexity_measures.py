@@ -35,14 +35,13 @@ from __future__ import annotations
 
 import base64
 import lzma
-import os
 import zlib
 from pathlib import Path
 
 import numpy as np
 from pybdm import BDM
 
-from . import REPO_ROOT
+from . import plots_dir
 
 # Tier 3 and tier 4 are swapped, then the new tier 4 is dropped -- see the module
 # docstring. What remains, in order, is the sequence pool for complexity 1, 2, 3.
@@ -342,8 +341,8 @@ PANEL_COLOURS = {"BDM": "blue", "Shannon": "green", "zip": "red", "lzw": "purple
 
 
 def output_dir() -> Path:
-    override = os.environ.get("SUPERARC_PLOTS_DIR")
-    return Path(override) if override else REPO_ROOT / "plots" / "highResolution"
+    """Where figures are written. See ``superarc.plots_dir``."""
+    return plots_dir()
 
 
 def plot(values: dict[str, list[float]] | None = None, out_dir: Path | None = None) -> list[Path]:

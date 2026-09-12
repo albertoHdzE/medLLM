@@ -50,12 +50,11 @@ refactor.
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 
 import pandas as pd
 
-from . import REPO_ROOT
+from . import REPO_ROOT, plots_dir
 
 FORECASTERS = ("timeGPT-1", "chronos", "lag-llama")
 
@@ -154,9 +153,8 @@ def average_by_complexity(predictions: pd.DataFrame) -> pd.DataFrame:
 
 
 def output_dir() -> Path:
-    """Where figures are written; overridable so verification never dirties the repo."""
-    override = os.environ.get("SUPERARC_PLOTS_DIR")
-    return Path(override) if override else REPO_ROOT / "plots" / "highResolution"
+    """Where figures are written. See ``superarc.plots_dir``."""
+    return plots_dir()
 
 
 def plot(averages: pd.DataFrame, out_dir: Path | None = None) -> list[Path]:
