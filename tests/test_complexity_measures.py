@@ -11,18 +11,11 @@ import pytest
 
 from superarc.complexity_measures import (
     PUBLISHED_TIERS,
+    PUBLISHED_VALUES as PUBLISHED,
     average_length_of_strings,
     measures,
     sequences_definitons,
 )
-
-# Exactly as typed into the published plotting cell.
-PUBLISHED = {
-    "BDM": [471.544, 494.951, 549.678],
-    "Shannon": [3.65, 3.67, 3.91],
-    "zip": [46.7, 49, 59.63],
-    "lzw": [118.1, 121.6, 131.15],
-}
 
 
 @pytest.fixture(scope="module")

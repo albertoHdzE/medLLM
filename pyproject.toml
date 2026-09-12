@@ -1,3 +1,24 @@
+[build-system]
+requires = ["setuptools>=70,<81"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "superarc"
+version = "0.1.0"
+description = "Reproducible pipeline for the figures and tables of the SuperARC paper"
+requires-python = ">=3.13"
+
+# Dependencies are pinned in requirements.txt and requirements.lock.txt, not
+# here. This project reproduces published results, so the exact resolved
+# versions matter more than a compatible range -- setuptools<81 in particular is
+# load-bearing, because pybdm imports pkg_resources at module load.
+dependencies = []
+
+[tool.setuptools]
+# The producers are top-level scripts with names like `30-1_...py` that are run,
+# not imported. Only the package ships.
+packages = ["superarc"]
+
 [tool.black]
 line-length = 88
 target-version = ['py313']

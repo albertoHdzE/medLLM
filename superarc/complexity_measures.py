@@ -47,6 +47,17 @@ from . import plots_dir
 # docstring. What remains, in order, is the sequence pool for complexity 1, 2, 3.
 PUBLISHED_TIERS = (0, 1, 3)
 
+# The four series exactly as they were typed into the published plotting cell.
+# Kept so that the recomputed values can be shown against them rather than merely
+# asserted -- see ``notebooks/01_the-test-sequences.ipynb`` and
+# ``tests/test_complexity_measures.py``.
+PUBLISHED_VALUES = {
+    "BDM": [471.544, 494.951, 549.678],
+    "Shannon": [3.65, 3.67, 3.91],
+    "zip": [46.7, 49, 59.63],
+    "lzw": [118.1, 121.6, 131.15],
+}
+
 def sequences_definitons():
     l1 = [
         "1, 2, 3, 4, 5, 6, 7, 8, 9",
@@ -301,6 +312,31 @@ def process_binary_sequences(binary_seq_sets, normalize=True):
     
     return min_avg_length, list(avg_bdm_values), list(avg_shannon_values)
 
+
+
+def compare_with_published(computed=None):
+    """Recomputed values against the literals typed into the published cell.
+
+    Returns one row per point. ``agrees`` allows one unit in the last digit
+    printed rather than half a unit, because the published numbers were shortened
+    inconsistently: 3.9134 was rounded to 3.91, but 59.63636 was truncated to
+    59.63 rather than rounded to 59.64.
+    """
+    import pandas as pd
+
+    computed = measures() if computed is None else computed
+    rows = []
+    for name, series in computed.items():
+        for position, (got, printed) in enumerate(zip(series, PUBLISHED_VALUES[name]), 1):
+            decimals = len(repr(float(printed)).split(".")[1].rstrip("0"))
+            rows.append({
+                "measure": name,
+                "point": position,
+                "computed": round(got, 4),
+                "printed in the paper": printed,
+                "agrees": abs(got - printed) <= 10 ** -decimals,
+            })
+    return pd.DataFrame(rows)
 
 
 def average_length_of_strings(strings_list):

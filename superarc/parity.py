@@ -161,6 +161,53 @@ def pixel_difference(a_path: Path, b_path: Path) -> float | None:
     return float((np.abs(a - b).sum(axis=2) > 10).mean() * 100)
 
 
+def check_figures(names, out_dir: Path | None = None):
+    """Status of a few named figures, as a table a notebook can display.
+
+    ``python -m superarc.parity`` checks everything and returns an exit code;
+    this checks whichever figures one notebook is responsible for, and returns
+    what it found. A verification notebook should end by telling the reader
+    whether the paper still holds, not by asserting it silently.
+
+    Each figure is in exactly one of three states:
+
+        matches published   regenerates pixel for pixel
+        changed             deliberately differs; the reason is the verdict
+        newly saved         nothing to compare against; it was never on disk
+    """
+    import pandas as pd
+
+    from . import plots_dir
+
+    out_dir = out_dir or plots_dir()
+    rows = []
+    for name in names:
+        produced = out_dir / name
+        if not produced.exists():
+            rows.append({"figure": name, "status": "NOT PRODUCED", "detail": str(out_dir)})
+        elif name in COMPARISONS:
+            published, label = COMPARISONS[name]
+            difference = pixel_difference(produced, REPO_ROOT / published)
+            if difference == 0:
+                rows.append({"figure": label, "status": "matches published",
+                             "detail": "0.0000% of pixels differ"})
+            elif difference is None:
+                rows.append({"figure": label, "status": "SIZE CHANGED", "detail": published})
+            else:
+                rows.append({"figure": label, "status": "DIFFERS",
+                             "detail": f"{difference:.4f}% of pixels differ"})
+        elif name in AUTHORISED_CHANGES:
+            rows.append({"figure": name, "status": "changed",
+                         "detail": AUTHORISED_CHANGES[name]})
+        elif name in NEWLY_SAVED:
+            rows.append({"figure": NEWLY_SAVED[name], "status": "newly saved",
+                         "detail": "never written to disk before; no reference exists"})
+        else:
+            rows.append({"figure": name, "status": "not tracked by the gate",
+                         "detail": "add it to superarc/parity.py"})
+    return pd.DataFrame(rows)
+
+
 def check(out_dir: Path) -> int:
     failures: list[str] = []
     print(f"{'figure':52s} {'result':>14s}")
