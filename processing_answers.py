@@ -1,55 +1,89 @@
+"""Helpers for the closed experiments: forecasting, and code in many languages.
+
+Historical module. The forecasting and polyglot-programming experiments were run
+through it once; their results are the committed CSVs and are never re-run. The
+parts still needed by live figures have moved into the ``superarc`` package --
+see :mod:`superarc.timeseries`, :mod:`superarc.complexity_measures` and
+:mod:`superarc.compression_metrics` -- and nothing here is imported by any
+producer.
+
+Three things used to run at import time and no longer do:
+
+* **A MOMENT-1-large forecasting pipeline** was downloaded, initialised and
+  printed. Nothing in the file ever used it; the variable was referenced exactly
+  twice, to create it and to print it. It cost every importer a ``torch``
+  dependency and a model download for nothing, which is why this module could not
+  be imported at all on a clean install. It is behind
+  :func:`load_moment_pipeline` now.
+* **The module imported itself** (``from processing_answers import *``), which
+  Python tolerates but which made the import order impossible to reason about.
+* **A live Nixtla API key** sat in a commented-out block. Removed here, but note
+  that removing it does not remove it from the history -- the key must be
+  rotated.
+
+``predict_timeGPT`` and ``predict_Chronos`` still refer to ``timegpt`` and
+``pipeline``, which were already commented out before this change. They are kept
+as the record of how the committed forecasts were produced, and raise a clear
+error rather than a ``NameError`` if called.
+"""
+
 import binascii
 import copy
 import zlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# %matplotlib inline
-
 import pandas as pd
 from datetime import date
 import datetime
 from pandas.tseries.offsets import BDay
-import torch
-# from chronos import ChronosPipeline
 
 import math
-# from nixtla import NixtlaClient
-from processing_answers import *
-from enchant.utils import levenshtein
 from tqdm import tqdm
 
-from momentfm import MOMENTPipeline
-
-model = MOMENTPipeline.from_pretrained(
-    "AutonLab/MOMENT-1-large",
-    model_kwargs={
-        "task_name": "forecasting",
-        "forecast_horizon": 192,
-        "head_dropout": 0.1,
-        "weight_decay": 0,
-        "freeze_encoder": True,  # Freeze the patch embedding layer
-        "freeze_embedder": True,  # Freeze the transformer encoder
-        "freeze_head": False,  # The linear forecasting head must be trained
-    },
+# Single owner for these three: superarc.timeseries. Keeping a second copy here
+# is how the two call sites came to disagree about which string form they compare
+# (see that module's docstring).
+from superarc.timeseries import (  # noqa: F401  re-exported for `import *` callers
+    add_levenshtein_to_df,
+    levenshtein,
+    num_list_to_string,
 )
-model.init()
-print(model)
 
-# timegpt = NixtlaClient(
-#     # defaults to os.environ.get("TIMEGPT_TOKEN")
-#     #api_key="vGgi9lsf7E4HYwJSnz2m34nAWRO5STxS9hHMJbptSNSmTqMtTylXEEsjNpe8RerEp8Ao02gRzhfJxGi5f2J4OQCgWI6JIIEBMqoTNRNUnrP930rAnmqwwihyLuwgTeo7RYhQSCpJyw5bWVVUddki8l8a1Qh2AH9GITPNlABbOQuX6atPVNSYanYCedXcl8VjbyprosRVhPwFkn0JsN73FKb1VBGGESyaLb8ZMsyGBhUMCfY7M17kkKIrZP2sdc2a"
-#     api_key="nixak-UjDfWxOwCGaiKbl7tt8YecF4QEiCoKxgzw1DHxW9URqeh5KqFfHW2zRIIbIKS997PLzcI07kChtqEdeP"
-# )
 
-# timegpt.validate_api_key()
+def load_moment_pipeline():
+    """Build the MOMENT-1-large forecasting pipeline, on request.
 
-# pipeline = ChronosPipeline.from_pretrained(
-#     "amazon/chronos-t5-small",
-#     # "chronos-t5-base",
-#     device_map="mps",  # "cuda",
-#     torch_dtype=torch.bfloat16,
-# )
+    Nothing in this module uses it. It is kept because it records the
+    configuration the forecasting experiment was set up with.
+    """
+    from momentfm import MOMENTPipeline
+
+    model = MOMENTPipeline.from_pretrained(
+        "AutonLab/MOMENT-1-large",
+        model_kwargs={
+            "task_name": "forecasting",
+            "forecast_horizon": 192,
+            "head_dropout": 0.1,
+            "weight_decay": 0,
+            "freeze_encoder": True,  # Freeze the patch embedding layer
+            "freeze_embedder": True,  # Freeze the transformer encoder
+            "freeze_head": False,  # The linear forecasting head must be trained
+        },
+    )
+    model.init()
+    return model
+
+
+# The forecasting back ends. Both were commented out before this change; the
+# experiments are closed and their results are the committed CSVs.
+#
+#     timegpt = NixtlaClient(api_key=...)   # key removed -- rotate it
+#     pipeline = ChronosPipeline.from_pretrained(
+#         "amazon/chronos-t5-small", device_map="mps", torch_dtype=torch.bfloat16
+#     )
+timegpt = None
+pipeline = None
 
 
 def check_no_alphabetical_characters_all_string_sequences(list_str_squences):
@@ -118,6 +152,12 @@ def predict_timeGPT(numerical_context_list, prediction_length):
     2. Uses TimeGPT to forecast future values if sequence is long enough
     3. Rounds predictions to integers
     """
+    if timegpt is None:
+        raise RuntimeError(
+            "TimeGPT is not configured. The forecasting experiment is closed and "
+            "its results are the committed timeGPT_*.csv; re-running it needs a "
+            "Nixtla API key set on the module-level `timegpt` client."
+        )
     tiny_df = get_datetime_values(numerical_context_list)
 
     if len(tiny_df) > 2:
@@ -147,6 +187,14 @@ def predict_Chronos(numerical_context_list, prediction_length):
     2. Uses pipeline.predict() to generate forecasts with specified parameters
     3. Flattens and processes predictions into a single list of integers
     """
+    if pipeline is None:
+        raise RuntimeError(
+            "Chronos is not configured. The forecasting experiment is closed and "
+            "its results are the committed chronos_*.csv; re-running it needs "
+            "ChronosPipeline assigned to the module-level `pipeline`."
+        )
+    import torch
+
     context = torch.tensor(numerical_context_list)
     forecast = pipeline.predict(
         context=context,
@@ -162,24 +210,6 @@ def predict_Chronos(numerical_context_list, prediction_length):
     return forecasting
 
 
-def num_list_to_string(numerical_list):
-    return " ".join(str(e) for e in numerical_list)
-
-
-def add_levenshtein_to_df(one_complexity_df, percentages_list):
-
-    for prctg in percentages_list:
-        total_lev_results_list = []
-
-        expected_str_list = one_complexity_df["to_predict_" + str(prctg)].values
-        predicted_str_list = one_complexity_df["forecasted_" + str(prctg)].values
-
-        for i in range(len(expected_str_list)):
-            lvtn = levenshtein(predicted_str_list[i], expected_str_list[i])
-            total_lev_results_list.append(lvtn)
-
-        one_complexity_df["levenshtein_" + str(prctg)] = total_lev_results_list
-    return one_complexity_df
 
 
 def compare_predictions(num_predictions, num_original):

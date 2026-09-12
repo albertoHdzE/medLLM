@@ -34,6 +34,7 @@ PRODUCERS = (
     ["35_summary_statistics.py"],
     ["-m", "superarc.timeseries"],
     ["-m", "superarc.complexity_measures"],
+    ["-m", "superarc.compression_metrics"],
 )
 
 # Compared after rasterising both sides, for figures whose published artifact was
@@ -100,6 +101,14 @@ AUTHORISED_CHANGES = {
         "bootstrap tiers -- RESEEDED: published draw came from an unseeded "
         "generator and is unrecoverable; three labels now show their correctly "
         "rounded exact scores"
+    ),
+    "figure10.png": (
+        "SI Fig 1  formulae complexity -- RESEEDED: answers that were '***' or "
+        "empty are stood in for by a random 45-character string, drawn unseeded, "
+        "so the published draw is unrecoverable. 3.3% of pixels; two other seeds "
+        "differ from each other by as much, so the draw is the whole gap. The "
+        "two compressed-length panels are exact; the four BDM/Shannon panels "
+        "move by up to 10.6% of their range with the seed"
     ),
 }
 
