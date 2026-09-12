@@ -1,0 +1,52 @@
+# SuperARC — direct dependencies for the figure/table pipeline.
+# Python 3.13.12 (see .python-version).
+# Full as-found environment is captured in requirements.lock.txt.
+#
+# Versions pinned from the environment in which the reproducibility audit was run.
+# Figures 5 and 6 execute LLM-generated Python, so their values depend on this
+# environment. Do not bump these without re-running the parity check
+# (see plans/that-is-a-yes-modular-orbit.md, Phase 1).
+
+# --- core data / plotting ---
+pandas==2.3.1
+numpy==2.4.4
+matplotlib==3.10.5
+seaborn==0.13.2
+scipy==1.16.1
+
+# --- altair charts (Figs 8, 9 via 34-2) ---
+altair==5.5.0
+vl-convert-python==1.9.0.post1
+
+# --- algorithmic complexity ---
+pybdm==0.1.0
+joblib==1.5.1
+# pybdm imports pkg_resources at module load; joblib/loky worker processes do not
+# inherit a monkey-patched shim, so setuptools must be installed for the
+# bootstrap in 34-2_S-ARC_ext.py to run. See Phase 1.
+# Upper bound is load-bearing: setuptools 81 deprecated pkg_resources and 84
+# removed it entirely, which reintroduces the BrokenProcessPool failure.
+setuptools>=70,<81
+
+# --- formula parsing / evaluation ---
+pyparsing==3.2.3
+
+# --- inputs ---
+openpyxl>=3.1          # reads "extended sequences.xlsx" (sequence catalogue)
+
+# --- verification (figure parity checks) ---
+pillow==11.3.0
+
+# --- notebooks (verification drivers) ---
+ipykernel==6.30.0
+
+# --- misc ---
+tqdm==4.67.1
+requests==2.32.5
+pyenchant==3.3.0
+
+# NOT required for any live figure:
+#   torch, momentfm  — imported at module level by processing_answers.py, which
+#   instantiates MOMENT-1-large on import. Only the time-series pipeline (static
+#   Figs 1-2) needs them. Phase 3 splits processing_answers.py so that SI Fig 1
+#   (which needs only the compression helpers) no longer pulls them in.

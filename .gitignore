@@ -16,6 +16,13 @@ out_plots/
 out_plots_tests/
 logs/
 .env
-data/
 prometheus-*/
 *.json
+
+# data/ is ignored wholesale, EXCEPT the frozen baseline: it is the permanent
+# reference that every regeneration is checked against, so it must be tracked.
+# A parent directory cannot be un-ignored by a later negation, hence data/* here.
+data/*
+!data/baseline/
+!data/baseline/**
+!data/baseline/*.json
