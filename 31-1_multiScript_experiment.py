@@ -1017,3 +1017,49 @@ total_accurate.index = [get_model_display_name(model) for model in total_accurat
 print(f"• Highest accurate script count: {total_accurate.index[0]} ({total_accurate.iloc[0]} accurate scripts)")
 
 print("\n" + "="*90)
+
+
+# ============ EMIT THE MEASURES BEHIND SI FIGURES 5 AND 6 ============
+# See the matching block in 30-1_multiFormula_experiment.py. Accuracy and
+# equivalence are recomputed here from the same columns the figures plot, rather
+# than reused from the plotting frames, because those frames carry a per-model
+# value column name and are awkward to read back.
+from superarc.model_summary import write_long as _write_long, CASE_SCRIPT as _CASE
+
+def _canonical(key):
+    model = _by_column(_B_SCRIPT, key)
+    return model.name if model is not None else None
+
+_records = []
+_filtered = df[df['Complexity'].isin([1, 2, 3])]
+
+for _model in model_names:
+    _name = _canonical(_model)
+    if _name is None:
+        continue  # declared retired in the registry
+
+    _acc_cols = [c for c in df.columns if f'{_model}_script' in c and c.endswith('_accuracy')]
+    if _acc_cols:
+        for _cx, _val in _filtered.groupby('Complexity')[_acc_cols].mean().mean(axis=1).items():
+            _records.append({'model': _name, 'complexity': int(_cx),
+                             'measure': 'Accuracy', 'value': float(_val) * 100})
+
+    _eq = f'{_model}_equivalence_percentage'
+    if _eq in df.columns:
+        for _cx, _val in _filtered.groupby('Complexity')[_eq].mean().items():
+            _records.append({'model': _name, 'complexity': int(_cx),
+                             'measure': 'Equivalence', 'value': float(_val)})
+
+for _, _r in script_data.iterrows():
+    _name = _canonical(_r['Model'])
+    if _name is not None:
+        _records.append({'model': _name, 'complexity': int(_r['Complexity']),
+                         'measure': 'Valid Instances', 'value': float(_r['Count'])})
+
+for _, _r in total_class_data.iterrows():
+    _name = _canonical(_r['Model'])
+    if _name is not None:
+        _records.append({'model': _name, 'complexity': int(_r['Complexity']),
+                         'measure': _r['Classification'], 'value': float(_r['Count'])})
+
+print(f"\nemitted {len(_records)} summary measures to {_write_long(_CASE, _records)}")

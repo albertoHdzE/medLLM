@@ -1,0 +1,589 @@
+model,complexity,measure,value
+ChatGPT-4.5,1,Accuracy,0.0
+ChatGPT-4o,1,Accuracy,100.0
+ChatGPT-4o-Mini,1,Accuracy,14.545454545454547
+ChatGPT-5,1,Accuracy,12.5
+ChatGPT-5.2,1,Accuracy,66.66666666666666
+Claude-3.5,1,Accuracy,100.0
+Claude-3.7,1,Accuracy,8.484848484848486
+Claude-4.5,1,Accuracy,100.0
+Claude-Opus-4,1,Accuracy,11.666666666666666
+Claude-Sonnet-4,1,Accuracy,13.333333333333336
+Cursor-Small,1,Accuracy,100.0
+DeepSeek,1,Accuracy,100.0
+DeepSeek-R1-0528,1,Accuracy,8.484848484848486
+Gemini,1,Accuracy,67.77777777777777
+Gemini-2.5-Pro,1,Accuracy,9.696969696969697
+Gemini-3-Pro,1,Accuracy,0.0
+Grok-3,1,Accuracy,0.0
+Grok-4,1,Accuracy,51.66666666666666
+Grok-4.1,1,Accuracy,43.333333333333336
+Llama-4-Scout,1,Accuracy,4.545454545454546
+Meta,1,Accuracy,0.0
+Mistral,1,Accuracy,100.0
+Mistral-Large-2405,1,Accuracy,4.545454545454546
+Mistral-Large-3,1,Accuracy,100.0
+Qwen,1,Accuracy,0.0
+Qwen-3,1,Accuracy,0.0
+o1-Mini,1,Accuracy,88.88888888888889
+o1-Preview,1,Accuracy,83.33333333333333
+ChatGPT-4.5,2,Accuracy,0.0
+ChatGPT-4o,2,Accuracy,55.00000000000001
+ChatGPT-4o-Mini,2,Accuracy,4.848484848484849
+ChatGPT-5,2,Accuracy,5.0
+ChatGPT-5.2,2,Accuracy,25.0
+Claude-3.5,2,Accuracy,34.444444444444436
+Claude-3.7,2,Accuracy,4.545454545454546
+Claude-4.5,2,Accuracy,30.0
+Claude-Opus-4,2,Accuracy,0.8333333333333334
+Claude-Sonnet-4,2,Accuracy,4.666666666666667
+Cursor-Small,2,Accuracy,40.0
+DeepSeek,2,Accuracy,58.333333333333336
+DeepSeek-R1-0528,2,Accuracy,3.0303030303030307
+Gemini,2,Accuracy,36.66666666666667
+Gemini-2.5-Pro,2,Accuracy,3.0303030303030307
+Gemini-3-Pro,2,Accuracy,0.0
+Grok-3,2,Accuracy,0.0
+Grok-4,2,Accuracy,10.0
+Grok-4.1,2,Accuracy,11.11111111111111
+Llama-4-Scout,2,Accuracy,1.515151515151515
+Meta,2,Accuracy,0.0
+Mistral,2,Accuracy,53.333333333333336
+Mistral-Large-2405,2,Accuracy,2.1212121212121215
+Mistral-Large-3,2,Accuracy,26.666666666666668
+Qwen,2,Accuracy,0.0
+Qwen-3,2,Accuracy,1.515151515151515
+o1-Mini,2,Accuracy,28.888888888888893
+o1-Preview,2,Accuracy,20.0
+ChatGPT-4.5,3,Accuracy,0.0
+ChatGPT-4o,3,Accuracy,50.0
+ChatGPT-4o-Mini,3,Accuracy,0.0
+ChatGPT-5,3,Accuracy,25.0
+ChatGPT-5.2,3,Accuracy,0.0
+Claude-3.5,3,Accuracy,33.33333333333333
+Claude-3.7,3,Accuracy,0.0
+Claude-4.5,3,Accuracy,0.0
+Claude-Opus-4,3,Accuracy,25.0
+Claude-Sonnet-4,3,Accuracy,0.0
+Cursor-Small,3,Accuracy,50.0
+DeepSeek,3,Accuracy,0.0
+DeepSeek-R1-0528,3,Accuracy,0.0
+Gemini,3,Accuracy,33.33333333333333
+Gemini-2.5-Pro,3,Accuracy,0.0
+Gemini-3-Pro,3,Accuracy,0.0
+Grok-3,3,Accuracy,0.0
+Grok-4,3,Accuracy,0.0
+Grok-4.1,3,Accuracy,0.0
+Llama-4-Scout,3,Accuracy,0.0
+Meta,3,Accuracy,0.0
+Mistral,3,Accuracy,0.0
+Mistral-Large-2405,3,Accuracy,0.0
+Mistral-Large-3,3,Accuracy,0.0
+Qwen,3,Accuracy,0.0
+Qwen-3,3,Accuracy,0.0
+o1-Mini,3,Accuracy,33.33333333333333
+o1-Preview,3,Accuracy,0.0
+ChatGPT-4.5,1,Equivalence,0.0
+ChatGPT-4o,1,Equivalence,100.0
+ChatGPT-4o-Mini,1,Equivalence,53.333333333333336
+ChatGPT-5,1,Equivalence,20.0
+ChatGPT-5.2,1,Equivalence,33.333333333333336
+Claude-3.5,1,Equivalence,100.0
+Claude-3.7,1,Equivalence,36.666666666666664
+Claude-4.5,1,Equivalence,100.0
+Claude-Opus-4,1,Equivalence,20.0
+Claude-Sonnet-4,1,Equivalence,20.0
+Cursor-Small,1,Equivalence,100.0
+DeepSeek,1,Equivalence,100.0
+DeepSeek-R1-0528,1,Equivalence,36.666666666666664
+Gemini,1,Equivalence,100.0
+Gemini-2.5-Pro,1,Equivalence,53.333333333333336
+Gemini-3-Pro,1,Equivalence,0.0
+Grok-3,1,Equivalence,0.0
+Grok-4,1,Equivalence,3.3333333333333335
+Grok-4.1,1,Equivalence,30.0
+Llama-4-Scout,1,Equivalence,20.0
+Meta,1,Equivalence,0.0
+Mistral,1,Equivalence,100.0
+Mistral-Large-2405,1,Equivalence,20.0
+Mistral-Large-3,1,Equivalence,100.0
+Qwen,1,Equivalence,0.0
+Qwen-3,1,Equivalence,0.0
+o1-Mini,1,Equivalence,100.0
+o1-Preview,1,Equivalence,66.66666666666667
+ChatGPT-4.5,2,Equivalence,0.0
+ChatGPT-4o,2,Equivalence,26.666666666666668
+ChatGPT-4o-Mini,2,Equivalence,20.0
+ChatGPT-5,2,Equivalence,0.0
+ChatGPT-5.2,2,Equivalence,0.0
+Claude-3.5,2,Equivalence,23.333333333333332
+Claude-3.7,2,Equivalence,23.333333333333332
+Claude-4.5,2,Equivalence,23.333333333333332
+Claude-Opus-4,2,Equivalence,0.0
+Claude-Sonnet-4,2,Equivalence,4.444444444444444
+Cursor-Small,2,Equivalence,20.0
+DeepSeek,2,Equivalence,16.666666666666668
+DeepSeek-R1-0528,2,Equivalence,3.3333333333333335
+Gemini,2,Equivalence,10.0
+Gemini-2.5-Pro,2,Equivalence,13.333333333333334
+Gemini-3-Pro,2,Equivalence,0.0
+Grok-3,2,Equivalence,0.0
+Grok-4,2,Equivalence,0.0
+Grok-4.1,2,Equivalence,0.0
+Llama-4-Scout,2,Equivalence,0.0
+Meta,2,Equivalence,0.0
+Mistral,2,Equivalence,63.333333333333336
+Mistral-Large-2405,2,Equivalence,13.333333333333334
+Mistral-Large-3,2,Equivalence,20.0
+Qwen,2,Equivalence,0.0
+Qwen-3,2,Equivalence,0.0
+o1-Mini,2,Equivalence,16.666666666666668
+o1-Preview,2,Equivalence,3.3333333333333335
+ChatGPT-4.5,3,Equivalence,0.0
+ChatGPT-4o,3,Equivalence,0.0
+ChatGPT-4o-Mini,3,Equivalence,0.0
+ChatGPT-5,3,Equivalence,0.0
+ChatGPT-5.2,3,Equivalence,0.0
+Claude-3.5,3,Equivalence,0.0
+Claude-3.7,3,Equivalence,0.0
+Claude-4.5,3,Equivalence,0.0
+Claude-Opus-4,3,Equivalence,0.0
+Claude-Sonnet-4,3,Equivalence,0.0
+Cursor-Small,3,Equivalence,0.0
+DeepSeek,3,Equivalence,0.0
+DeepSeek-R1-0528,3,Equivalence,0.0
+Gemini,3,Equivalence,0.0
+Gemini-2.5-Pro,3,Equivalence,0.0
+Gemini-3-Pro,3,Equivalence,0.0
+Grok-3,3,Equivalence,0.0
+Grok-4,3,Equivalence,0.0
+Grok-4.1,3,Equivalence,0.0
+Llama-4-Scout,3,Equivalence,0.0
+Meta,3,Equivalence,0.0
+Mistral,3,Equivalence,0.0
+Mistral-Large-2405,3,Equivalence,0.0
+Mistral-Large-3,3,Equivalence,0.0
+Qwen,3,Equivalence,0.0
+Qwen-3,3,Equivalence,0.0
+o1-Mini,3,Equivalence,0.0
+o1-Preview,3,Equivalence,0.0
+ChatGPT-4.5,1,Known sequence,0.0
+ChatGPT-4o,1,Known sequence,0.0
+ChatGPT-4o-Mini,1,Known sequence,0.0
+ChatGPT-5,1,Known sequence,24.0
+ChatGPT-5.2,1,Known sequence,0.0
+Claude-3.5,1,Known sequence,0.0
+Claude-3.7,1,Known sequence,19.0
+Claude-4.5,1,Known sequence,0.0
+Claude-Opus-4,1,Known sequence,24.0
+Claude-Sonnet-4,1,Known sequence,24.0
+Cursor-Small,1,Known sequence,0.0
+DeepSeek,1,Known sequence,0.0
+DeepSeek-R1-0528,1,Known sequence,0.0
+Gemini,1,Known sequence,0.0
+Gemini-2.5-Pro,1,Known sequence,0.0
+Gemini-3-Pro,1,Known sequence,0.0
+Grok-3,1,Known sequence,0.0
+Grok-4,1,Known sequence,0.0
+Grok-4.1,1,Known sequence,0.0
+Llama-4-Scout,1,Known sequence,0.0
+Meta,1,Known sequence,0.0
+Mistral,1,Known sequence,0.0
+Mistral-Large-2405,1,Known sequence,0.0
+Mistral-Large-3,1,Known sequence,0.0
+Qwen,1,Known sequence,0.0
+Qwen-3,1,Known sequence,0.0
+o1-Mini,1,Known sequence,0.0
+o1-Preview,1,Known sequence,0.0
+ChatGPT-4.5,2,Known sequence,0.0
+ChatGPT-4o,2,Known sequence,4.0
+ChatGPT-4o-Mini,2,Known sequence,10.0
+ChatGPT-5,2,Known sequence,6.0
+ChatGPT-5.2,2,Known sequence,0.0
+Claude-3.5,2,Known sequence,5.0
+Claude-3.7,2,Known sequence,10.0
+Claude-4.5,2,Known sequence,0.0
+Claude-Opus-4,2,Known sequence,10.0
+Claude-Sonnet-4,2,Known sequence,11.0
+Cursor-Small,2,Known sequence,4.0
+DeepSeek,2,Known sequence,0.0
+DeepSeek-R1-0528,2,Known sequence,9.0
+Gemini,2,Known sequence,2.0
+Gemini-2.5-Pro,2,Known sequence,10.0
+Gemini-3-Pro,2,Known sequence,0.0
+Grok-3,2,Known sequence,7.0
+Grok-4,2,Known sequence,0.0
+Grok-4.1,2,Known sequence,1.0
+Llama-4-Scout,2,Known sequence,5.0
+Meta,2,Known sequence,9.0
+Mistral,2,Known sequence,0.0
+Mistral-Large-2405,2,Known sequence,5.0
+Mistral-Large-3,2,Known sequence,0.0
+Qwen,2,Known sequence,0.0
+Qwen-3,2,Known sequence,5.0
+o1-Mini,2,Known sequence,3.0
+o1-Preview,2,Known sequence,5.0
+ChatGPT-4.5,3,Known sequence,0.0
+ChatGPT-4o,3,Known sequence,0.0
+ChatGPT-4o-Mini,3,Known sequence,0.0
+ChatGPT-5,3,Known sequence,0.0
+ChatGPT-5.2,3,Known sequence,0.0
+Claude-3.5,3,Known sequence,0.0
+Claude-3.7,3,Known sequence,0.0
+Claude-4.5,3,Known sequence,0.0
+Claude-Opus-4,3,Known sequence,0.0
+Claude-Sonnet-4,3,Known sequence,0.0
+Cursor-Small,3,Known sequence,0.0
+DeepSeek,3,Known sequence,0.0
+DeepSeek-R1-0528,3,Known sequence,0.0
+Gemini,3,Known sequence,0.0
+Gemini-2.5-Pro,3,Known sequence,0.0
+Gemini-3-Pro,3,Known sequence,0.0
+Grok-3,3,Known sequence,0.0
+Grok-4,3,Known sequence,0.0
+Grok-4.1,3,Known sequence,0.0
+Llama-4-Scout,3,Known sequence,0.0
+Meta,3,Known sequence,0.0
+Mistral,3,Known sequence,0.0
+Mistral-Large-2405,3,Known sequence,0.0
+Mistral-Large-3,3,Known sequence,0.0
+Qwen,3,Known sequence,0.0
+Qwen-3,3,Known sequence,0.0
+o1-Mini,3,Known sequence,0.0
+o1-Preview,3,Known sequence,0.0
+ChatGPT-4.5,1,Not found,19.0
+ChatGPT-4o,1,Not found,0.0
+ChatGPT-4o-Mini,1,Not found,254.0
+ChatGPT-5,1,Not found,55.0
+ChatGPT-5.2,1,Not found,20.0
+Claude-3.5,1,Not found,0.0
+Claude-3.7,1,Not found,261.0
+Claude-4.5,1,Not found,0.0
+Claude-Opus-4,1,Not found,52.0
+Claude-Sonnet-4,1,Not found,82.0
+Cursor-Small,1,Not found,0.0
+DeepSeek,1,Not found,0.0
+DeepSeek-R1-0528,1,Not found,283.0
+Gemini,1,Not found,19.0
+Gemini-2.5-Pro,1,Not found,259.0
+Gemini-3-Pro,1,Not found,0.0
+Grok-3,1,Not found,0.0
+Grok-4,1,Not found,19.0
+Grok-4.1,1,Not found,50.0
+Llama-4-Scout,1,Not found,291.0
+Meta,1,Not found,0.0
+Mistral,1,Not found,0.0
+Mistral-Large-2405,1,Not found,291.0
+Mistral-Large-3,1,Not found,0.0
+Qwen,1,Not found,19.0
+Qwen-3,1,Not found,291.0
+o1-Mini,1,Not found,10.0
+o1-Preview,1,Not found,0.0
+ChatGPT-4.5,2,Not found,81.0
+ChatGPT-4o,2,Not found,8.0
+ChatGPT-4o-Mini,2,Not found,271.0
+ChatGPT-5,2,Not found,81.0
+ChatGPT-5.2,2,Not found,38.0
+Claude-3.5,2,Not found,38.0
+Claude-3.7,2,Not found,264.0
+Claude-4.5,2,Not found,55.0
+Claude-Opus-4,2,Not found,83.0
+Claude-Sonnet-4,2,Not found,102.0
+Cursor-Small,2,Not found,9.0
+DeepSeek,2,Not found,7.0
+DeepSeek-R1-0528,2,Not found,270.0
+Gemini,2,Not found,29.0
+Gemini-2.5-Pro,2,Not found,257.0
+Gemini-3-Pro,2,Not found,3.0
+Grok-3,2,Not found,15.0
+Grok-4,2,Not found,45.0
+Grok-4.1,2,Not found,59.0
+Llama-4-Scout,2,Not found,279.0
+Meta,2,Not found,1.0
+Mistral,2,Not found,0.0
+Mistral-Large-2405,2,Not found,275.0
+Mistral-Large-3,2,Not found,56.0
+Qwen,2,Not found,16.0
+Qwen-3,2,Not found,275.0
+o1-Mini,2,Not found,47.0
+o1-Preview,2,Not found,22.0
+ChatGPT-4.5,3,Not found,90.0
+ChatGPT-4o,3,Not found,30.0
+ChatGPT-4o-Mini,3,Not found,270.0
+ChatGPT-5,3,Not found,90.0
+ChatGPT-5.2,3,Not found,58.0
+Claude-3.5,3,Not found,60.0
+Claude-3.7,3,Not found,330.0
+Claude-4.5,3,Not found,90.0
+Claude-Opus-4,3,Not found,90.0
+Claude-Sonnet-4,3,Not found,120.0
+Cursor-Small,3,Not found,30.0
+DeepSeek,3,Not found,60.0
+DeepSeek-R1-0528,3,Not found,330.0
+Gemini,3,Not found,60.0
+Gemini-2.5-Pro,3,Not found,270.0
+Gemini-3-Pro,3,Not found,30.0
+Grok-3,3,Not found,30.0
+Grok-4,3,Not found,60.0
+Grok-4.1,3,Not found,90.0
+Llama-4-Scout,3,Not found,330.0
+Meta,3,Not found,30.0
+Mistral,3,Not found,60.0
+Mistral-Large-2405,3,Not found,330.0
+Mistral-Large-3,3,Not found,90.0
+Qwen,3,Not found,60.0
+Qwen-3,3,Not found,330.0
+o1-Mini,3,Not found,60.0
+o1-Preview,3,Not found,60.0
+ChatGPT-4.5,1,Print,0.0
+ChatGPT-4o,1,Print,0.0
+ChatGPT-4o-Mini,1,Print,0.0
+ChatGPT-5,1,Print,0.0
+ChatGPT-5.2,1,Print,0.0
+Claude-3.5,1,Print,0.0
+Claude-3.7,1,Print,0.0
+Claude-4.5,1,Print,0.0
+Claude-Opus-4,1,Print,0.0
+Claude-Sonnet-4,1,Print,0.0
+Cursor-Small,1,Print,0.0
+DeepSeek,1,Print,0.0
+DeepSeek-R1-0528,1,Print,0.0
+Gemini,1,Print,30.0
+Gemini-2.5-Pro,1,Print,0.0
+Gemini-3-Pro,1,Print,0.0
+Grok-3,1,Print,0.0
+Grok-4,1,Print,0.0
+Grok-4.1,1,Print,0.0
+Llama-4-Scout,1,Print,0.0
+Meta,1,Print,0.0
+Mistral,1,Print,0.0
+Mistral-Large-2405,1,Print,0.0
+Mistral-Large-3,1,Print,0.0
+Qwen,1,Print,0.0
+Qwen-3,1,Print,0.0
+o1-Mini,1,Print,11.0
+o1-Preview,1,Print,0.0
+ChatGPT-4.5,2,Print,0.0
+ChatGPT-4o,2,Print,20.0
+ChatGPT-4o-Mini,2,Print,0.0
+ChatGPT-5,2,Print,0.0
+ChatGPT-5.2,2,Print,2.0
+Claude-3.5,2,Print,19.0
+Claude-3.7,2,Print,5.0
+Claude-4.5,2,Print,13.0
+Claude-Opus-4,2,Print,0.0
+Claude-Sonnet-4,2,Print,0.0
+Cursor-Small,2,Print,13.0
+DeepSeek,2,Print,30.0
+DeepSeek-R1-0528,2,Print,1.0
+Gemini,2,Print,30.0
+Gemini-2.5-Pro,2,Print,4.0
+Gemini-3-Pro,2,Print,0.0
+Grok-3,2,Print,0.0
+Grok-4,2,Print,5.0
+Grok-4.1,2,Print,3.0
+Llama-4-Scout,2,Print,0.0
+Meta,2,Print,0.0
+Mistral,2,Print,1.0
+Mistral-Large-2405,2,Print,0.0
+Mistral-Large-3,2,Print,7.0
+Qwen,2,Print,0.0
+Qwen-3,2,Print,0.0
+o1-Mini,2,Print,8.0
+o1-Preview,2,Print,4.0
+ChatGPT-4.5,3,Print,0.0
+ChatGPT-4o,3,Print,30.0
+ChatGPT-4o-Mini,3,Print,0.0
+ChatGPT-5,3,Print,30.0
+ChatGPT-5.2,3,Print,0.0
+Claude-3.5,3,Print,30.0
+Claude-3.7,3,Print,0.0
+Claude-4.5,3,Print,0.0
+Claude-Opus-4,3,Print,30.0
+Claude-Sonnet-4,3,Print,0.0
+Cursor-Small,3,Print,30.0
+DeepSeek,3,Print,0.0
+DeepSeek-R1-0528,3,Print,0.0
+Gemini,3,Print,30.0
+Gemini-2.5-Pro,3,Print,0.0
+Gemini-3-Pro,3,Print,0.0
+Grok-3,3,Print,30.0
+Grok-4,3,Print,0.0
+Grok-4.1,3,Print,0.0
+Llama-4-Scout,3,Print,0.0
+Meta,3,Print,0.0
+Mistral,3,Print,0.0
+Mistral-Large-2405,3,Print,0.0
+Mistral-Large-3,3,Print,0.0
+Qwen,3,Print,0.0
+Qwen-3,3,Print,0.0
+o1-Mini,3,Print,30.0
+o1-Preview,3,Print,0.0
+ChatGPT-4.5,1,Pure math,71.0
+ChatGPT-4o,1,Pure math,60.0
+ChatGPT-4o-Mini,1,Pure math,76.0
+ChatGPT-5,1,Pure math,41.0
+ChatGPT-5.2,1,Pure math,40.0
+Claude-3.5,1,Pure math,90.0
+Claude-3.7,1,Pure math,50.0
+Claude-4.5,1,Pure math,90.0
+Claude-Opus-4,1,Pure math,44.0
+Claude-Sonnet-4,1,Pure math,44.0
+Cursor-Small,1,Pure math,60.0
+DeepSeek,1,Pure math,60.0
+DeepSeek-R1-0528,1,Pure math,47.0
+Gemini,1,Pure math,41.0
+Gemini-2.5-Pro,1,Pure math,71.0
+Gemini-3-Pro,1,Pure math,30.0
+Grok-3,1,Pure math,60.0
+Grok-4,1,Pure math,41.0
+Grok-4.1,1,Pure math,40.0
+Llama-4-Scout,1,Pure math,39.0
+Meta,1,Pure math,60.0
+Mistral,1,Pure math,60.0
+Mistral-Large-2405,1,Pure math,39.0
+Mistral-Large-3,1,Pure math,90.0
+Qwen,1,Pure math,41.0
+Qwen-3,1,Pure math,39.0
+o1-Mini,1,Pure math,69.0
+o1-Preview,1,Pure math,60.0
+ChatGPT-4.5,2,Pure math,9.0
+ChatGPT-4o,2,Pure math,28.0
+ChatGPT-4o-Mini,2,Pure math,49.0
+ChatGPT-5,2,Pure math,33.0
+ChatGPT-5.2,2,Pure math,20.0
+Claude-3.5,2,Pure math,28.0
+Claude-3.7,2,Pure math,51.0
+Claude-4.5,2,Pure math,22.0
+Claude-Opus-4,2,Pure math,27.0
+Claude-Sonnet-4,2,Pure math,37.0
+Cursor-Small,2,Pure math,34.0
+DeepSeek,2,Pure math,23.0
+DeepSeek-R1-0528,2,Pure math,50.0
+Gemini,2,Pure math,29.0
+Gemini-2.5-Pro,2,Pure math,59.0
+Gemini-3-Pro,2,Pure math,27.0
+Grok-3,2,Pure math,38.0
+Grok-4,2,Pure math,10.0
+Grok-4.1,2,Pure math,27.0
+Llama-4-Scout,2,Pure math,46.0
+Meta,2,Pure math,50.0
+Mistral,2,Pure math,59.0
+Mistral-Large-2405,2,Pure math,50.0
+Mistral-Large-3,2,Pure math,27.0
+Qwen,2,Pure math,44.0
+Qwen-3,2,Pure math,50.0
+o1-Mini,2,Pure math,32.0
+o1-Preview,2,Pure math,29.0
+ChatGPT-4.5,3,Pure math,0.0
+ChatGPT-4o,3,Pure math,0.0
+ChatGPT-4o-Mini,3,Pure math,60.0
+ChatGPT-5,3,Pure math,0.0
+ChatGPT-5.2,3,Pure math,2.0
+Claude-3.5,3,Pure math,0.0
+Claude-3.7,3,Pure math,0.0
+Claude-4.5,3,Pure math,0.0
+Claude-Opus-4,3,Pure math,0.0
+Claude-Sonnet-4,3,Pure math,30.0
+Cursor-Small,3,Pure math,0.0
+DeepSeek,3,Pure math,0.0
+DeepSeek-R1-0528,3,Pure math,0.0
+Gemini,3,Pure math,0.0
+Gemini-2.5-Pro,3,Pure math,60.0
+Gemini-3-Pro,3,Pure math,0.0
+Grok-3,3,Pure math,0.0
+Grok-4,3,Pure math,0.0
+Grok-4.1,3,Pure math,0.0
+Llama-4-Scout,3,Pure math,0.0
+Meta,3,Pure math,30.0
+Mistral,3,Pure math,0.0
+Mistral-Large-2405,3,Pure math,0.0
+Mistral-Large-3,3,Pure math,0.0
+Qwen,3,Pure math,0.0
+Qwen-3,3,Pure math,0.0
+o1-Mini,3,Pure math,0.0
+o1-Preview,3,Pure math,0.0
+ChatGPT-4.5,1,Valid Instances,2.0
+ChatGPT-4o,1,Valid Instances,2.0
+ChatGPT-4o-Mini,1,Valid Instances,3.0
+ChatGPT-5,1,Valid Instances,2.0
+ChatGPT-5.2,1,Valid Instances,1.0
+Claude-3.5,1,Valid Instances,3.0
+Claude-3.7,1,Valid Instances,2.0
+Claude-4.5,1,Valid Instances,3.0
+Claude-Opus-4,1,Valid Instances,2.0
+Claude-Sonnet-4,1,Valid Instances,2.0
+Cursor-Small,1,Valid Instances,2.0
+DeepSeek,1,Valid Instances,2.0
+DeepSeek-R1-0528,1,Valid Instances,1.0
+Gemini,1,Valid Instances,2.0
+Gemini-2.5-Pro,1,Valid Instances,3.0
+Gemini-3-Pro,1,Valid Instances,1.0
+Grok-3,1,Valid Instances,2.0
+Grok-4,1,Valid Instances,1.0
+Grok-4.1,1,Valid Instances,1.0
+Llama-4-Scout,1,Valid Instances,1.0
+Meta,1,Valid Instances,2.0
+Mistral,1,Valid Instances,2.0
+Mistral-Large-2405,1,Valid Instances,1.0
+Mistral-Large-3,1,Valid Instances,3.0
+Qwen,1,Valid Instances,1.0
+Qwen-3,1,Valid Instances,1.0
+o1-Mini,1,Valid Instances,2.0
+o1-Preview,1,Valid Instances,2.0
+ChatGPT-4.5,2,Valid Instances,0.0
+ChatGPT-4o,2,Valid Instances,1.0
+ChatGPT-4o-Mini,2,Valid Instances,2.0
+ChatGPT-5,2,Valid Instances,2.0
+ChatGPT-5.2,2,Valid Instances,0.0
+Claude-3.5,2,Valid Instances,1.0
+Claude-3.7,2,Valid Instances,3.0
+Claude-4.5,2,Valid Instances,0.0
+Claude-Opus-4,2,Valid Instances,2.0
+Claude-Sonnet-4,2,Valid Instances,2.0
+Cursor-Small,2,Valid Instances,1.0
+DeepSeek,2,Valid Instances,1.0
+DeepSeek-R1-0528,2,Valid Instances,2.0
+Gemini,2,Valid Instances,1.0
+Gemini-2.5-Pro,2,Valid Instances,3.0
+Gemini-3-Pro,2,Valid Instances,0.0
+Grok-3,2,Valid Instances,2.0
+Grok-4,2,Valid Instances,0.0
+Grok-4.1,2,Valid Instances,1.0
+Llama-4-Scout,2,Valid Instances,1.0
+Meta,2,Valid Instances,2.0
+Mistral,2,Valid Instances,2.0
+Mistral-Large-2405,2,Valid Instances,1.0
+Mistral-Large-3,2,Valid Instances,0.0
+Qwen,2,Valid Instances,0.0
+Qwen-3,2,Valid Instances,1.0
+o1-Mini,2,Valid Instances,0.0
+o1-Preview,2,Valid Instances,0.0
+ChatGPT-4.5,3,Valid Instances,0.0
+ChatGPT-4o,3,Valid Instances,1.0
+ChatGPT-4o-Mini,3,Valid Instances,1.0
+ChatGPT-5,3,Valid Instances,1.0
+ChatGPT-5.2,3,Valid Instances,0.0
+Claude-3.5,3,Valid Instances,1.0
+Claude-3.7,3,Valid Instances,0.0
+Claude-4.5,3,Valid Instances,0.0
+Claude-Opus-4,3,Valid Instances,1.0
+Claude-Sonnet-4,3,Valid Instances,1.0
+Cursor-Small,3,Valid Instances,1.0
+DeepSeek,3,Valid Instances,0.0
+DeepSeek-R1-0528,3,Valid Instances,0.0
+Gemini,3,Valid Instances,1.0
+Gemini-2.5-Pro,3,Valid Instances,11.0
+Gemini-3-Pro,3,Valid Instances,0.0
+Grok-3,3,Valid Instances,1.0
+Grok-4,3,Valid Instances,0.0
+Grok-4.1,3,Valid Instances,1.0
+Llama-4-Scout,3,Valid Instances,0.0
+Meta,3,Valid Instances,1.0
+Mistral,3,Valid Instances,0.0
+Mistral-Large-2405,3,Valid Instances,0.0
+Mistral-Large-3,3,Valid Instances,0.0
+Qwen,3,Valid Instances,0.0
+Qwen-3,3,Valid Instances,0.0
+o1-Mini,3,Valid Instances,1.0
+o1-Preview,3,Valid Instances,0.0

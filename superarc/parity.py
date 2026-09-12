@@ -29,7 +29,19 @@ PRODUCERS = (
     "30-1_multiFormula_experiment.py",
     "31-1_multiScript_experiment.py",
     "34-2_S-ARC_ext.py",
+    "35_summary_statistics.py",
 )
+
+# Data-level checks. Comparing the numbers a figure is drawn from is stricter
+# than comparing its pixels and cheaper than rendering: 35_summary_statistics.py
+# writes these two files on its way to the family-evolution figures, and they
+# are the complete input to the plotting function.
+DATA_COMPARISONS = {
+    "plots/multi_formula/multiple_formulae_values.csv":
+        "SI Figs 5/6  family evolution, formulae values",
+    "plots/multi_script/multiple_script_values.csv":
+        "SI Figs 5/6  family evolution, script values",
+}
 
 # regenerated filename -> (published artifact, human label)
 # The bootstrap figure is expected to differ: its draw was never reproducible
@@ -37,8 +49,6 @@ PRODUCERS = (
 # cannot be recovered. It is seeded now, and checked for run-to-run stability
 # elsewhere rather than against the published pixels.
 COMPARISONS = {
-    "figure03-up.png": ("new_plots/figure03-up.png", "Fig 3  formulae equivalence + accuracy"),
-    "figure03-bottom.png": ("new_plots/figure03-bottom.png", "Fig 4  integrated formulae"),
     "figure04-up.png": ("new_plots/figure04-up.png", "Fig 5  script equivalence + accuracy"),
     "figure05.png": ("new_plots/figure05.png", "Fig 7  SuperARC-seq ranking"),
     "figure06.png": ("new_plots/figure06.png", "p1-p4 by sequence type"),
@@ -49,6 +59,13 @@ COMPARISONS = {
 # author ruling recorded here, and each is still held to run-to-run determinism,
 # so an unauthorised change on top of an authorised one is still caught.
 AUTHORISED_CHANGES = {
+    "figure03-up.png": (
+        "Fig 3  formulae -- CORRECTED: columns were matched by prefix, so five "
+        "models absorbed a longer-named model's answers"
+    ),
+    "figure03-bottom.png": (
+        "Fig 4  integrated formulae -- CORRECTED: same prefix collision"
+    ),
     "figure04-bottom.png": (
         "Fig 6  integrated script -- CORRECTED: the bar labelled Gemini-2.5-Pro "
         "was drawn from the `gemini` column instead of `gemini-2.5-pro`, "
@@ -113,6 +130,23 @@ def check(out_dir: Path) -> int:
             failures.append(f"{label}: {diff:.4f}% of pixels differ")
         else:
             print(f"{label:42s} {'IDENTICAL':>14s}")
+
+    for relative, label in DATA_COMPARISONS.items():
+        # 35_summary_statistics.py builds these under its output directory,
+        # mirroring the repo layout beneath it.
+        produced_path = out_dir / Path(relative).name
+        if not produced_path.exists():
+            candidates = list(out_dir.rglob(Path(relative).name))
+            produced_path = candidates[0] if candidates else produced_path
+        published_path = REPO_ROOT / relative
+        if not produced_path.exists():
+            print(f"{label:42s} {'NOT PRODUCED':>14s}")
+            failures.append(f"{label}: not produced")
+        elif produced_path.read_bytes() == published_path.read_bytes():
+            print(f"{label:42s} {'IDENTICAL':>14s}")
+        else:
+            print(f"{label:42s} {'DIFFERS':>14s}")
+            failures.append(f"{label}: content differs from published")
 
     for produced, why in AUTHORISED_CHANGES.items():
         if not (out_dir / produced).exists():

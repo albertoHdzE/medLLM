@@ -159,9 +159,12 @@ def process_data_and_generate_csvs():
         values='value'
     ).reset_index()
 
+    # Written alongside the figures so a parity run can redirect everything
+    # this script produces with one environment variable.
+    _base = os.environ.get('SUPERARC_PLOTS_DIR', 'plots')
     case_map = {
-        'multiple script': 'plots/multi_script',
-        'multiple formulae': 'plots/multi_formula'
+        'multiple script': os.path.join(_base, 'multi_script'),
+        'multiple formulae': os.path.join(_base, 'multi_formula'),
     }
 
     consolidated_dfs = {}
@@ -279,7 +282,8 @@ def aggregate_data(df):
     return result
 
 def plot_evolution_subset(df_script, df_formula, families, part_num):
-    output_dir = 'plots/highResolution'
+    # Overridable so a parity run can regenerate into a scratch path.
+    output_dir = os.environ.get('SUPERARC_PLOTS_DIR', 'plots/highResolution')
     os.makedirs(output_dir, exist_ok=True)
     
     n_rows = len(families)

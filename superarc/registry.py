@@ -179,6 +179,36 @@ FAMILY_ORDER: tuple[str, ...] = (
 )
 
 
+# --- column naming grammar --------------------------------------------------
+# A dataset column is `<model-name><suffix>`. The model name is an atomic
+# keyword, so it must be matched WHOLE -- never as a prefix.
+#
+# Matching by prefix is wrong and was actively harmful: `col.startswith('gpt_4o_')`
+# also matches every `gpt_4o_mini_*` column, so ChatGPT-4o's accuracy absorbed
+# ChatGPT-4o-Mini's answers. The same collision hit gemini/gemini_2.5_pro,
+# mistral/mistral_large2405 and deepseek/deepseek_r1_0528.
+#
+# Resolution is suffix-first, then longest-name-wins. The second step is what
+# makes it correct: several model names themselves end in `_<digit>`
+# (`grok_3`, `opus_4`, `chatgpt_5`), so `grok_3_1_eval` must bind to `grok_3`
+# and not to `grok` with a leftover `_3_1_eval`.
+COLUMN_SUFFIXES: dict[str, tuple[str, ...]] = {
+    A_FORMULA: (
+        r"",              # the raw answer list
+        r"_\d+",          # one extracted formula
+        r"_\d+_eval",     # the sequence that formula produces
+    ),
+    B_SCRIPT: (
+        r"",              # the raw list of scripts
+    ),
+    C_SERIES: (
+        r"-formula", r"-formula-eval", r"-formula-correctness",
+        r"-formula-ordinal", r"-formula-copy_seq",
+        r"-program", r"-program-eval", r"-program-print", r"-program-correctness",
+    ),
+}
+
+
 class UnknownColumnError(ValueError):
     """A dataset column matches no registered model and is not declared retired."""
 
@@ -229,6 +259,41 @@ def validate_columns(dataset: str, columns: list[str]) -> None:
         raise UnknownColumnError(
             f"{dataset}: registered model(s) absent from the data: {sorted(missing)}"
         )
+
+
+def _candidate_names(dataset: str) -> list[str]:
+    """Every name a column may carry in ``dataset``, longest first."""
+    names = list(columns_for(dataset)) + list(RETIRED_COLUMNS.get(dataset, {}))
+    return sorted(names, key=len, reverse=True)
+
+
+def resolve_column(dataset: str, column: str) -> tuple[str, str] | None:
+    """Split a column into ``(model_column_name, suffix)``.
+
+    Returns ``None`` when the column belongs to no known model. Never matches a
+    model name as a prefix of a longer one -- see COLUMN_SUFFIXES.
+    """
+    import re
+
+    for name in _candidate_names(dataset):          # longest name wins
+        for suffix in COLUMN_SUFFIXES.get(dataset, (r"",)):
+            if re.fullmatch(re.escape(name) + suffix, column):
+                return name, column[len(name):]
+    return None
+
+
+def columns_of(dataset: str, model_column: str, all_columns: list[str]) -> list[str]:
+    """All columns belonging to one model, resolved by whole name.
+
+    Use this instead of ``startswith``. Given ``gpt_4o`` it returns the
+    ``gpt_4o*`` columns and none of the ``gpt_4o_mini*`` ones.
+    """
+    out = []
+    for column in all_columns:
+        resolved = resolve_column(dataset, column)
+        if resolved is not None and resolved[0] == model_column:
+            out.append(column)
+    return out
 
 
 def sorted_by_family(models: list[Model] | None = None) -> list[Model]:
