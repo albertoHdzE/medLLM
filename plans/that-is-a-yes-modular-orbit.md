@@ -390,16 +390,99 @@ Ten commits on branch `clean`, from `17038a3` to `b4e5322`. 40 tests pass. Worki
   resolve suffix-first then longest-name-wins (`superarc.registry.resolve_column`).
 - Supplementary Figures 5/6 **do** reproduce pixel-identically. They are not broken;
   they merely cannot yet take a new model.
+- **Never call a figure file an orphan without rendering it.** `figure14` and
+  `figure15` were listed above as having no producer; they are the
+  high-resolution Supplementary Figures 5/6, identical in content to
+  `ALL_FAMILIES_evolution_Part1/2`. Duplicates, not orphans.
+- **A missing artifact is not evidence that code is dead.** `25_BDM.ipynb` was
+  deleted in Phase 2 because nothing on disk pointed to it. It produces a
+  published panel.
+
+## Phases 3.4 – 3.6 (done)
+
+| commit | outcome |
+|---|---|
+| `360f03b` | The three panels of Figure 1 and all of Figure 2 are saved for the first time. |
+| `36e911c` | Supplementary Figure 1 is producible; `processing_answers.py` is importable. |
+| `d5a3634` | `python -m superarc.cli --out outputs/<v>` regenerates everything, with a manifest. |
+
+### Figure 1 is three images, and only one was ever saved
+
+The typesetter stacked three separately produced figures. Their producers:
+
+| panel | producer | was it saved? |
+|---|---|---|
+| Success Rate — Simple climbers | `superarc.timeseries` | yes → `figure01` |
+| Success Rate — Random Binary Sequences | `superarc.timeseries` | **no** |
+| BDM / Shannon / zip / lzw by complexity | `superarc.complexity_measures` | **no** |
+
+The one that *was* saved is the control: it regenerates at 0.0000% pixel
+difference, which is what licenses trusting the other two.
+
+**`25_BDM.ipynb` was restored.** Deleting it in Phase 2 was a cleaning error — it
+is the sole producer of the bottom panel. The Phase 2 gate did not catch this
+because the panel had no artifact to compare against, which is exactly the hole
+that saving these figures closes.
+
+### Two more figures that are not what they look like
+
+- **Figure 2's image is absent from the published article.** Its caption is
+  typeset on page 5, beneath the formulae figure. Only the caption was placed.
+  Panels are therefore saved one per file, exactly as the notebook draws them;
+  no combined layout is invented.
+- **The article does not print the high-resolution Figure 1.** Sampling page 4
+  gives matplotlib's default `tab10` cycle — the draft that preceded the
+  restyle. The bar heights are identical, so no result is affected.
+
+### Verified rather than assumed
+
+- **Levenshtein.** `processing_answers.py` took it from `enchant.utils`, a
+  binding to a C library that is not installed. Reimplemented and held to all
+  1920 published distances. Recovering them required noticing that the two call
+  sites disagree: the Chronos/TimeGPT columns come from `num_list_to_string`
+  (`"1 11 21"`), the lag-llama columns from the bracketed `str(list)`. Both
+  preserved as published.
+- **The bottom panel's four series were typed in as literals.** Recomputed now.
+  All agree to the digits printed except the third BDM point, transcribed as
+  `549.678` where it computes to `549.687` — two digits transposed, far below one
+  pixel on an axis spanning 470–550.
+
+### Supplementary Figure 1 is reproducible only up to a random draw
+
+Answers that were `***` or empty are replaced by a random 45-character string, so
+that "no answer" scores as incompressible rather than as zero. The draw was
+unseeded. Seeded now, and measured — spread across five seeds as a fraction of
+each panel's range:
+
+| panel | sensitivity | | panel | sensitivity |
+|---|---|---|---|---|
+| Avg LZW | 0.0% | | Avg BDM (ZIP) | 3.7% |
+| Avg ZIP | 0.0% | | Avg BDM | 7.4% |
+| Avg Shannon | 3.3% | | Avg BDM (LZW) | 10.6% |
+
+The compressed-length panels are exact — the compressed length of a random string
+does not depend on which characters were drawn. The BDM panels are not, because
+BDM is sensitive to the exact bit pattern, which is precisely why it is the
+measure the paper is built on. Seed 42 lands 3.3% of pixels from the published
+figure and two other seeds land 3.1% from each other, so the draw is the whole
+gap. **Choosing a reference seed is an author's decision.**
+
+### `processing_answers.py`
+
+Downloaded, initialised and printed a MOMENT-1-large pipeline at import time. The
+variable was referenced exactly twice — to create it and to print it. Every
+importer paid a `torch` dependency and a model download for nothing, which is why
+the module could not be imported at all on a clean install. Now behind
+`load_moment_pipeline()`; self-import removed; `torch` imported where used; the
+Nixtla API key removed. **Removing it does not remove it from the history — the
+key must be rotated.**
 
 ## Next
 
-1. Add the missing `savefig` to `22_Timeseries_LLM_experiments.ipynb` — the
-   "Average similarity and Levenshtein" figure is built but never written to disk.
-2. Split `processing_answers.py` (self-imports; instantiates MOMENT-1-large on import,
-   needs `torch`) so the compression-metrics figure becomes producible.
-3. Verification notebooks, single CLI, README.
-4. Phase 4 ingestion assistant: calibrate on `gpt_4o` (~390 hand-done cases) before
-   building anything; gate at >=95% exact match.
+1. README rewrite, and the remaining verification notebooks (22, 25 and 26 are
+   already thin drivers).
+2. Phase 4 ingestion assistant: calibrate on `gpt_4o` (~390 hand-done cases)
+   before building anything; gate at >=95% exact match.
 
 ## Open for the authors
 
