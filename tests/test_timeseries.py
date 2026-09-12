@@ -10,6 +10,8 @@ so the new implementation is held to all 1920 of them.
 from __future__ import annotations
 
 import ast
+import tempfile
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -101,6 +103,39 @@ def test_published_success_rates_for_figure_one():
     assert random["timeGPT"] == pytest.approx(57.0, abs=0.5)
     assert random["chronos"] == pytest.approx(53.0, abs=0.5)
     assert random["lag-llama"] == pytest.approx(58.0, abs=0.5)
+
+
+def test_the_restyle_still_reproduces_the_committed_file_exactly():
+    """The control for this whole module.
+
+    ``plots/highResolution/figure01.pdf`` is a restyle that was never printed, so
+    Figure 1 no longer uses its palette. But it is the only panel of Figure 1 that
+    was ever saved, and reproducing it pixel for pixel is what justified trusting
+    the two panels that have nothing to compare against. Kept as a test so the
+    ruling on colour cannot quietly discard the evidence.
+    """
+    shutil = pytest.importorskip("shutil")
+    if not shutil.which("pdftoppm"):
+        pytest.skip("pdftoppm not available to rasterise the PDFs")
+
+    from superarc.parity import pixel_difference, rasterise
+    from superarc.timeseries import RESTYLED_PALETTE, plot_binary_panels
+
+    out_dir = Path(tempfile.mkdtemp(prefix="superarc-figure01-"))
+    plot_binary_panels(out_dir, colours=RESTYLED_PALETTE)
+    difference = pixel_difference(
+        rasterise(out_dir / "figure01.pdf"),
+        rasterise(REPO_ROOT / "plots" / "highResolution" / "figure01.pdf"),
+    )
+    assert difference == 0.0, f"{difference:.4f}% of pixels differ"
+
+
+def test_the_two_palettes_differ_only_in_colour():
+    """Whichever is chosen, no number moves."""
+    from superarc.timeseries import PRINTED_PALETTE, RESTYLED_PALETTE
+
+    assert PRINTED_PALETTE != RESTYLED_PALETTE
+    assert len(PRINTED_PALETTE) == len(RESTYLED_PALETTE) == 4
 
 
 def test_reference_model_beats_every_forecaster():

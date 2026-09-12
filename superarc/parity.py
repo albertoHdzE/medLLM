@@ -38,13 +38,9 @@ PRODUCERS = (
 )
 
 # Compared after rasterising both sides, for figures whose published artifact was
-# only ever saved as PDF and SVG.
-PDF_COMPARISONS = {
-    "figure01.pdf": (
-        "plots/highResolution/figure01.pdf",
-        "Fig 1 top  binary success, simple climbers",
-    ),
-}
+# only ever saved as PDF and SVG. Empty for now -- figure01 was the one entry and
+# moved to AUTHORISED_CHANGES when its palette was ruled on.
+PDF_COMPARISONS: dict[str, tuple[str, str]] = {}
 
 # Panels that are printed in the article but were never written to disk by any
 # code, so there is nothing to compare them against. They are still regenerated
@@ -85,6 +81,13 @@ COMPARISONS = {
 # author ruling recorded here, and each is still held to run-to-run determinism,
 # so an unauthorised change on top of an authorised one is still caught.
 AUTHORISED_CHANGES = {
+    "figure01.png": (
+        "Fig 1 top  simple climbers -- REPALETTED by author's ruling: "
+        "plots/highResolution/figure01 is a restyle that was never printed. The "
+        "article shows matplotlib's default cycle, and Figure 1 is the figure in "
+        "the paper. Bar heights unchanged; tests/test_timeseries.py still checks "
+        "the restyle reproduces that file exactly"
+    ),
     "figure03-up.png": (
         "Fig 3  formulae -- CORRECTED: columns were matched by prefix, so five "
         "models absorbed a longer-named model's answers"

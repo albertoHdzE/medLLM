@@ -21,9 +21,10 @@ they need lives in ``processing_answers.py``, which instantiates MOMENT-1-large
 at import time and therefore cannot be imported without ``torch``. The functions
 the figures actually need are pure, so they are owned here instead.
 
-The one panel that *was* saved is the control: regenerating it here reproduces
-the committed ``plots/highResolution/figure01`` with 0.0000% pixel difference,
-which is what licenses trusting the other two.
+The one panel that *was* saved is the control: regenerating it with
+``RESTYLED_PALETTE`` reproduces the committed ``plots/highResolution/figure01``
+with 0.0000% pixel difference, which is what licenses trusting the other two.
+That file is not what the article prints, though -- see ``PRINTED_PALETTE``.
 
 Levenshtein
 -----------
@@ -228,17 +229,23 @@ BINARY_PANELS = {
 # The reference row: CTM/BDM identifies the generating rule, so it never misses.
 REFERENCE_MODEL = "CTM/BDM"
 
-# The per-model palette the rest of the paper's figures use. This reproduces the
-# committed plots/highResolution/figure01 exactly (0.0000% pixel difference).
+# Two palettes exist for these two panels, and only one of them was printed.
 #
-# For the authors: the article does *not* print this version. Sampling page 4 of
-# the published PDF gives #1f78b4 / #ff800f / #29a02c / #d52728 -- matplotlib's
-# default tab10 cycle, i.e. the draft that preceded the high-resolution restyle.
-# The bar heights are the same in both, so no result is affected; it is a
-# production mismatch of the same kind as the caption offset, and switching the
-# printed figure to this palette is a decision for the authors, not a refactor.
-PANEL_COLOURS = ("#5cb8e6", "#f77189", "#ef7d32", "#c69432")
-PUBLISHED_PALETTE = ("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728")
+# PRINTED is matplotlib's default cycle, and is what the article shows: sampling
+# page 4 of the published PDF gives #1f78b4 / #ff800f / #29a02c / #d52728, those
+# four with the PDF's colour shift. It is the default here, by author's ruling
+# (2026-09-12): Figure 1 is the figure in the paper.
+#
+# RESTYLED is the per-model palette the rest of the paper's figures use. It is
+# what ``plots/highResolution/figure01.pdf`` contains -- a later restyle that was
+# never printed. Kept because it is the control that validated this module:
+# regenerating with it reproduces that committed file at 0.0000% pixel
+# difference, which is checked in ``tests/test_timeseries.py``.
+#
+# The bar heights are identical either way; no result depends on the choice.
+PRINTED_PALETTE = ("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728")
+RESTYLED_PALETTE = ("#5cb8e6", "#f77189", "#ef7d32", "#c69432")
+PANEL_COLOURS = PRINTED_PALETTE
 
 
 def binary_success_rates(pools) -> pd.DataFrame:
