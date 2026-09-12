@@ -26,3 +26,7 @@ data/*
 !data/baseline/
 !data/baseline/**
 !data/baseline/*.json
+# data/derived/ is generated, but holds paper artifacts (Table 1), so it is
+# tracked: a reviewer should be able to see the table without running anything.
+!data/derived/
+!data/derived/**
