@@ -90,6 +90,12 @@ df['chatgpt-4.5_script_3'].head()
 # isolate=False) because it is what produced the published figures. See
 # superarc/sandbox.py for the measured cost of switching it off.
 from superarc.sandbox import Executor
+from superarc.registry import B_SCRIPT as _B_SCRIPT, by_column as _by_column, validate_columns as _validate_columns
+
+# Fail loudly if the data contains a model column the registry does not know.
+# Previously any unmapped column was dropped from the figures without a word,
+# which is how a Gemini column silently vanished from each of Figures 5 and 6.
+_validate_columns(_B_SCRIPT, [c for c in model_names])
 
 execute_code_safely = Executor()
 
@@ -500,39 +506,19 @@ plt.rcParams.update({'font.size': 20, 'font.family': 'serif'})
 
 # Define ordered model list and display name mapping
 def get_model_display_name(model_key):
-    """Map internal model key to display name using the predefined mapping."""
-    model_name_mapping = {
-        'chatgpt-4o': 'ChatGPT-4o',
-        'gpt-4o-mini': 'ChatGPT-4o-Mini',
-        'gemini-2.5-pro': 'Gemini-2.5-Pro',
-        'gemini-thinking': 'Gemini',
-        'claude-3-5-sonnet': 'Claude-3.5',
-        'chatgpt-o1': 'o1-Preview',
-        'mistral': 'Mistral',
-        'meta': 'Meta',
-        'cursor_small': 'Cursor-Small',
-        'o1_mini': 'o1-Mini',
-        'grok': 'Grok-3',
-        'grok-3': 'Grok-4',
-        'qwen': 'Qwen',
-        'deepseek': 'DeepSeek',
-        'chatgpt-4.5': 'ChatGPT-4.5',
-        'claude-3.7': 'Claude-3.7',
-        'deepseek_r1_0525': 'DeepSeek-R1-0528',
-        'llama_4_scout': 'Llama-4-Scout',
-        'qwen3': 'Qwen-3',
-        'chatgpt_5': 'ChatGPT-5',
-        'opus_4': 'Claude-Opus-4',
-        'mistral_large2405': 'Mistral-Large-2405',
-        'claude_sonnet_4': 'Claude-Sonnet-4',
-        'grok_4.1': 'Grok-4.1',
-        'gpt-5.2': 'ChatGPT-5.2',
-        'claude-4.5': 'Claude-4.5',
-        'gemini-3-pro': 'Gemini-3-Pro',
-        'mistral-large-3': 'Mistral-Large-3',
-        
-    }
-    return model_name_mapping.get(model_key, model_key)
+    """Canonical display label for a dataset column.
+
+    Backed by superarc.registry so there is one definition instead of the two
+    that previously disagreed: the copy used for Figure 5 mapped
+    `gemini-2.5-pro` to "Gemini-2.5-Pro", while the copy used for Figure 6
+    mapped `gemini` to it, so the same label denoted different data in the two
+    published figures.
+
+    Unregistered keys are returned unchanged, which is what the downstream
+    `valid_models` filter uses to exclude declared-retired columns.
+    """
+    model = _by_column(_B_SCRIPT, model_key)
+    return model.name if model is not None else model_key
 
 # Generate distinct markers for scientific clarity
 markers = ['o', 's', '^', 'D', 'v', '<', '>', 'p', '*', 'h', 'H', '+', 'x', '8']
@@ -715,38 +701,19 @@ plt.style.use('seaborn-v0_8-whitegrid')
 plt.rcParams.update({'font.family': 'serif', 'font.size': 10})
 
 def get_model_display_name(model_key):
-    """Map internal model key to display name using the predefined mapping."""
-    model_name_mapping = {
-        'chatgpt-4o': 'ChatGPT-4o',
-        'gpt-4o-mini': 'ChatGPT-4o-Mini',
-        'gemini': 'Gemini-2.5-Pro',
-        'gemini-thinking': 'Gemini',
-        'claude-3-5-sonnet': 'Claude-3.5',
-        'chatgpt-o1': 'o1-Preview',
-        'mistral': 'Mistral',
-        'meta': 'Meta',
-        'cursor_small': 'Cursor-Small',
-        'o1_mini': 'o1-Mini',
-        'grok': 'Grok-3',
-        'grok-3': 'Grok-4',
-        'qwen': 'Qwen',
-        'deepseek': 'DeepSeek',
-        'chatgpt-4.5': 'ChatGPT-4.5',
-        'claude-3.7': 'Claude-3.7',
-        'deepseek_r1_0525': 'DeepSeek-R1-0528',
-        'llama_4_scout': 'Llama-4-Scout',
-        'qwen3': 'Qwen-3',
-        'chatgpt_5': 'ChatGPT-5',
-        'opus_4': 'Claude-Opus-4',
-        'mistral_large2405': 'Mistral-Large-2405',
-        'claude_sonnet_4': 'Claude-Sonnet-4',
-        'grok_4.1': 'Grok-4.1',
-        'gpt-5.2': 'ChatGPT-5.2',
-        'claude-4.5': 'Claude-4.5',
-        'gemini-3-pro': 'Gemini-3-Pro',
-        'mistral-large-3': 'Mistral-Large-3',
-    }
-    return model_name_mapping.get(model_key, model_key)
+    """Canonical display label for a dataset column.
+
+    Backed by superarc.registry so there is one definition instead of the two
+    that previously disagreed: the copy used for Figure 5 mapped
+    `gemini-2.5-pro` to "Gemini-2.5-Pro", while the copy used for Figure 6
+    mapped `gemini` to it, so the same label denoted different data in the two
+    published figures.
+
+    Unregistered keys are returned unchanged, which is what the downstream
+    `valid_models` filter uses to exclude declared-retired columns.
+    """
+    model = _by_column(_B_SCRIPT, model_key)
+    return model.name if model is not None else model_key
 
 # Define ordered model list
 ordered_models = ['chatgpt-4o', 'gpt-4o-mini', 'gemini-2.5-pro', 'gemini', 'gemini-thinking',
