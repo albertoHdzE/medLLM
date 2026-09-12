@@ -345,3 +345,67 @@ and no model judging anything.
    question was answered wrongly twice before the PDF settled it — the gate is necessary, not ceremonial.
 5. **Figure/caption misalignment** in the published article (pages 13–15). Needs a decision from the
    authors, and possibly the journal, before the updated figures are placed.
+
+---
+
+# STATUS — updated after Phase 3.3
+
+Ten commits on branch `clean`, from `17038a3` to `b4e5322`. 40 tests pass. Working tree clean.
+
+## Done
+
+| phase | outcome |
+|---|---|
+| 0 | Baseline frozen: 67 artifacts, 97 inputs, **532 dataset columns** hashed. Environment pinned (`setuptools<81` is load-bearing — 81 deprecated and 84 removed `pkg_resources`, which pybdm needs). |
+| 1 | Every published figure reproduces. Two root causes fixed. |
+| 2 | 33 notebooks, 62 data files, 58 PNGs, 20 scripts removed. 40 notebooks → 5; 97 CSVs → 35. |
+| 3.1 | `superarc/registry.py` — one model registry replacing six hand-written rename dicts. |
+| 3.2 | `superarc/table1.py` — Table 1 emitted for the first time; reproduces published exactly. |
+| 3.3 | Prefix-collision corrected in the formulae figures; SI evolution figures added to the gate. |
+
+## Two commands define the guarantee
+
+    python -m superarc.parity            # regenerate everything, compare to published
+    python -m superarc.baseline verify   # no published value has moved
+
+## Authorised corrections (author-ruled, each recorded in superarc/parity.py)
+
+1. **Formulae figures** — columns were matched by prefix, so five models absorbed a
+   longer-named model's answers. DeepSeek accuracy at complexity 2: 16.19 → 43.33.
+   Qwen equivalence at complexity 1: 42.22 → 0.00 (correct: Qwen alone has one variant).
+2. **Integrated Script Analysis** — the Gemini-2.5-Pro bar was drawn from the `gemini`
+   column, understating valid-script volume ninefold (82 → 750).
+3. **Bootstrap tiers** — `np.random.default_rng()` ignored the seed above it. Now seeded;
+   three labels corrected to their exact values (o1-Mini 0.035 → 0.034, Claude-3.5
+   0.034 → 0.033, Llama-4-Scout 0.005 → 0.004).
+4. **Script sandbox** — pinned to the standard library. Four o1-Preview scripts call
+   `sympy.primerange`; sympy's accidental presence had moved o1-Preview from 20.00% to
+   26.67%.
+
+## Do not repeat these mistakes
+
+- **Never identify a figure by its number.** The published caption/figure pairing is
+  offset on several pages. Use the title. See `superarc/parity.py` for the mapping.
+- **Never match a model column by prefix.** The model name is an atomic keyword;
+  resolve suffix-first then longest-name-wins (`superarc.registry.resolve_column`).
+- Supplementary Figures 5/6 **do** reproduce pixel-identically. They are not broken;
+  they merely cannot yet take a new model.
+
+## Next
+
+1. Add the missing `savefig` to `22_Timeseries_LLM_experiments.ipynb` — the
+   "Average similarity and Levenshtein" figure is built but never written to disk.
+2. Split `processing_answers.py` (self-imports; instantiates MOMENT-1-large on import,
+   needs `torch`) so the compression-metrics figure becomes producible.
+3. Verification notebooks, single CLI, README.
+4. Phase 4 ingestion assistant: calibrate on `gpt_4o` (~390 hand-done cases) before
+   building anything; gate at >=95% exact match.
+
+## Open for the authors
+
+- Figure/caption misalignment in the published PDF — may warrant a correction notice.
+- **The Python-script prompt survives nowhere** (`doc/prompts.md`). New models cannot be
+  added to the script figures until it is reconstructed.
+- `DeepSeek-R1-0525` vs `-0528`: one model, two labels in print.
+- Whether to switch the family-evolution figures onto the generated summary
+  (`superarc/model_summary.py`, written but deliberately unwired).
