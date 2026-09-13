@@ -259,6 +259,30 @@ def metrics_for(sequences: list[str]) -> dict[str, float]:
 PLACEHOLDER = "***"
 
 
+def placeholder_census(frame: pd.DataFrame | None = None) -> pd.DataFrame:
+    """How many answers are missing, per model and complexity.
+
+    This is the quantity that decides how much the placeholder matters, so it is
+    worth being able to look at rather than take on trust.
+    """
+    frame = pd.read_csv(DATASET) if frame is None else frame
+    rows = []
+    for model in PLOTTED_MODELS:
+        column = FORMULA_COLUMNS[model]
+        for complexity in COMPLEXITIES:
+            values = frame.loc[frame["complexity"] == complexity, column]
+            missing = (values.astype(str).str.strip() == PLACEHOLDER).sum()
+            rows.append({
+                "model": model,
+                "complexity": complexity,
+                "answers": len(values),
+                "missing": int(missing),
+            })
+    census = pd.DataFrame(rows)
+    census["missing %"] = (100 * census["missing"] / census["answers"]).round(1)
+    return census
+
+
 def per_string_measures(text: str) -> dict[str, float]:
     """The six measures for a single answer.
 

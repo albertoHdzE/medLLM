@@ -12,7 +12,7 @@ whether they still agree with the published paper.
 | 04 | `script-generation` | *not built yet* |
 | 05 | `superarc-seq` | *not built yet* |
 | 06 | `model-evolution` | *not built yet* |
-| 07 | `formulae-complexity` | *not built yet* |
+| 07 | `formulae-complexity` | Metrics Comparison ... for Formulae generation |
 
 ## What these are for
 
