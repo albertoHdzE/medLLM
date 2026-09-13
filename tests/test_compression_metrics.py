@@ -13,11 +13,14 @@ import pytest
 
 from superarc.compression_metrics import (
     FORMULA_COLUMNS,
+    PLACEHOLDER_EXPECTATION,
     PLOTTED_MODELS,
     compute,
     display_name,
+    estimate_placeholder_expectation,
     load_formulas,
     metrics_for,
+    per_string_measures,
 )
 
 
@@ -52,12 +55,75 @@ def test_grok_4_is_labelled_by_its_raw_key_as_published():
 
 
 def test_no_answer_is_replaced_not_dropped():
-    """'***' and empty cells become a placeholder, so they score as
-    incompressible rather than silently vanishing from the average."""
+    """'***' becomes a placeholder, so it scores as incompressible rather than
+    silently vanishing from the average."""
     frame = load_formulas()
     for column in FORMULA_COLUMNS.values():
         assert not frame[column].isna().any()
         assert not (frame[column] == "***").any()
+
+
+def test_the_figure_is_deterministic():
+    """No seed appears in the result. Two runs must agree exactly."""
+    a = compute(models=PLOTTED_MODELS[:4])
+    b = compute(models=PLOTTED_MODELS[:4])
+    merged = a.merge(b, on=["model", "complexity", "measure"], suffixes=("_a", "_b"))
+    assert len(merged) == 4 * 3 * 6
+    assert (merged["value_a"] == merged["value_b"]).all()
+
+
+def test_placeholder_expectation_matches_a_fresh_estimate():
+    """The pinned constants are reproducible, not asserted.
+
+    Checked at 4 standard errors of a much smaller sample, which is loose enough
+    not to be flaky and tight enough to catch a real change in the measure.
+    """
+    estimate = estimate_placeholder_expectation(draws=400, seed=7)
+    for key, pinned in PLACEHOLDER_EXPECTATION.items():
+        se = estimate.loc[key, "standard error"]
+        got = estimate.loc[key, "expectation"]
+        assert abs(got - pinned) <= 4 * se + 1e-9, f"{key}: {got} vs pinned {pinned}"
+
+
+def test_lzw_length_of_a_placeholder_is_exactly_constant():
+    """LZMA of any 45-character alphanumeric string base64s to 140 characters.
+
+    This is why the Avg LZW panel carried no seed sensitivity at all, and it is
+    worth pinning: if it ever stops holding, the expectation for that panel is
+    no longer a constant and the docstring's claim is wrong.
+    """
+    estimate = estimate_placeholder_expectation(draws=200, seed=3)
+    assert estimate.loc["avg_lzw", "sd"] == 0.0
+    assert estimate.loc["avg_lzw", "expectation"] == 140.0
+
+
+def test_per_string_decomposition_is_exact():
+    """Each panel is a mean of per-answer values.
+
+    The whole averaging argument rests on this: if a panel were not linear in
+    its per-answer values, substituting the placeholder's expectation would not
+    equal averaging the figure over draws.
+    """
+    frame = load_formulas(seed=5)
+    column = FORMULA_COLUMNS[PLOTTED_MODELS[0]]
+    answers = frame.loc[frame["complexity"] == 1, column].tolist()
+
+    grouped = metrics_for(answers)
+    decomposed = pd.DataFrame([per_string_measures(a) for a in answers]).mean()
+    for key, value in grouped.items():
+        assert value == pytest.approx(decomposed[key], abs=1e-9), key
+
+
+def test_leaving_the_placeholder_literal_would_invert_the_measure():
+    """'***' must not be scored as written.
+
+    Three characters compress superbly, so a missing answer would rank as the
+    best-compressing answer in the dataset -- the opposite of what it means.
+    """
+    missing = per_string_measures("***")
+    assert missing["avg_bdm"] < PLACEHOLDER_EXPECTATION["avg_bdm"] / 2
+    assert missing["avg_zip"] < PLACEHOLDER_EXPECTATION["avg_zip"] / 2
+    assert missing["avg_lzw"] < PLACEHOLDER_EXPECTATION["avg_lzw"]
 
 
 def test_answers_get_more_complex_as_the_target_does(table):

@@ -15,42 +15,60 @@ functions it actually needs already live in
 25 models x 3 complexities of the same one-line filter, written out by hand. It
 is a dict here.
 
-Two things preserved deliberately
----------------------------------
-**The '***' and NaN placeholder.** Where a model produced no formula the cell is
-``'***'`` or empty, and the original replaced both with a random 45-character
-alphanumeric string -- one string for all ``'***'`` cells, a second for all empty
-ones -- so that "no answer" would score as incompressible rather than as zero.
-The draw was unseeded, so the published figure cannot be recovered exactly. It is
-seeded now.
+The placeholder, and why the figure is deterministic now
+-------------------------------------------------------
+28.1% of the plotted cells -- 550 of 1955 -- are ``'***'``, meaning the model
+produced no formula at all. (No cell is empty; the original's ``fillna`` was
+dead code.)
 
-:func:`placeholder_sensitivity` measures what that draw is worth, and it is not
-negligible. Across five seeds, as a fraction of the range each panel spans:
+The original replaced every ``'***'`` with a random 45-character alphanumeric
+string. **That is right, and it cannot be skipped.** Left literal, ``'***'`` is
+three highly compressible characters, so "no answer" would score as the *best*
+answer in the dataset -- and the mismatch is large: leaving it literal lands
+15.6% of pixels from the published figure, against 3.3% for a random draw, and
+every panel's maximum then falls well short of the published axis (Avg BDM
+713 vs ~980, Avg ZIP 60 vs ~72, Avg BDM (LZW) 2425 vs ~2570).
 
-    Avg LZW          0.0%      exactly reproducible
-    Avg ZIP          0.0%      exactly reproducible
-    Avg Shannon      3.3%
-    Avg BDM (ZIP)    3.7%
-    Avg BDM          7.4%
-    Avg BDM (LZW)   10.6%
+The defect is only that the draw was never seeded, so the published image came
+from one arbitrary string nobody recorded. Two different seeds land ~3% of
+pixels apart, which is the whole of the gap.
 
-The two compressed-length panels do not move at all, because the compressed
-length of a random 45-character string does not depend on which characters were
-drawn. The BDM panels do, because BDM is sensitive to the exact bit pattern --
-which is precisely why it is the measure the paper is built on.
+**Resolution (author's ruling, 2026-09-12): average over the draw.** Each panel
+is a *mean* of per-answer values, and with one shared string every placeholder
+cell carries the same value, so each panel is linear in a single random
+quantity: the measure of one 45-character string. Averaging the figure over
+infinitely many draws is therefore exactly substituting that measure's
+expectation, which is :data:`PLACEHOLDER_EXPECTATION`. Same method, Monte Carlo
+error removed rather than frozen at an arbitrary seed, and no seed appears in
+the result.
 
-So four of the six panels are reproducible only up to the draw. Regenerating with
-seed 42 lands 3.3% of pixels away from the published figure, and two different
-seeds land 3.1% from each other, so the draw accounts for the whole gap and
-nothing else has changed. The trend every panel shows -- complexity of the
-answers rising with complexity of the target -- is far larger than this wobble
-and is unaffected. Choosing a reference seed is an author's decision, recorded
-in ``superarc.parity``.
+Verified, not assumed:
 
-**The legend says ``grok_4``.** The display map in the notebook has a key
-``'grok4'`` where the model is ``'grok_4'``, so the lookup falls through to its
-default and prints the raw key. It is printed that way in the Supplementary
-Information, so it is reproduced that way here. Fixing it is an author's call.
+* the decomposition into per-answer means is exact -- 0.0 difference over 108
+  values against the original grouped computation;
+* the expectation reproduces the mean of 40 seeded draws to within 0.2% of each
+  panel's range, which is the 40-draw average's own error, not the
+  expectation's (its standard errors are all under 0.05% of range);
+* two runs agree to 0.0 over all 414 values.
+
+The regenerated figure sits **4.6% of pixels from the published one** -- further
+than the 3.3% a single lucky seed gives. That is the expected outcome and not a
+regression: the published image is one draw from the distribution, and the
+expectation is its centre, not that draw. Individual draws sit 3-6% from each
+other.
+
+Per-cell independent draws were tried first and rejected on measurement: they
+cut the spread only from 3.3% to 1.8% on Avg BDM, because each model and
+complexity has just ~10 missing answers, and they made Avg ZIP *worse*
+(0.0% -> 0.2%), since a shared string gives every placeholder an identical
+compressed length.
+
+The legend says ``grok_4``
+--------------------------
+The display map in the notebook has a key ``'grok4'`` where the model is
+``'grok_4'``, so the lookup falls through to its default and prints the raw key.
+It is printed that way in the Supplementary Information, so it is reproduced
+that way here. Fixing it is an author's call.
 """
 
 from __future__ import annotations
@@ -59,15 +77,34 @@ import random
 import string
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from . import REPO_ROOT, plots_dir
 from .complexity_measures import (
+    ascii_to_binary_list,
     average_length_of_strings,
+    compress_text,
     list_of_strings_to_binary_lists,
     list_of_strings_to_compressed,
     process_binary_sequences,
 )
+
+_BDM = None
+
+
+def _bdm():
+    """One BDM instance, built on first use.
+
+    Constructing it loads the CTM lookup tables, which is far too expensive to
+    repeat per string -- and per_string_measures is called tens of thousands of
+    times when estimating the placeholder expectation.
+    """
+    global _BDM
+    if _BDM is None:
+        from pybdm import BDM
+        _BDM = BDM(ndim=1)
+    return _BDM
 
 DATASET = REPO_ROOT / "formulas_found_by_llm.csv"
 
@@ -219,15 +256,114 @@ def metrics_for(sequences: list[str]) -> dict[str, float]:
     }
 
 
+PLACEHOLDER = "***"
+
+
+def per_string_measures(text: str) -> dict[str, float]:
+    """The six measures for a single answer.
+
+    Each panel is a *mean* of these over a model's answers, which is what makes
+    the placeholder tractable -- see :data:`PLACEHOLDER_EXPECTATION`.
+    """
+    bits = np.array(ascii_to_binary_list(text))
+    lzw_text, zip_text = compress_text(text)
+    bdm = _bdm()
+    return {
+        "avg_bdm": bdm.bdm(bits),
+        "avg_shannon": bdm.ent(bits),
+        "avg_lzw": float(len(lzw_text)),
+        "avg_zip": float(len(zip_text)),
+        "avg_bdm_lzw": bdm.bdm(np.array(ascii_to_binary_list(lzw_text))),
+        "avg_bdm_zip": bdm.bdm(np.array(ascii_to_binary_list(zip_text))),
+    }
+
+
+def estimate_placeholder_expectation(draws: int = 20_000, seed: int = 0) -> pd.DataFrame:
+    """Expected measures of a random placeholder string, with standard errors.
+
+    This is the function that produced :data:`PLACEHOLDER_EXPECTATION`. Kept so
+    the constant is reproducible rather than asserted, and so the tests can
+    check it still holds.
+    """
+    rng = random.Random(seed)
+    alphabet = string.ascii_letters + string.digits
+    table = pd.DataFrame([
+        per_string_measures("".join(rng.choice(alphabet) for _ in range(PLACEHOLDER_LENGTH)))
+        for _ in range(draws)
+    ])
+    return pd.DataFrame({
+        "expectation": table.mean(),
+        "sd": table.std(ddof=1),
+        "standard error": table.std(ddof=1) / np.sqrt(draws),
+    })
+
+
+# Expected measures of one random 45-character alphanumeric placeholder.
+#
+# Produced by estimate_placeholder_expectation(draws=20_000, seed=0). Standard
+# errors were 0.18, 0.00035, 0.0, 0.0013, 0.43 and 0.30 -- under 0.05% of the
+# range its panel spans in every case, so the residual Monte Carlo error is far
+# below one line width.
+#
+# avg_lzw carries no error at all: LZMA of any 45-character alphanumeric string
+# base64-encodes to exactly 140 characters. Measured sd was exactly 0 over
+# 20,000 draws.
+PLACEHOLDER_EXPECTATION = {
+    "avg_bdm": 958.5531,
+    "avg_shannon": 4.8681,
+    "avg_lzw": 140.0,
+    "avg_zip": 71.9910,
+    "avg_bdm_lzw": 2556.5311,
+    "avg_bdm_zip": 1511.0446,
+}
+
+
+def metrics_with_placeholders(answers: list[str]) -> dict[str, float]:
+    """The six measures, with '***' answers held at their expected value.
+
+    '***' means the model produced no formula. The original replaced it with a
+    random 45-character string so that "no answer" scores as *incompressible*
+    rather than as a very short, highly compressible one. That is correct, and
+    is why the placeholder cannot simply be dropped -- leaving '***' literal
+    makes a missing answer the best-compressing answer in the dataset.
+
+    But the draw was never seeded, so the published image is unrecoverable.
+    Every panel is a mean of per-answer values, so it is linear in the
+    placeholder's measure, and averaging the figure over infinitely many draws
+    is exactly substituting that measure's expectation. That is what happens
+    here: the same method, with its Monte Carlo error removed rather than frozen
+    at one arbitrary seed.
+    """
+    if not answers:
+        return dict.fromkeys(PLACEHOLDER_EXPECTATION, 0.0)
+
+    real = [a for a in answers if str(a).strip() != PLACEHOLDER]
+    missing = len(answers) - len(real)
+
+    totals = {k: v * missing for k, v in PLACEHOLDER_EXPECTATION.items()}
+    for answer in real:
+        for key, value in per_string_measures(str(answer)).items():
+            totals[key] += value
+    return {key: total / len(answers) for key, total in totals.items()}
+
+
 def compute(frame: pd.DataFrame | None = None, models=PLOTTED_MODELS) -> pd.DataFrame:
-    """Long-format table: one row per model, complexity and measure."""
-    frame = load_formulas() if frame is None else frame
+    """Long-format table: one row per model, complexity and measure.
+
+    Reads the dataset as it stands, placeholders and all, and holds them at
+    their expectation. Pass a frame from :func:`load_formulas` to reproduce a
+    single seeded draw instead -- that frame has no '***' left in it, so the
+    per-answer path is used.
+    """
+    frame = pd.read_csv(DATASET) if frame is None else frame
+    already_drawn = not (frame == PLACEHOLDER).any().any()
     records = []
     for model in models:
         column = FORMULA_COLUMNS[model]
         for complexity in COMPLEXITIES:
             answers = frame.loc[frame["complexity"] == complexity, column].tolist()
-            for measure, value in metrics_for(answers).items():
+            measures = metrics_for(answers) if already_drawn else metrics_with_placeholders(answers)
+            for measure, value in measures.items():
                 records.append({
                     "model": model,
                     "complexity": complexity,

@@ -106,12 +106,14 @@ AUTHORISED_CHANGES = {
         "rounded exact scores"
     ),
     "figure10.png": (
-        "SI Fig 1  formulae complexity -- RESEEDED: answers that were '***' or "
-        "empty are stood in for by a random 45-character string, drawn unseeded, "
-        "so the published draw is unrecoverable. 3.3% of pixels; two other seeds "
-        "differ from each other by as much, so the draw is the whole gap. The "
-        "two compressed-length panels are exact; the four BDM/Shannon panels "
-        "move by up to 10.6% of their range with the seed"
+        "SI Fig 1  formulae complexity -- AVERAGED OVER THE DRAW by author's "
+        "ruling: 28% of answers are '***' (no formula produced) and were stood "
+        "in for by one random 45-character string, drawn unseeded, so the "
+        "published image is one arbitrary sample. Each panel is a mean and so is "
+        "linear in that string's measure, so the figure now uses its expectation "
+        "-- the same method with its Monte Carlo error removed. 4.6% of pixels, "
+        "which is larger than a lucky seed's 3.3% and should be: individual "
+        "draws sit 3-6% from each other, and this is their centre"
     ),
 }
 
