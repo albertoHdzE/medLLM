@@ -296,6 +296,39 @@ def columns_of(dataset: str, model_column: str, all_columns: list[str]) -> list[
     return out
 
 
+def prefix_collisions(dataset: str, all_columns: list[str]):
+    """Columns that ``startswith`` matching would have stolen from another model.
+
+    The defect this guards against, made visible. Model names are not prefixes,
+    they are atomic keywords: ``gpt_4o`` is a different model from
+    ``gpt_4o_mini``, but ``column.startswith("gpt_4o")`` is true for both. The
+    published figures were built that way, so five models were scored partly on
+    a longer-named model's answers.
+
+    Returns one row per model that loses columns, with the columns each would
+    have absorbed. An empty frame means no name in this dataset is a prefix of
+    another.
+    """
+    import pandas as pd
+
+    rows = []
+    for model in models_for(dataset):
+        name = model.column(dataset)
+        if name is None:
+            continue
+        correct = set(columns_of(dataset, name, all_columns))
+        by_prefix = {c for c in all_columns if c.startswith(name)}
+        stolen = sorted(by_prefix - correct)
+        if stolen:
+            rows.append({
+                "model": name,
+                "own columns": len(correct),
+                "wrongly absorbed": len(stolen),
+                "examples": ", ".join(stolen[:3]) + ("..." if len(stolen) > 3 else ""),
+            })
+    return pd.DataFrame(rows)
+
+
 def sorted_by_family(models: list[Model] | None = None) -> list[Model]:
     """Models grouped by family in publication order, oldest first within family."""
     pool = list(MODELS if models is None else models)

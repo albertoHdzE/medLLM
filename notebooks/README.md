@@ -8,7 +8,7 @@ whether they still agree with the published paper.
 |---|---|---|
 | 01 | `the-test-sequences` | BDM / Shannon / zip / lzw — Figure 1, bottom panel |
 | 02 | `time-series-forecasters` | Figure 1 top and middle, Figure 2 |
-| 03 | `formulae-generation` | *not built yet* |
+| 03 | `formulae-generation` | Equivalence + Accuracy, Integrated Formulae Analysis |
 | 04 | `script-generation` | *not built yet* |
 | 05 | `superarc-seq` | *not built yet* |
 | 06 | `model-evolution` | *not built yet* |

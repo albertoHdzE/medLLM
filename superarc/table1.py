@@ -39,6 +39,7 @@ import numpy as np
 import pandas as pd
 
 from . import REPO_ROOT
+from .complexity_measures import ascii_to_binary_list
 from .registry import C_SERIES, models_for
 
 # pybdm imports pkg_resources at module load. setuptools<81 provides it; this
@@ -90,11 +91,17 @@ ASI_ROW = {
 
 
 def ascii_to_bits(text: str) -> np.ndarray:
-    """Render a string as the bit array BDM operates on."""
-    return np.array(
-        [int(bit) for char in text for bit in format(ord(char), "08b")],
-        dtype=np.int8,
-    )
+    """Render a string as the bit array BDM operates on.
+
+    Thin adapter over the owner in :mod:`superarc.complexity_measures`, which
+    returns a list. This module needs the ``int8`` array pybdm wants.
+
+    There were two implementations of this, under two names -- the second
+    reason the search that would have found it never ran. They were checked by
+    running them against each other rather than by reading: identical on 8 of 8
+    inputs, differing only in return type. Collapsed on that evidence.
+    """
+    return np.array(ascii_to_binary_list(text), dtype=np.int8)
 
 
 def harmonic_mean(values: np.ndarray) -> float:
