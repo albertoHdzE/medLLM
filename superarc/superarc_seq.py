@@ -189,25 +189,51 @@ def proportions_by_type(df: pd.DataFrame, models=None) -> pd.DataFrame:
             records.append([column, *rho, label])
     df_stack = pd.DataFrame(records, columns=["Model", "p1", "p2", "p3", "p4", "Type"])
 
-    models_list = model_names
-    labels_study = list(SEQUENCE_SETS)
-    dfs_altair = []
-    for pp in ["p1", "p2", "p3", "p4"]:
-        df_filt_stack = df_stack.loc[:, pp].to_numpy()
-        num_models = len(models_list)
-        df_itermv = pd.DataFrame(df_filt_stack.reshape(
-            len(df_filt_stack) // num_models, num_models, order='F')).T
-        df_itermv.index = models_list
-        df_itermv.columns = labels_study
-        dfs_altair.append(df_itermv)
+    # CORRECTED, author's ruling 2026-09-14. See RESHAPE_ORDER.
+    frames = []
+    for column, label in zip(["p1", "p2", "p3", "p4"], PROB_LABELS):
+        wide = _wide(df_stack, column, model_names)
+        frames.append(_prep(wide, label, "Prob"))
 
-    lst_final_df = []
-    for pp, nm in enumerate(PROB_LABELS):
-        lst_final_df.append(_prep(dfs_altair[pp], nm, "Prob"))
-
-    df_final = pd.concat(lst_final_df, ignore_index=True)
+    df_final = pd.concat(frames, ignore_index=True)
     df_final['c1'] = df_final['c1'].apply(get_model_display_name)
     return df_final
+
+
+# The one-character defect, and why it is worth this much prose.
+#
+# Both by-type figures flatten a column of `len(SEQUENCE_SETS) * len(models)`
+# values, built set-major by the loop above, reshape it, transpose it, and then
+# *assign* MODEL_ORDER as the index. The reshape is what decides which model each
+# row belongs to, and nothing downstream can detect a mistake in it: the figure
+# plots either way, and every number in it is a real number that some model
+# really scored.
+#
+# The published phi figure reshaped in C order, which is right. The published
+# p1-p4 figure reshaped with order='F', which fills column by column, so the
+# point drawn for model j and sequence set i was flat[i + 4*j] -- four
+# CONSECUTIVE entries of a set-major array, which is four different models'
+# values for one set, not one model's values for four sets.
+#
+# Confirmed on all 448 points before correcting. 173 of them showed a number
+# belonging to a different model or a different sequence set; the rest coincided
+# because many class proportions are zero or repeat across models. ChatGPT-4o's
+# row, for instance, read p1 = 0.000 on every sequence set, when on Integers
+# Type 1 its true p1 is 1.000 -- every answer correct.
+#
+# Nothing else in this module used that reshape: Table 1, the ranking figure and
+# the bootstrap each compute from `score` directly.
+RESHAPE_ORDER = "C"
+
+
+def _wide(df_stack, column, model_names):
+    """One column of the set-major stack as a model-by-sequence-set frame."""
+    flat = df_stack.loc[:, column].to_numpy()
+    wide = pd.DataFrame(flat.reshape(len(flat) // len(model_names), len(model_names),
+                                     order=RESHAPE_ORDER)).T
+    wide.index = list(model_names)
+    wide.columns = list(SEQUENCE_SETS)
+    return wide
 
 
 def scores_by_type(df: pd.DataFrame, models=None) -> pd.DataFrame:
@@ -221,19 +247,10 @@ def scores_by_type(df: pd.DataFrame, models=None) -> pd.DataFrame:
             records.append([column, *delta, value, label])
     df_stack_2 = pd.DataFrame(records, columns=["Model", "r1", "r2", "r3", "tst", "Type"])
 
-    models_list = model_names
-    labels_study = list(SEQUENCE_SETS)
-    dfs_altair_2 = []
-    for pp in ["tst"]:
-        df_filt_stack = df_stack_2.loc[:, pp].to_numpy()
-        num_models = len(models_list)
-        df_itermv = pd.DataFrame(df_filt_stack.reshape(
-            len(df_filt_stack) // num_models, num_models)).T
-        df_itermv.index = models_list
-        df_itermv.columns = labels_study
-        dfs_altair_2.append(df_itermv)
-
-    df_final_2 = pd.concat([_prep(dfs_altair_2[0], PHI_LABEL, "Metric")], ignore_index=True)
+    # Same reshape as the probabilities figure, which is the point: the published
+    # script wrote it twice and got it right here and wrong there.
+    wide = _wide(df_stack_2, "tst", model_names)
+    df_final_2 = pd.concat([_prep(wide, PHI_LABEL, "Metric")], ignore_index=True)
     df_final_2['c1'] = df_final_2['c1'].apply(get_model_display_name)
     return df_final_2
 

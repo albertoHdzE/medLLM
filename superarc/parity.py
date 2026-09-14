@@ -90,8 +90,6 @@ DATA_AUTHORISED = {
 # elsewhere rather than against the published pixels.
 COMPARISONS = {
     "figure05.png": ("new_plots/figure05.png", "Fig 7  SuperARC-seq ranking"),
-    "figure06.png": ("new_plots/figure06.png", "p1-p4 by sequence type"),
-    "figure07.png": ("new_plots/figure07.png", "phi by sequence type"),
 }
 
 # Figures that deliberately no longer match what was printed. Each needs an
@@ -148,6 +146,35 @@ AUTHORISED_CHANGES = {
         "script set BY HAND is gone too: ChatGPT-4o-Mini's valid scripts at "
         "complexity 3 read 1, computed 11, and now compute 0, which is the truth "
         "-- all 30 of its cells there are missing answers"
+    ),
+    "figure06.png": (
+        "p1-p4 by sequence type -- CORRECTED: the reshape that decides which row "
+        "each model occupies used order='F'. Fortran order fills column by "
+        "column, so the point drawn for model j and sequence set i was "
+        "flat[i + 4*j] -- four CONSECUTIVE entries of a set-major array, which is "
+        "four different models' values for one set, not one model's values for "
+        "four sets. Confirmed on all 448 points. 173 of them showed a number "
+        "belonging to a different model or a different sequence set; the rest "
+        "coincided because many class proportions are zero or repeat. "
+        "ChatGPT-4o's row read p1 = 0.000 on every sequence set when its true p1 "
+        "on Integers Type 1 is 1.000 -- every answer correct. The companion phi "
+        "figure reshaped in C order and was right, which is what made this a slip "
+        "rather than a convention. Table 1, the ranking and the bootstrap compute "
+        "from superarc.table1.score directly and are untouched"
+    ),
+    "figure07.png": (
+        "phi by sequence type -- REORDERED, values unchanged: this figure's "
+        "numbers were always correct, but it sorts its y-axis by the summed class "
+        "proportions of the figure above, which are exactly 4.0 for every model "
+        "because proportions sum to 1 per sequence set. The sort key is "
+        "degenerate. Under the published reshape, floating-point summation of a "
+        "differently ordered set of addends gave 3.99999999999999956 for some "
+        "models and 4.0 for others -- a spread of 4.4e-16 -- and THAT is what "
+        "ordered the rows. With the reshape corrected the tie is exact and the "
+        "rows fall in a stable alphabetical order. 23 of 28 move. The apparent "
+        "top-to-bottom ranking in both by-type figures was never a ranking; "
+        "making it one would be a design change, not a correction, so it is left "
+        "for the authors"
     ),
     "figure08.png": (
         "bootstrap tiers -- RESEEDED: published draw came from an unseeded "

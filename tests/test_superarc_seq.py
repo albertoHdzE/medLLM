@@ -95,51 +95,54 @@ def _rho_in_published_loop_order(df):
     return flat
 
 
-def test_the_p_by_type_figure_is_scrambled_by_its_reshape(df):
-    """A defect in a published figure, pinned rather than silently fixed.
+def test_every_point_of_the_p_by_type_figure_is_its_own_models(df):
+    """The correction, checked point by point against a direct computation.
 
     ``proportions_by_type`` flattens a column of 112 values (4 sequence sets x 28
-    models, set-major), reshapes it to (4, 28) **with ``order='F'``**, transposes
-    and then *assigns* ``MODEL_ORDER`` as the index. Fortran order fills column
-    by column, so the point the figure draws for model ``j`` and sequence set
-    ``i`` is ``flat[i + 4*j]`` -- four consecutive entries of a set-major array,
-    which is four different models' values for one set, not one model's values
-    for four sets.
+    models, set-major), reshapes it, transposes and then *assigns*
+    ``MODEL_ORDER`` as the index. The reshape decides which model each row
+    belongs to, and nothing downstream can catch a mistake in it -- the figure
+    plots either way, and every number in it is a real number that some model
+    really scored.
 
-    The figure still plots, and every number in it is a real number that some
-    model really scored. It is simply on the wrong row.
+    This test is the only thing standing between a correct figure and a plausible
+    one, so it checks all 448 points rather than a sample.
+    """
+    published = S.proportions_by_type(df)
+    for name in S.SEQUENCE_SETS:
+        part = S.subset(df, name)
+        rows = published[published["c2"] == name]
+        for column in S.MODEL_ORDER:
+            rho, _delta, _phi = table1.score(part, column)
+            label = S.get_model_display_name(column)
+            for i, prob in enumerate(S.PROB_LABELS):
+                got = rows[(rows["c1"] == label) & (rows["Prob"] == prob)]["values"]
+                assert got.iloc[0] == pytest.approx(rho[i], abs=1e-12), (name, column, prob)
 
-    The companion phi figure a few lines later uses the default C order and is
-    correct, which is what makes this a slip rather than a convention.
 
-    Preserved as published pending an author ruling; this test states the
-    mechanism and the extent so neither can drift unnoticed.
+def test_the_published_reshape_is_the_one_that_was_corrected(df):
+    """What the published figure drew, kept on the record.
+
+    ``order='F'`` fills column by column, so the point drawn for model ``j`` and
+    sequence set ``i`` was ``flat[i + 4*j]`` -- four CONSECUTIVE entries of a
+    set-major array, which is four different models' values for one set. 173 of
+    the 448 points showed a number belonging to a different model or a different
+    sequence set; the rest coincided, because many class proportions are zero or
+    repeat across models.
+
+    This reconstructs it so the size of the correction stays measurable, and so
+    that anyone comparing against the printed figure can see why it differs.
     """
     flat = _rho_in_published_loop_order(df)
-    published = S.proportions_by_type(df)
-    labels = list(S.SEQUENCE_SETS)
-
-    matches_scramble = 0
-    misplaced = 0
-    for p, prob in enumerate(S.PROB_LABELS):
-        sub = published[published["Prob"] == prob]
-        for j, column in enumerate(S.MODEL_ORDER):
-            row = sub[sub["c1"] == S.get_model_display_name(column)]
-            for i, name in enumerate(labels):
-                got = float(row[row["c2"] == name]["values"].iloc[0])
-                if abs(got - flat[p][i + 4 * j]) < 1e-12:
-                    matches_scramble += 1
-                if abs(got - flat[p][i * len(S.MODEL_ORDER) + j]) > 1e-12:
-                    misplaced += 1
-
-    total = 4 * 4 * len(S.MODEL_ORDER)
-    assert matches_scramble == total, (
-        "the figure no longer matches the order='F' scramble; if it was fixed, "
-        "update this test and superarc/parity.py together"
+    n = len(S.MODEL_ORDER)
+    misplaced = sum(
+        abs(flat[p][i + 4 * j] - flat[p][i * n + j]) > 1e-12
+        for p in range(4)
+        for j in range(n)
+        for i in range(len(S.SEQUENCE_SETS))
     )
-    # Many rho values are zero or repeat across models, so a scrambled point can
-    # land on the right number by accident. 173 do not.
-    assert misplaced == 173, f"{misplaced} points misplaced, was 173 of {total}"
+    assert misplaced == 173, f"{misplaced} points would have been misplaced, was 173"
+    assert S.RESHAPE_ORDER == "C"
 
 
 def test_the_row_ordering_of_both_by_type_figures_is_a_no_op(df):
@@ -153,22 +156,24 @@ def test_the_row_ordering_of_both_by_type_figures_is_a_no_op(df):
     those two figures is not a ranking.
 
     Not a defect in the numbers, and not something to change without an author
-    saying so, since fixing the key would reorder both figures. Recorded because
-    a sort that silently does nothing reads exactly like a sort that works.
+    saying so, since giving it a real key would reorder both figures. Recorded
+    because a sort that silently does nothing reads exactly like a sort that
+    works.
+
+    What ordered the published rows was floating-point noise: summing a
+    differently ordered set of addends gave 3.99999999999999956 for some models
+    and 4.0 for others, a spread of 4.4e-16. With the reshape corrected the tie
+    is *exact*, so the order is stable instead of accidental. This asserts
+    exactness, not approximate equality -- an approximate assertion would have
+    passed on the published version too.
     """
-    flat = _rho_in_published_loop_order(df)
-    n = len(S.MODEL_ORDER)
-
-    true_totals = {
-        S.get_model_display_name(column): sum(
-            flat[p][i * n + j] for p in range(4) for i in range(len(S.SEQUENCE_SETS))
-        )
-        for j, column in enumerate(S.MODEL_ORDER)
-    }
-    assert {round(v, 9) for v in true_totals.values()} == {4.0}
-
     as_drawn = S.proportions_by_type(df).groupby("c1")["values"].sum()
-    assert set(as_drawn.round(9)) == {4.0}
+    assert as_drawn.nunique() == 1, (
+        f"the sort key is no longer an exact tie: spread "
+        f"{as_drawn.max() - as_drawn.min():.2e}. The row order is then decided by "
+        f"rounding, which is how the published figure was ordered."
+    )
+    assert as_drawn.iloc[0] == 4.0
 
 
 # ---- properties of the measure -----------------------------------------------
