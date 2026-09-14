@@ -87,7 +87,6 @@ DATA_AUTHORISED = {
 # cannot be recovered. It is seeded now, and checked for run-to-run stability
 # elsewhere rather than against the published pixels.
 COMPARISONS = {
-    "figure04-up.png": ("new_plots/figure04-up.png", "Fig 5  script equivalence + accuracy"),
     "figure05.png": ("new_plots/figure05.png", "Fig 7  SuperARC-seq ranking"),
     "figure06.png": ("new_plots/figure06.png", "p1-p4 by sequence type"),
     "figure07.png": ("new_plots/figure07.png", "phi by sequence type"),
@@ -110,6 +109,19 @@ AUTHORISED_CHANGES = {
     ),
     "figure03-bottom.png": (
         "Fig 4  integrated formulae -- CORRECTED: same prefix collision"
+    ),
+    "figure04-up.png": (
+        "Fig 5  script equivalence + accuracy -- CORRECTED: the accuracy panel "
+        "selected its columns with `model.lower() in col.lower()`, a substring "
+        "test, so four models were scored partly on a later model's programs. "
+        "7 of 84 values move: Mistral 34.38/13.12 -> 100.00/53.33 (it was "
+        "averaged over 16 columns instead of 2), DeepSeek 22.56/11.54 -> "
+        "100.00/58.33, Grok-3 33.33/7.62 -> 0.00/0.00, Qwen 1.28 -> 0.00 at "
+        "complexity 2. The equivalence panel above it used the safe form, so the "
+        "two panels of one figure disagreed about which programs are Grok-3's, "
+        "as did Supplementary Figures 5/6, which also used the safe form. "
+        "Extraction verified first: with the published selection restored the "
+        "module reproduces the old script at 0.0000%"
     ),
     "figure04-bottom.png": (
         "Fig 6  integrated script -- CORRECTED: the bar labelled Gemini-2.5-Pro "

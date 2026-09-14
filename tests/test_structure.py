@@ -77,6 +77,14 @@ OWNERS = {
         ("PLACEHOLDER_EXPECTATION = {", "superarc/compression_metrics.py"),
     "suffix-first, longest-name-wins column resolution":
         ("def resolve_column", "superarc/registry.py"),
+    "pairwise equivalence between a model's own programs":
+        ("matching_comparisons / total_comparisons", "superarc/scripts.py"),
+    "generated-program type classification":
+        ("'fibonacci', 'fib', 'prime', 'lucas'", "superarc/scripts.py"),
+    "splitting a model's answer into one program per column":
+        ("def split_model_scripts", "superarc/scripts.py"),
+    "normalising a program's printed output":
+        ("def clean_result", "superarc/scripts.py"),
 }
 
 # Copies that exist, are known, and are not collapsed yet. Declared so they are
@@ -94,17 +102,24 @@ KNOWN_DUPLICATES = {
         "The last copy goes with the SuperARC-seq extraction (notebook 05).",
     ),
     "def get_model_display_name": (
-        4,
-        "owner is superarc/registry.display_name; superarc/formulae.py holds a "
-        "thin adapter onto it, while 31-1_multiScript_experiment.py and "
-        "34-2_S-ARC_ext.py still carry their own maps -- and 31-1 holds two that "
-        "conflict, which is how one label came to denote two different models in "
-        "two figures. Collapses with the script extraction (notebook 04).",
+        3,
+        "owner is superarc/registry.display_name; superarc/formulae.py and "
+        "superarc/scripts.py hold thin adapters onto it, because each dataset "
+        "names the same model differently and the adapter is where that dataset "
+        "is named. 34-2_S-ARC_ext.py still carries its own map and collapses "
+        "with the SuperARC-seq extraction (notebook 05). "
+        "31-1_multiScript_experiment.py held TWO that conflicted -- Figure 5 "
+        "mapped `gemini-2.5-pro` to Gemini-2.5-Pro, Figure 6 mapped `gemini` to "
+        "it -- and that is now one definition in superarc/scripts.py.",
     ),
     "def compare_sequences": (
-        3,
-        "owner is superarc/formulae.py; 31-1_multiScript_experiment.py and its "
-        "notebook copy still carry their own. Collapses with notebook 04.",
+        2,
+        "NOT a duplicate: superarc/formulae.py counts a prefix of the target as "
+        "a match, superarc/scripts.py demands the whole sequence. Two published "
+        "definitions of 'right', one per experiment. Declared here because a "
+        "census counts them as two copies of one name, and because collapsing "
+        "them would silently move one of the two experiments. Pinned in "
+        "tests/test_scripts.py::test_compare_sequences.",
     ),
     "FAMILY_ORDER": (
         2,

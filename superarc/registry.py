@@ -200,6 +200,17 @@ COLUMN_SUFFIXES: dict[str, tuple[str, ...]] = {
     ),
     B_SCRIPT: (
         r"",              # the raw list of scripts
+        # Derived at runtime by superarc.scripts, which splits the raw list into
+        # one column per program and then measures each. Declared here because
+        # the grammar is the same grammar: a derived column still begins with an
+        # atomic model name, and the substring test that skipped this step is
+        # what scored Grok-3 on Grok-4's programs in published Figure 5.
+        r"_script_\d+",
+        r"_script_\d+_result",
+        r"_script_\d+_result_formatted",
+        r"_script_\d+_accuracy",
+        r"_script_\d+_classification",
+        r"_equivalence_percentage",
     ),
     C_SERIES: (
         r"-formula", r"-formula-eval", r"-formula-correctness",
