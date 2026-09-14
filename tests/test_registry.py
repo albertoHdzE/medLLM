@@ -164,3 +164,51 @@ class TestPublishedLabels(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_every_column_of_every_dataset_resolves():
+    """No column may be merely unrecognised.
+
+    A column the registry cannot resolve is dropped without a word, which is how
+    a Gemini column vanished from each of Figures 5 and 6. Every model-bearing
+    column in all three datasets must bind either to a registered model or to a
+    name declared retired with a reason.
+    """
+    import pandas as pd
+
+    from superarc import REPO_ROOT
+    from superarc.registry import (
+        A_FORMULA,
+        B_SCRIPT,
+        C_SERIES,
+        RETIRED_COLUMNS,
+        resolve_column,
+    )
+
+    files = {
+        A_FORMULA: ("multi-formula-time-series.csv", "latin1"),
+        B_SCRIPT: ("multi-python-script-time-series.csv", "utf-8"),
+        C_SERIES: ("seriesWithLLMs_ext_Dic2025.csv", "latin-1"),
+    }
+    for dataset, (name, encoding) in files.items():
+        frame = pd.read_csv(REPO_ROOT / name, encoding=encoding, nrows=1)
+        columns = [c for c in frame.columns if c not in ("sequence", "Complexity")]
+        unresolved = [c for c in columns if resolve_column(dataset, c) is None]
+        assert not unresolved, (
+            f"{name}: {len(unresolved)} column(s) bind to no model and are not "
+            f"declared retired: {sorted(unresolved)}. Add the model to MODELS or "
+            f"the name to RETIRED_COLUMNS with the reason."
+        )
+        # And retirement must carry its reason, not just its name.
+        for column, why in RETIRED_COLUMNS.get(dataset, {}).items():
+            assert len(why) > 40, f"{dataset}:{column} retired without a reason"
+
+
+def test_no_two_columns_of_one_dataset_carry_the_same_label():
+    """One label, one model. The defect that put two models under the name
+    Gemini-2.5-Pro in two figures of the same paper."""
+    from superarc.registry import A_FORMULA, B_SCRIPT, C_SERIES, models_for
+
+    for dataset in (A_FORMULA, B_SCRIPT, C_SERIES):
+        labels = [m.name for m in models_for(dataset)]
+        assert len(labels) == len(set(labels)), dataset

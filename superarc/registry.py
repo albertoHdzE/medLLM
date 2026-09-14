@@ -163,6 +163,28 @@ RETIRED_COLUMNS: dict[str, dict[str, str]] = {
             "column."
         ),
     },
+    C_SERIES: {
+        "gpt_o1": (
+            "A SECOND o1-Preview run, on the 100 binary sequences only, which "
+            "DISAGREES with the `o1_preview` columns the paper used: the two "
+            "`-formula` texts differ on all 100 shared rows, `-formula-ordinal` "
+            "on all 100, `-formula-correctness` on 29 and `-program` on 10. No "
+            "producer reads it -- 34-2_S-ARC_ext.py lists `o1_preview` -- so "
+            "Table 1 and Figures 7-10 are unaffected. Declared rather than left "
+            "unresolved so that it cannot be picked up by accident, and so the "
+            "disagreement is on the record. Which run is authoritative is an "
+            "open question for the authors."
+        ),
+        "meta-ai": (
+            "Not a model: a misspelling of one column's prefix. Meta's columns "
+            "are `meta-formula`, `meta-formula-correctness`, `-ordinal` and "
+            "`-copy_seq`, but its `-formula-eval` column is named "
+            "`meta-ai-formula-eval`. Every other model spells it "
+            "`<name>-formula-eval`. Harmless today because no producer reads "
+            "`-formula-eval` at all, but it is the sort of stray prefix that "
+            "silently drops a column the day something does."
+        ),
+    },
 }
 
 # Labels as they appear in the published paper, where these differ from the
