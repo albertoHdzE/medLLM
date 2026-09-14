@@ -5,71 +5,42 @@ import numpy as np
 import os
 
 from superarc import plots_dir as _plots_dir
+from superarc.registry import (
+    A_FORMULA as _A,
+    B_SCRIPT as _B,
+    display_name as _display_name,
+    models_for as _models_for,
+)
+
+
+def _name_map(dataset):
+    """Column -> published label, from the registry that owns model identity.
+
+    These were two hand-written dicts. Checked elementwise before removal:
+    FORMULA_NAME_MAP agreed with the registry on all 28 entries, and
+    SCRIPT_NAME_MAP on 27 of 28. The single disagreement is the Gemini column of
+    the script dataset, and it is a real defect rather than a naming convention
+    -- see the note below.
+    """
+    return {m.column(dataset): _display_name(dataset, m.column(dataset), published=True)
+            for m in _models_for(dataset)}
+
+
+# The script dataset carries three Gemini columns -- `gemini`, `gemini-thinking`
+# and `gemini-2.5-pro` -- all fully populated, with 119, 162 and 750 scripts.
+# The map this replaces sent `gemini` to "Gemini-2.5-Pro" and had no entry for
+# `gemini-2.5-pro` at all, so these figures labelled the 119-script column
+# Gemini-2.5-Pro and discarded the 750-script one. That is the same defect
+# already corrected in the Integrated Script Analysis, where the valid-script
+# volume went from 82 to 750; this file was never corrected with it, so the two
+# figures in the paper disagreed with each other.
+SCRIPT_NAME_MAP = _name_map(_B)
+FORMULA_NAME_MAP = _name_map(_A)
 
 # --- Mappings & Configuration ---
 
 # 1. New Maps from User Request
-SCRIPT_NAME_MAP = {
-    'chatgpt-4o': 'ChatGPT-4o',
-    'gpt-4o-mini': 'ChatGPT-4o-Mini',
-    'gemini': 'Gemini-2.5-Pro',
-    'gemini-thinking': 'Gemini',
-    'claude-3-5-sonnet': 'Claude-3.5',
-    'chatgpt-o1': 'o1-Preview',
-    'mistral': 'Mistral',
-    'meta': 'Meta',
-    'cursor_small': 'Cursor-Small',
-    'o1_mini': 'o1-Mini',
-    'grok': 'Grok-3',
-    'grok-3': 'Grok-4',
-    'qwen': 'Qwen',
-    'deepseek': 'DeepSeek',
-    'chatgpt-4.5': 'ChatGPT-4.5',
-    'claude-3.7': 'Claude-3.7',
-    'deepseek_r1_0525': 'DeepSeek-R1-0528',
-    'llama_4_scout': 'Llama-4-Scout',
-    'qwen3': 'Qwen-3',
-    'chatgpt_5': 'ChatGPT-5',
-    'opus_4': 'Claude-Opus-4',
-    'mistral_large2405': 'Mistral-Large-2405',
-    'claude_sonnet_4': 'Claude-Sonnet-4',
-    'grok_4.1': 'Grok-4.1',
-    'gpt-5.2': 'ChatGPT-5.2',
-    'claude-4.5': 'Claude-4.5',
-    'gemini-3-pro': 'Gemini-3-Pro',
-    'mistral-large-3': 'Mistral-Large-3',
-}
 
-FORMULA_NAME_MAP = {
-    'gpt_4o': 'ChatGPT-4o',
-    'gpt_4o_mini': 'ChatGPT-4o-Mini',
-    'gemini_2.5_pro': 'Gemini-2.5-Pro',
-    'gemini': 'Gemini',
-    'claude_3.5': 'Claude-3.5',
-    'o1_preview': 'o1-Preview',
-    'mistral': 'Mistral',
-    'meta': 'Meta',
-    'cursor_small': 'Cursor-Small',
-    'o1_mini': 'o1-Mini',
-    'grok_3': 'Grok-3',
-    'grok4': 'Grok-4',
-    'qwen': 'Qwen',
-    'deepseek': 'DeepSeek',
-    'chatgpt_4.5': 'ChatGPT-4.5',
-    'claude_3.7': 'Claude-3.7',
-    'deepseek_r1_0528': 'DeepSeek-R1-0525',
-    'llama_4_scout': 'Llama-4-Scout',
-    'qwen3': 'Qwen-3',
-    'chatgpt_5': 'ChatGPT-5',
-    'opus_4': 'Claude-Opus-4',
-    'mistral_large2405': 'Mistral-Large-2405',
-    'claude_sonnet_4': 'Claude-Sonnet-4',
-    'grok_4.1': 'Grok-4.1',
-    'gpt-5.2': 'ChatGPT-5.2',
-    'claude-4.5': 'Claude-4.5',
-    'gemini-3-pro': 'Gemini-3-Pro',
-    'mistral-large-3': 'Mistral-Large-3',
-}
 
 # 2. Family Order (Chronological Assumption: Left=Youngest/Newest?)
 # User says: "first the youngest, and the oldest as the last... plotting should present in the left the youngest and the right the oldest"

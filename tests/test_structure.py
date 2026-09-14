@@ -106,6 +106,16 @@ KNOWN_DUPLICATES = {
         "owner is superarc/formulae.py; 31-1_multiScript_experiment.py and its "
         "notebook copy still carry their own. Collapses with notebook 04.",
     ),
+    "FAMILY_ORDER": (
+        2,
+        "superarc/registry.py orders families and derives within-family order "
+        "from Model.order; 35_summary_statistics.py carries a dict that spells "
+        "both out. They are NOT the same shape, and they disagree -- the local "
+        "one says 'Deepseek' where the registry says 'DeepSeek', and omits "
+        "'Cursor' entirely. Not collapsed blind, because the within-family "
+        "ordering sets the layout of the evolution figures. Collapses with "
+        "notebook 06, after the two orderings are diffed elementwise.",
+    ),
 }
 
 

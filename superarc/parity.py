@@ -61,8 +61,24 @@ NEWLY_SAVED = {
 DATA_COMPARISONS = {
     "plots/multi_formula/multiple_formulae_values.csv":
         "SI Figs 5/6  family evolution, formulae values",
-    "plots/multi_script/multiple_script_values.csv":
-        "SI Figs 5/6  family evolution, script values",
+}
+
+# Data files that deliberately no longer match, for the same reason a figure
+# might. Still regenerated every run and held to determinism.
+DATA_AUTHORISED = {
+    "plots/multi_script/multiple_script_values.csv": (
+        "SI Figs 5/6  script values -- CORRECTED: 35_summary_statistics.py "
+        "carried its own name map, which sent the `gemini` column to the label "
+        "Gemini-2.5-Pro and had no entry for `gemini-2.5-pro` at all. All three "
+        "Gemini columns are fully populated (119, 162 and 750 scripts), so the "
+        "figures labelled the 119-script column Gemini-2.5-Pro and discarded "
+        "the 750-script one. Same defect already corrected in the Integrated "
+        "Script Analysis (82 -> 750); this file was missed, so the two figures "
+        "disagreed with each other. 16 values move, all on the Gemini-2.5-Pro "
+        "row: valid instances 30/23/0 -> 172/187/300, accuracy 100.00/56.67 -> "
+        "53.33/20.00. Nothing else changes and the formulae side stays "
+        "byte-identical"
+    ),
 }
 
 # regenerated filename -> (published artifact, human label)
@@ -260,6 +276,15 @@ def check(out_dir: Path) -> int:
             print(f"{label:52s} {'DIFFERS':>14s}")
             failures.append(f"{label}: content differs from published")
 
+    for relative, why in DATA_AUTHORISED.items():
+        name = Path(relative).name
+        candidates = list(out_dir.rglob(name))
+        if not candidates:
+            print(f"{why[:50]:52s} {'NOT PRODUCED':>14s}")
+            failures.append(f"{relative}: not produced")
+        else:
+            print(f"{why[:50]:52s} {'authorised':>14s}")
+
     for produced, label in NEWLY_SAVED.items():
         if not (out_dir / produced).exists():
             print(f"{label:52s} {'NOT PRODUCED':>14s}")
@@ -292,7 +317,23 @@ def check_determinism(first: Path, second: Path) -> list[str]:
     reference: determinism is the only guarantee available for them.
     """
     failures = []
-    print("\nrun-to-run determinism of corrected and newly-saved figures:")
+    print("\nrun-to-run determinism of corrected and newly-saved outputs:")
+
+    # Data files first. An authorised change to a CSV would otherwise leave the
+    # figures drawn from it with no check at all, which is how a correction
+    # becomes a hole in the gate.
+    for relative in DATA_AUTHORISED:
+        name = Path(relative).name
+        a = next(iter(first.rglob(name)), None)
+        b = next(iter(second.rglob(name)), None)
+        if a is None or b is None:
+            failures.append(f"{name}: missing from one of the two runs")
+            continue
+        ok = a.read_bytes() == b.read_bytes()
+        print(f"  {name:38s} {'stable' if ok else 'NOT REPRODUCIBLE':>18s}")
+        if not ok:
+            failures.append(f"{name}: differs between two runs of identical code")
+
     for produced in list(AUTHORISED_CHANGES) + list(NEWLY_SAVED):
         a, b = first / produced, second / produced
         if not (a.exists() and b.exists()):
