@@ -77,7 +77,9 @@ DATA_AUTHORISED = {
         "disagreed with each other. 16 values move, all on the Gemini-2.5-Pro "
         "row: valid instances 30/23/0 -> 172/187/300, accuracy 100.00/56.67 -> "
         "53.33/20.00. Nothing else changes and the formulae side stays "
-        "byte-identical"
+        "byte-identical. "
+        "ALSO carries the two corrections recorded under figure04-up: the "
+        "substring column selection and the `\"*not found*\"` shredding"
     ),
 }
 
@@ -121,12 +123,31 @@ AUTHORISED_CHANGES = {
         "two panels of one figure disagreed about which programs are Grok-3's, "
         "as did Supplementary Figures 5/6, which also used the safe form. "
         "Extraction verified first: with the published selection restored the "
-        "module reproduces the old script at 0.0000%"
+        "module reproduces the old script at 0.0000%. "
+        "ALSO CORRECTED (author's ruling 2026-09-14): a missing answer was read "
+        "as eleven programs. 216 cells hold the quoted string `\"*not found*\"` "
+        "rather than a list, and the loader indexed it without checking its "
+        "type, so one missing answer became the eleven characters of the words. "
+        "Seven models were therefore given eleven program columns where they "
+        "wrote at most three or four, and accuracy was divided by eleven: "
+        "ChatGPT-4o-Mini 14.55 -> 53.33, Gemini-2.5-Pro 9.70 -> 35.56, "
+        "DeepSeek-R1-0528 8.48 -> 31.11, Claude-3.7 8.48 -> 23.33, "
+        "Llama-4-Scout and Mistral-Large-2405 4.55 -> 16.67 (complexity 1). "
+        "The other 21 models do not move, and equivalence does not move for the "
+        "seven either -- a one-character program never ran, so it was never in "
+        "the equivalence numerator or denominator"
     ),
     "figure04-bottom.png": (
         "Fig 6  integrated script -- CORRECTED: the bar labelled Gemini-2.5-Pro "
         "was drawn from the `gemini` column instead of `gemini-2.5-pro`, "
-        "understating its valid-script volume by 9x (82 vs 750)"
+        "understating its valid-script volume by 9x (82 vs 750). "
+        "ALSO CORRECTED: the same `\"*not found*\"` shredding, which inflated the "
+        "Not-found and Pure-math bars of seven models -- each missing answer "
+        "contributed nine Not-found labels and two Pure-math ones, '*' being a "
+        "mathematical operator. With it corrected, the one count the published "
+        "script set BY HAND is gone too: ChatGPT-4o-Mini's valid scripts at "
+        "complexity 3 read 1, computed 11, and now compute 0, which is the truth "
+        "-- all 30 of its cells there are missing answers"
     ),
     "figure08.png": (
         "bootstrap tiers -- RESEEDED: published draw came from an unseeded "

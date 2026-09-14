@@ -20,8 +20,8 @@ hyphen -- so nothing could show the numbers behind Figures 5 and 6 without
 re-implementing them, and ``31_multiScript_experiment.ipynb`` duly carried its
 own diverged copies. The script is now a forwarder onto this module.
 
-Three defects this consolidation had to resolve
------------------------------------------------
+Four defects this consolidation had to resolve
+----------------------------------------------
 1. The script defined ``get_model_display_name`` **twice**, once before each
    figure, and the two disagreed about which column is Gemini-2.5-Pro. Figure 5
    used ``gemini-2.5-pro``; Figure 6 used ``gemini``. One label, two different
@@ -45,6 +45,10 @@ Three defects this consolidation had to resolve
    other row came out NaN and "highest average equivalence" always named
    ChatGPT-4o. Console output only; the figure was correct.
 
+4. A missing answer was read as eleven programs. See :data:`NO_ANSWER` for the
+   mechanism and the measured effect; it is the largest of the four corrections
+   and the only one the authors had to rule on separately.
+
 ``MODEL_ORDER`` stays here rather than in the registry for the reason given in
 :mod:`superarc.formulae`: it is this figure's legend and marker order, not model
 identity.
@@ -67,6 +71,36 @@ DATASET = REPO_ROOT / "multi-python-script-time-series.csv"
 
 # A model produced no usable answer.
 NOT_FOUND = "*not found"
+
+# The same thing said a different way, and the source of a correction.
+#
+# 216 cells across 7 models hold the quoted string `"*not found*"` rather than a
+# list of programs. The published loader indexed that value without checking its
+# type, and indexing a string gives characters, so one missing answer became
+# eleven one-character "programs":
+#
+#     '*', 'n', 'o', 't', ' ', 'f', 'o', 'u', 'n', 'd', '*'
+#
+# Each was then executed, classified ('*' is a mathematical operator, so it
+# landed in Pure math) and counted. Worse, the number of program columns a model
+# gets is the longest value in its column, so all seven models were given ELEVEN
+# program columns where they had written at most three or four -- and that count
+# is the denominator of their accuracy.
+#
+# Corrected by the authors' ruling, 2026-09-14. The effect is contained: the
+# other 21 models do not move at all, and equivalence does not move for the seven
+# either, because a one-character program never produced runnable output and so
+# was never in the equivalence numerator or denominator. Accuracy moves, because
+# it was being divided by 11 instead of by 3:
+#
+#     ChatGPT-4o-Mini     14.55 -> 53.33      Claude-3.7          8.48 -> 23.33
+#     Gemini-2.5-Pro       9.70 -> 35.56      Llama-4-Scout       4.55 -> 16.67
+#     DeepSeek-R1-0528     8.48 -> 31.11      Mistral-Large-2405  4.55 -> 16.67
+#     (complexity 1; Qwen-3 is 0.00 either way)
+#
+# This is not a model's error being repaired. The models answered "nothing"; the
+# code read "nothing" as eleven things.
+NO_ANSWER = '"*not found*"'
 
 COMPLEXITIES = (1, 2, 3)
 COMPLEXITY_LABELS = ("Low", "Medium", "High")
@@ -150,16 +184,18 @@ def split_model_scripts(df, model_name) -> pd.DataFrame:
       caller can add them in a single concat. Inserting ~300 columns one by one
       is what made pandas warn about a fragmented frame 600 times per run.
 
-    What is *not* changed is the padding behaviour, including its defect: a cell
-    holding a quoted string rather than a list is indexed character by character,
-    so a ``"*not found*"`` answer becomes eleven one-character programs. See the
-    module docstring.
+    And one correction, ruled on by the authors: a cell that parses to a *string*
+    is a missing answer, not a list of programs. See :data:`NO_ANSWER`.
     """
     # Convert string representation of list to actual list and get max length
     def safe_eval(x):
         if pd.isna(x) or x == "" or x == "*not found":
             return ["*not found"]  # Return "*not found" for empty/nan/not found cases
-        return ast.literal_eval(x)
+        value = ast.literal_eval(x)
+        # CORRECTED. The published code indexed this value without checking what
+        # it was, and indexing a *string* gives you characters, so one missing
+        # answer became eleven one-character "programs". See NO_ANSWER.
+        return [NOT_FOUND] if isinstance(value, str) else value
 
     parsed = df[model_name].apply(safe_eval)
     max_scripts = parsed.str.len().max()
@@ -447,14 +483,20 @@ def process_model_data(df, models=None):
     
     script_data = pd.DataFrame(script_counts)
 
-    # Typed over a computed value in the published script, under the comment
-    # "Fix for ChatGPT-4o-Mini at complexity 3". Kept because it is what the
-    # published figure shows, and because removing it would be editing a
-    # published result on my own authority. Flagged here so it is visible:
-    # the computed count is reported by
-    # tests/test_scripts.py::test_the_hand_set_count_is_the_only_one.
-    script_data.loc[(script_data['Model'] == 'gpt-4o-mini') &
-                    (script_data['Complexity'] == 3), 'Count'] = 1
+    # REMOVED, with the NO_ANSWER correction. The published script ended with
+    #
+    #     # Fix for ChatGPT-4o-Mini at complexity 3
+    #     script_data.loc[(script_data['Model'] == 'gpt-4o-mini') &
+    #                     (script_data['Complexity'] == 3), 'Count'] = 1
+    #
+    # a value typed over a computed one. It was patching a symptom of the
+    # shredding: all 30 of that model's complexity-3 cells are `"*not found*"`,
+    # which the loader turned into 11 columns of single characters, and the
+    # counting rule below calls a COLUMN valid when no row in it is missing --
+    # which a column of '*' satisfies. So the computation said 11, somebody
+    # wrote 1, and the truth is 0. With NO_ANSWER corrected the computation says
+    # 0 on its own and there is nothing left to patch.
+    # tests/test_scripts.py::test_no_count_is_set_by_hand holds that.
 
     return (script_data,
             pd.DataFrame(total_classifications),

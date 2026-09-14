@@ -116,7 +116,14 @@ def test_columns_are_matched_whole_not_by_substring(measured):
 
 
 def test_the_substring_collision_would_have_been_real(measured):
-    """Named, so the test fails loudly if substring matching comes back."""
+    """Named, so the test fails loudly if substring matching comes back.
+
+    The counts below are what the collision costs *now*. In the published run
+    they were larger -- mistral 16, qwen 13, deepseek 13, grok 7 -- because the
+    longer-named models each carried eleven program columns instead of three
+    under the defect :data:`superarc.scripts.NO_ANSWER` describes. The collision
+    and the shredding are independent; correcting one shrank the other.
+    """
     df = measured
     accuracy_cols = [c for c in df.columns if c.endswith("_accuracy")]
     inflated = {}
@@ -125,11 +132,13 @@ def test_the_substring_collision_would_have_been_real(measured):
         whole = S._script_cols(df, model, "_accuracy")
         inflated[model] = (len(whole), len(by_substring))
     assert inflated == {
-        "mistral": (2, 16),
+        "mistral": (2, 8),
         "grok": (2, 7),
-        "qwen": (2, 13),
-        "deepseek": (2, 13),
+        "qwen": (2, 5),
+        "deepseek": (2, 5),
     }
+    # Whichever way it is counted, every model loses columns to a longer name.
+    assert all(whole < substring for whole, substring in inflated.values())
 
 
 def test_prefix_matching_would_also_have_been_wrong(measured):
@@ -270,34 +279,35 @@ def test_process_model_data_covers_every_registered_model_and_class(measured):
 # ---- the two pinned defects --------------------------------------------------
 
 
-def test_a_missing_answer_is_shredded_into_one_character_programs():
-    """216 cells hold a quoted string, not a list, and are indexed per character.
+def test_a_missing_answer_would_have_been_shredded():
+    """The defect the NO_ANSWER correction removed, held down at its source.
 
-    ``"*not found*"`` is eleven characters, so it becomes eleven one-character
-    programs -- and because ``max_scripts`` is the longest value in the column,
-    it also sets the column count for the whole model. Seven models therefore
-    have eleven program columns where they wrote at most three or four, which is
-    the denominator of their accuracy in Figure 5 and the height of their
-    Not-found and Pure-math bars in Figure 6.
+    216 cells across 7 models hold the quoted string ``"*not found*"`` rather
+    than a list. The published loader indexed that value without checking its
+    type, and indexing a string gives characters, so one missing answer became
+    eleven one-character programs -- and because the number of program columns is
+    the longest value in the column, it gave those models eleven columns where
+    they had written at most three or four.
 
-    Preserved, not fixed: it changes two published figures and is the authors'
-    call. Pinned here so the extent is on the record and cannot drift unnoticed.
+    This reads the raw file the way the published code did, and asserts the
+    extent is exactly what was measured when the authors ruled on it. If the
+    dataset gains such a cell for another model, this fails and says so.
     """
     raw = pd.read_csv(S.DATASET)
     shredded = {}
     for column in [c for c in raw.columns if c not in ("sequence", "Complexity")]:
-        def parse(x):
+        def parse_as_published(x):
             if pd.isna(x) or x == "" or x == "*not found":
                 return ["*not found"]
-            return ast.literal_eval(x)
-        parsed = raw[column].apply(parse)
+            return ast.literal_eval(x)   # no type check -- the published behaviour
+        parsed = raw[column].apply(parse_as_published)
         count = int(parsed.apply(lambda v: isinstance(v, str)).sum())
         if count:
             real = max(len(v) for v in parsed if isinstance(v, list))
             shredded[column] = (count, real, int(parsed.str.len().max()))
 
     assert shredded == {
-        # column: (cells shredded, longest real answer, columns created)
+        # column: (cells with no answer, longest real answer, columns it created)
         "gpt-4o-mini": (61, 3, 11),
         "gemini-2.5-pro": (60, 3, 11),
         "claude-3.7": (16, 4, 11),
@@ -309,47 +319,85 @@ def test_a_missing_answer_is_shredded_into_one_character_programs():
     assert sum(v[0] for v in shredded.values()) == 216
 
 
-def test_the_hand_set_count_is_the_only_one(measured):
-    """Figure 6 shows 1 valid ChatGPT-4o-Mini script at complexity 3; it computes 11.
+def test_a_missing_answer_is_now_read_as_no_answer(measured):
+    """The correction itself: each model gets as many columns as it wrote.
 
-    The published script assigned that cell by hand under the comment "Fix for
-    ChatGPT-4o-Mini at complexity 3". The computed 11 is itself an artifact --
-    all 30 of its complexity-3 cells are shredded ``"*not found*"`` strings, and
-    the counting rule calls a column valid when no row in it is NaN or exactly
-    ``'*not found'``, which a column of ``'*'`` satisfies. So neither number is
-    the truth, which is 0.
+    The seven models above had 11 program columns; they now have the length of
+    their longest real answer, and every cell of a missing answer reads
+    ``*not found`` rather than a character of the words "not found".
+    """
+    expected_columns = {
+        "gpt-4o-mini": 3,
+        "gemini-2.5-pro": 3,
+        "claude-3.7": 4,
+        "deepseek_r1_0525": 3,
+        "llama_4_scout": 3,
+        "qwen3": 3,
+        "mistral_large2405": 3,
+    }
+    for model, count in expected_columns.items():
+        assert len(S._script_cols(measured, model)) == count, model
 
-    Kept as published. This test states what was typed over, and asserts that it
-    is the only such override.
+    # No cell anywhere is a single character of `*not found*`.
+    for model in S.MODEL_ORDER:
+        for column in S._script_cols(measured, model):
+            singles = measured[column][measured[column].str.len() == 1]
+            assert singles.empty, f"{column} still holds one-character programs"
+
+
+def test_the_correction_leaves_equivalence_untouched(measured):
+    """Why it is safe, stated as a test rather than as a claim.
+
+    A one-character program never produced runnable output, so it was never in
+    the equivalence numerator or denominator. Only accuracy was being divided by
+    eleven. These are the published equivalence values for the seven affected
+    models at complexity 1, which the correction must not move.
+    """
+    equiv = S.equivalence_table(measured)
+    published = {
+        "gpt-4o-mini": 53.33,
+        "gemini-2.5-pro": 53.33,
+        "claude-3.7": 36.67,
+        "deepseek_r1_0525": 36.67,
+        "llama_4_scout": 20.00,
+        "qwen3": 0.00,
+        "mistral_large2405": 20.00,
+    }
+    for model, value in published.items():
+        actual = equiv[(equiv["Model"] == model) & (equiv["Complexity"] == 1)]
+        assert round(float(actual["Equivalence %"].iloc[0]), 2) == value, model
+
+
+def test_no_count_is_set_by_hand(measured):
+    """Every count in Figure 6 equals its computation.
+
+    The published script typed a value over one of them, under the comment "Fix
+    for ChatGPT-4o-Mini at complexity 3": it showed 1 where the code computed 11.
+    Both were artifacts of the shredding -- all 30 of that model's complexity-3
+    cells were ``"*not found*"``, and the counting rule calls a COLUMN valid when
+    no row in it is missing, which a column of ``'*'`` satisfies. With NO_ANSWER
+    corrected the computation gives 0 on its own, so the override is gone.
     """
     df = measured
-    complexity_3 = df[df["Complexity"] == 3]
-    columns = S._script_cols(df, "gpt-4o-mini")
-    computed = sum(
-        1 for c in columns
-        if not complexity_3[c].isna().any() and not (complexity_3[c] == "*not found").any()
-    )
-    assert computed == 11, "the override no longer covers what it used to"
-
     volume, _, _ = S.process_model_data(df)
-    published = volume[(volume["Model"] == "gpt-4o-mini") & (volume["Complexity"] == 3)]
-    assert published["Count"].iloc[0] == 1
 
-    # And nothing else is overridden: every other cell equals its computation.
-    overrides = 0
+    overrides = []
     for complexity in S.COMPLEXITIES:
         subset = df[df["Complexity"] == complexity]
         for model in S.registered():
-            cols = S._script_cols(df, model)
             expected = sum(
-                1 for c in cols
+                1 for c in S._script_cols(df, model)
                 if not subset[c].isna().any() and not (subset[c] == "*not found").any()
             )
             actual = volume[(volume["Model"] == model)
                             & (volume["Complexity"] == complexity)]["Count"].iloc[0]
             if actual != expected:
-                overrides += 1
-    assert overrides == 1, f"{overrides} hand-set counts, expected exactly 1"
+                overrides.append((model, complexity, expected, actual))
+    assert not overrides, f"hand-set counts remain: {overrides}"
+
+    # And the cell that was typed over now computes the truth.
+    cell = volume[(volume["Model"] == "gpt-4o-mini") & (volume["Complexity"] == 3)]
+    assert cell["Count"].iloc[0] == 0, "was 11 computed, 1 typed in; the truth is 0"
 
 
 # ---- the emitted summary -----------------------------------------------------
