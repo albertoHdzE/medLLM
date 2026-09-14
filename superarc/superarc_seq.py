@@ -46,8 +46,6 @@ row count. See :func:`superarc.table1.class_masks`.
 
 from __future__ import annotations
 
-import os
-import warnings
 from pathlib import Path
 
 import matplotlib
@@ -63,8 +61,6 @@ import seaborn as sns  # noqa: E402
 from . import plots_dir  # noqa: E402
 from .registry import C_SERIES, display_name  # noqa: E402
 from .table1 import DATASET, score  # noqa: E402
-
-N_JOBS = min(8, os.cpu_count() or 1)
 
 # Row ranges of the dataset, in the order the file stores them. The first 100 are
 # the binary sequences Table 1 and the ranking are computed over; the rest are
@@ -339,7 +335,6 @@ def plot_probabilities(df_final, out_dir=None):
         labelFontSize=ALT_LEGEND_LABEL_FONT, titleFontSize=ALT_LEGEND_TITLE_FONT, orient='top'
     )
 
-    save_altair_chart(plot06, "figure06")
     save_altair_chart(plot06, "figure06", out_dir=out_dir)
     return plot06
 
@@ -369,7 +364,6 @@ def plot_phi_by_type(df_final_2, df_final, out_dir=None):
         labelFontSize=ALT_LEGEND_LABEL_FONT, titleFontSize=ALT_LEGEND_TITLE_FONT, orient='top'
     )
 
-    save_altair_chart(plot07, "figure07")
     save_altair_chart(plot07, "figure07", out_dir=out_dir)
     return plot07
 
@@ -380,14 +374,9 @@ def plot_phi_by_type(df_final_2, df_final, out_dir=None):
 def inner_loop_function(models, bin_seq_df):
     """One bootstrap resample: every model's score over the drawn rows.
 
-    Top level so joblib can pickle it. The body was four inlined copies of the
-    metric in the published script; it is one call now.
+    The body was the fourth inlined copy of the metric in the published script;
+    it is one call now.
     """
-    warnings.filterwarnings(
-        "ignore",
-        message=r"pkg_resources is deprecated as an API\..*",
-        category=UserWarning,
-    )
     return {mdl: [score(bin_seq_df, mdl)[2]] for mdl in models}
 
 
@@ -402,21 +391,25 @@ def bootstrap(df, models=None, seed: int = 42, sizes=(25, 50, 75, 100),
     0.034 rather than the published 0.035. Its exact, non-bootstrap score is
     0.034380, so 0.034 is the correctly rounded value and the published figure
     showed the noisier draw.
-    """
-    from joblib import Parallel, delayed
 
+    Runs in one process. The published version farmed each resample out to
+    joblib, which made sense when every resample re-measured the same few hundred
+    strings with BDM from scratch. With :func:`superarc.table1._nbdm` memoised
+    that work is gone, and a process pool is now pure overhead: measured at 1.89s
+    on one core against 1.84s on eight, with a bit-identical result (checksum
+    81.404359475 at every setting). It also cost a hundred lines of loky teardown
+    errors on every run, which is noise that hides real failures.
+    """
     model_names = MODEL_ORDER if models is None else models
     bin_seqs = subset(df, "Binary")
     rng = np.random.default_rng(seed)
 
     tst_bootstrap = []
     for sz in sizes:
-        inpts_bts = []
+        calcs_lst = []
         for _rep_id in range(repeats):
             idx_v = rng.integers(low=0, high=len(bin_seqs), size=sz, dtype=int)
-            inpts_bts.append([model_names, bin_seqs.iloc[idx_v]])
-        calcs_lst = Parallel(n_jobs=N_JOBS)(
-            delayed(inner_loop_function)(*x) for x in inpts_bts)
+            calcs_lst.append(inner_loop_function(model_names, bin_seqs.iloc[idx_v]))
         dict_tst = {mdl: [] for mdl in model_names}
         for dict_indiv in calcs_lst:
             for ddd in dict_indiv:

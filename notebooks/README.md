@@ -10,7 +10,7 @@ whether they still agree with the published paper.
 | 02 | `time-series-forecasters` | Figure 1 top and middle, Figure 2 |
 | 03 | `formulae-generation` | Equivalence + Accuracy, Integrated Formulae Analysis |
 | 04 | `script-generation` | Script Equivalence + Accuracy, Integrated Script Analysis |
-| 05 | `superarc-seq` | *not built yet* |
+| 05 | `superarc-seq` | Table 1, ranking, p₁–p₄ and φ by sequence type, bootstrap |
 | 06 | `model-evolution` | *not built yet* |
 | 07 | `formulae-complexity` | Metrics Comparison ... for Formulae generation |
 
