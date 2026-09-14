@@ -32,6 +32,7 @@ computes them -- they are hand-adjudicated. Automating them is Phase 4.
 from __future__ import annotations
 
 import sys
+from functools import lru_cache
 import types
 from pathlib import Path
 
@@ -122,42 +123,94 @@ def phi(rho: np.ndarray, delta: np.ndarray) -> float:
     return float(np.sum(rho[:3] * delta * CLASS_WEIGHTS))
 
 
+def bdm_engine() -> "BDM":
+    """The BDM configuration the published score uses.
+
+    ``PartitionRecursive`` rather than the default partition, which is what
+    Figure 1's complexity panel uses. One line, but it changes every number in
+    this module, so it has one owner.
+    """
+    return BDM(ndim=1, partition=PartitionRecursive)
+
+
+@lru_cache(maxsize=None)
+def _nbdm(text: str) -> float:
+    """Normalised BDM of a string, memoised.
+
+    Pure: the same string always has the same complexity. Worth caching because
+    the 100 sequence strings are re-measured once per model, and the bootstrap
+    re-measures them once per resample -- 28 models x 400 resamples over the same
+    few hundred strings.
+    """
+    return bdm_engine().nbdm(ascii_to_bits(text))
+
+
+def class_masks(frame: pd.DataFrame, column: str) -> list[np.ndarray]:
+    """The four answer classes for one model, as boolean arrays.
+
+        rho1  correct, neither a verbatim copy nor an ordinal index mapping
+        rho2  correct and ordinal
+        rho3  correct and a verbatim copy
+        rho4  incorrect
+
+    Note rho2 and rho3 are not exclusive of each other: an answer that is both
+    ordinal and a copy is counted in both, so the four can sum to more than the
+    number of rows. Preserved as published -- it is how the printed table was
+    computed, and ``rho`` is normalised by their total rather than by ``len``.
+    """
+    correct = frame[f"{column}-formula-correctness"]
+    ordinal = frame[f"{column}-formula-ordinal"]
+    copied = frame[f"{column}-formula-copy_seq"]
+    return [
+        (correct & ~ordinal & ~copied).to_numpy(),
+        (correct & ordinal).to_numpy(),
+        (correct & copied).to_numpy(),
+        (~correct).to_numpy(),
+    ]
+
+
+def score(frame: pd.DataFrame, column: str) -> tuple[np.ndarray, np.ndarray, float]:
+    """``(rho, delta, phi)`` for one model over one set of sequences.
+
+    The single owner of the metric. ``34-2_S-ARC_ext.py`` inlined this same
+    calculation four times -- once for Table 1 and Figure 7, once for the p-only
+    version behind Figure 8, once for Figure 9, and once inside the bootstrap --
+    so a change to the score had to be made in four places or in none.
+
+    The four copies were checked against each other before collapsing, including
+    the one place they could have differed: ``34-2`` used
+    ``statistics.harmonic_mean``, which returns 0 when any value is 0, while
+    :func:`harmonic_mean` here drops non-positive values first. Over all four
+    sequence subsets and all 28 models, no group contains a zero or a non-finite
+    value, so the two agree on every one of them. This one is kept because it
+    also survives the degenerate case rather than raising.
+    """
+    masks = class_masks(frame, column)
+    total = sum(m.sum() for m in masks)
+    rho = np.array([m.sum() / total for m in masks])
+
+    bdm_formula = np.array([_nbdm(x) for x in frame[f"{column}-formula"].to_numpy()])
+    bdm_input = np.array([_nbdm(x) for x in frame["sequence"].to_numpy()])
+    delta = np.nan_to_num(np.array([
+        harmonic_mean(np.tanh(bdm_input[m] / bdm_formula[m])) for m in masks[:3]
+    ]))
+
+    return rho, delta, phi(rho, delta)
+
+
 def compute(dataset_path: Path | None = None) -> pd.DataFrame:
     """Compute the ranking over the 100 binary sequences."""
     df = pd.read_csv(dataset_path or DATASET, encoding="latin-1", low_memory=False)
     binary = df.iloc[:N_BINARY_SEQUENCES, :]
-    bdm = BDM(ndim=1, partition=PartitionRecursive)
 
     rows = []
     for model in models_for(C_SERIES):
-        col = model.column(C_SERIES)
-        formulas = binary[f"{col}-formula"].to_numpy()
-        correct = binary[f"{col}-formula-correctness"]
-        ordinal = binary[f"{col}-formula-ordinal"]
-        copied = binary[f"{col}-formula-copy_seq"]
-
-        bdm_formula = np.array([bdm.nbdm(ascii_to_bits(x)) for x in formulas])
-        bdm_input = np.array([bdm.nbdm(ascii_to_bits(x)) for x in binary["sequence"].to_numpy()])
-
-        masks = [
-            (correct & ~ordinal & ~copied).to_numpy(),
-            (correct & ordinal).to_numpy(),
-            (correct & copied).to_numpy(),
-            (~correct).to_numpy(),
-        ]
-        total = sum(m.sum() for m in masks)
-        rho = np.array([m.sum() / total for m in masks])
-
-        delta = np.array([
-            harmonic_mean(np.tanh(bdm_input[m] / bdm_formula[m])) for m in masks[:3]
-        ])
-        delta = np.nan_to_num(delta)
-
+        rho, delta, value = score(binary, model.column(C_SERIES))
         rows.append({
             "Model": model.name,
             "rho1": rho[0], "rho2": rho[1], "rho3": rho[2], "rho4": rho[3],
             "delta1": delta[0], "delta2": delta[1], "delta3": delta[2],
-            "phi": phi(rho, delta),
+            "phi": value,
         })
 
     table = pd.DataFrame([ASI_ROW] + rows)

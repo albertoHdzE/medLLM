@@ -73,6 +73,12 @@ OWNERS = {
         ("previous[j - 1] + (ca != cb)", "superarc/timeseries.py"),
     "SuperARC-seq class weights":
         ("CLASS_WEIGHTS = np.array", "superarc/table1.py"),
+    "the SuperARC-seq score itself":
+        ("rho[:3] * delta * CLASS_WEIGHTS", "superarc/table1.py"),
+    "the four answer classes":
+        ("correct & ordinal", "superarc/table1.py"),
+    "string to the bit array BDM measures":
+        ("format(ord(char), '08b')", "superarc/complexity_measures.py"),
     "placeholder expectation for missing formulae":
         ("PLACEHOLDER_EXPECTATION = {", "superarc/compression_metrics.py"),
     "suffix-first, longest-name-wins column resolution":
@@ -93,24 +99,17 @@ OWNERS = {
 # Leaving these undeclared is how a census reports three copies where there are
 # six -- the guard only inspects what is already complying.
 KNOWN_DUPLICATES = {
-    "def ascii_to_binary_list": (
-        2,
-        "owner is superarc/complexity_measures.py; 34-2_S-ARC_ext.py still "
-        "carries its own. A third copy lived in superarc/table1.py under the "
-        "name `ascii_to_bits` -- found by body fragment, not by name, and "
-        "collapsed once running the two showed them identical on 8 of 8 inputs. "
-        "The last copy goes with the SuperARC-seq extraction (notebook 05).",
-    ),
     "def get_model_display_name": (
         3,
-        "owner is superarc/registry.display_name; superarc/formulae.py and "
-        "superarc/scripts.py hold thin adapters onto it, because each dataset "
-        "names the same model differently and the adapter is where that dataset "
-        "is named. 34-2_S-ARC_ext.py still carries its own map and collapses "
-        "with the SuperARC-seq extraction (notebook 05). "
+        "owner is superarc/registry.display_name; superarc/formulae.py, "
+        "superarc/scripts.py and superarc/superarc_seq.py hold thin adapters "
+        "onto it, one per dataset, because each dataset names the same model "
+        "differently and the adapter is where that dataset is named. Every "
+        "hand-written map is gone: 34-2_S-ARC_ext.py's agreed with the registry "
+        "on all 28 entries and was deleted on that evidence, and "
         "31-1_multiScript_experiment.py held TWO that conflicted -- Figure 5 "
         "mapped `gemini-2.5-pro` to Gemini-2.5-Pro, Figure 6 mapped `gemini` to "
-        "it -- and that is now one definition in superarc/scripts.py.",
+        "it.",
     ),
     "def compare_sequences": (
         2,
