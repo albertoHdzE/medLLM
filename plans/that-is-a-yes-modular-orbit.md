@@ -125,8 +125,14 @@ library versions, and `requirements.txt` has been deleted, so nothing pins the e
 - Table 1 is never written — the script evaluates `np.round(...)` as a bare expression (a no-op).
 - `34-1` computes the bootstrap **twice** (lines 260–312 and 541–591), discarding the first. `34-2`
   already dropped the redundant block — one more reason it supersedes `34-1`.
-- `comparison_models_summary.csv` (input to SI Figs 5–6) **has no producer**; hand-maintained, and
-  already contains duplicate columns for the same model under two naming schemes.
+- ~~`comparison_models_summary.csv` (input to SI Figs 5–6) **has no producer**; hand-maintained~~
+  **WRONG — corrected 2026-09-15.** Its producer is `full_analysis.py` (added 2026-04-06, deleted
+  2026-09-11 as superseded analysis code, one blob in the whole history, writes it at line 867).
+  The "no producer" claim came from a history scan whose loop could not see `git` on its PATH, so
+  every lookup failed silently and no output was read as no producer — the same broken-scan failure
+  as the Figure 2 layout search. Re-running it: 21 of 1638 cells differ from the committed file with
+  sympy blocked, 23 with sympy available, 0 between two runs. The duplicate columns (39 for 28
+  models) are real but are a property of the producer's pivot, not of hand editing.
 - `24_PLOTS_paper.ipynb` reads `/Users/beto/Documents/Projects/medLLM/...` — another machine's home.
 - `processing_answers.py` **self-imports** (line 18) and instantiates `MOMENT-1-large` at import time.
   Every consumer pays this, including SI Fig 1, which needs none of it.

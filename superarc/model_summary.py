@@ -8,24 +8,53 @@ the committed ``comparison_models_summary.csv`` regenerates both parts pixel for
 pixel, and the intermediate ``plots/multi_*/*.csv`` come out byte-identical.
 That is checked by ``superarc.parity``.
 
-What is missing is not reproduction but *extension*: nothing in this repository
-writes ``comparison_models_summary.csv``, so adding a model updates every other
-figure and leaves these two behind. The file is also hand-maintained in a way
-that shows -- 39 model columns for 28 models, because the same model appears
-under both the formula dataset's key and the script dataset's key
-(``chatgpt-4.5`` and ``chatgpt_4.5``, ``claude-3-5-sonnet`` and ``claude_3.5``).
+What is missing is not reproduction but *extension*: adding a model updates every
+other figure and leaves these two behind.
 
-This module supplies the missing producer. The two experiment scripts emit the
-measures they already compute, in a tidy long format keyed by canonical model
-name, and :func:`build_wide` assembles them into the wide layout. Because both
-sides come from the registry, the duplicate columns cannot recur.
+**The file is NOT hand-maintained.** An earlier version of this docstring, of the
+project plan and of notebook 04 all said it was written by no code. That was
+wrong, and it came from a history scan whose loop could not see ``git`` on its
+PATH, so every lookup failed silently and "no output" was read as "no producer".
+The producer is ``full_analysis.py`` -- added 2026-04-06, deleted 2026-09-11 as
+superseded analysis code, recoverable from git and never edited (one blob in the
+whole history). It reads the two raw CSVs and writes this file at its line 867.
 
-:func:`compare_with_legacy` diffs the generated summary against the
-hand-maintained file. They do not currently agree on most measures, and the
-legacy values cannot be traced to any code, so switching Supplementary Figures 5
-and 6 onto the generated summary would change them. That switch is a decision
-for the authors and has not been made -- the figures still read the committed
-file.
+Re-running it measures how far the committed file has drifted:
+
+    published vs re-run, today's environment        23 of 1638 cells differ
+    published vs re-run, sympy blocked              21 of 1638 cells differ
+    re-run vs re-run (determinism control)           0 of 1638 cells differ
+
+All 21 sit in the script case at complexity 2, in Accuracy and Equivalence, and
+every one is *higher* than published -- more generated programs run today than
+ran then. Ruled out as causes: the data (one commit, unchanged since), the script
+(one blob, never edited), nondeterminism (the control above), and library
+availability (sympy accounts for 2 of the 23; every other import appearing in the
+data is stdlib). What is left is the interpreter version, which cannot be tested
+without the publication-time Python. Same wall as Phase 1, and resolved the same
+way: by policy, not by reconstruction.
+
+The 39 model columns for 28 models are real, though: the same model appears under
+both the formula dataset's key and the script dataset's key (``chatgpt-4.5`` and
+``chatgpt_4.5``, ``claude-3-5-sonnet`` and ``claude_3.5``). That is a property of
+the producer's pivot, not of a human editing cells.
+
+:func:`compare_with_legacy` diffs the generated summary against the committed
+file. They disagree on 590 of 1638 cells, but that is mostly *definitional*, not
+a defect on either side. ``full_analysis.py`` scores a model per sequence:
+
+    accuracy    = 100 if ANY of the model's answers reproduces the target (pass@k)
+    equivalence = 100 if ALL of its valid answers are identical
+
+while this module also carries a per-answer accuracy. Where the definitions do
+line up they agree exactly -- for formulae Accuracy at complexity 1 both give
+100.00 for ``gpt_4o``, ``claude_3.5``, ``gemini`` and ``mistral``, against a
+per-answer accuracy of 46.67, 75.56, 47.78 and 50.00 for the same four.
+
+**Author's ruling, 2026-09-15: closer to published wins.** Supplementary Figures
+5 and 6 keep reading the committed file, which is the published state; the
+generated summary does not replace it. Switching would move 590 cells away from
+print for reasons that are definitional rather than corrections.
 
 The seven measures, per case (formulae / script) and complexity:
 
@@ -120,11 +149,11 @@ def build_wide() -> pd.DataFrame:
 
 
 def compare_with_legacy(wide: pd.DataFrame, tolerance: float = 0.01) -> pd.DataFrame:
-    """Diff the generated summary against the hand-maintained file.
+    """Diff the generated summary against the committed published file.
 
     The legacy file keys models by dataset column name, so it is matched through
     the registry. Returns one row per disagreement; an empty frame means the
-    generated file reproduces the hand-maintained one.
+    generated file reproduces the committed one.
     """
     from .registry import A_FORMULA, B_SCRIPT, by_column
 
@@ -169,9 +198,10 @@ def main() -> int:
     if LEGACY_WIDE.exists():
         diff = compare_with_legacy(wide)
         if diff.empty:
-            print("\nmatches the hand-maintained comparison_models_summary.csv exactly")
+            print("\nmatches the committed comparison_models_summary.csv exactly")
         else:
-            print(f"\n{len(diff)} disagreement(s) with the hand-maintained file:")
+            print(f"\n{len(diff)} disagreement(s) with the committed file "
+                  f"(mostly definitional -- see the module docstring):")
             print(diff.head(40).to_string(index=False))
     return 0
 
