@@ -426,10 +426,32 @@ that saving these figures closes.
 
 ### Two more figures that are not what they look like
 
-- **Figure 2's image is absent from the published article.** Its caption is
-  typeset on page 5, beneath the formulae figure. Only the caption was placed.
-  Panels are therefore saved one per file, exactly as the notebook draws them;
-  no combined layout is invented.
+- **Figure 2's image IS in the published article — on page 9, under the caption
+  numbered Fig. 6.** ~~absent from the published article~~ was wrong: it was
+  reached by looking for the image beneath its own caption, which is exactly the
+  inference this document warns against three lines below. Corrected 2026-09-14
+  after the author pointed at the printed page.
+  The article composes the three panels into one 2×2 grid under a shared title.
+  **No code ever did that.** `22_Timeseries_LLM_experiments.ipynb` cell 53 draws
+  one `plt.figure` per (seq_type, method) and calls `plt.show()`; `suptitle` and
+  `subplots` appear zero times in the notebook, and the cell emitted six separate
+  inline images. The grid was assembled by hand from those. So the panels stay
+  one per file — not because a combined layout would be invented, but because
+  searching history for its producer returns nothing to find. (Verified across
+  all 185 `.py`/`.ipynb` blobs ever committed. A first scan reported zero hits
+  for everything, including strings known to be present: `git` was not on the
+  PATH inside the loop, so every lookup failed silently and the scan proved
+  nothing. **A search that finds nothing must be tested against a known hit
+  before it is believed.**)
+- **The notebook's stored outputs are not a reference — they are wrong.**
+  Cell 53 carries six rendered panels, which look like the missing artifact for
+  Figure 2. They disagree with the printed page at complexity 3 (stored
+  `gral_simi` 6.02, printed 1.57). Cause: the cell does
+  `total_df["complexity"].replace({3: 4, 4: 3})` **in place**, so running it an
+  even number of times swaps the two hardest tiers back, and the committed
+  output came from such a session. `average_by_complexity` does it on a copy.
+  The regenerated panels match the article; the committed images do not.
+  Pinned in `tests/test_timeseries.py`.
 - **The article does not print the high-resolution Figure 1.** Sampling page 4
   gives matplotlib's default `tab10` cycle — the draft that preceded the
   restyle. The bar heights are identical, so no result is affected.

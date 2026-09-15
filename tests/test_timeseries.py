@@ -83,6 +83,62 @@ def test_complexity_three_and_four_are_swapped_then_four_dropped():
     assert (averages.groupby(["forecasting_method_name", "seq_type"]).size() == 3).all()
 
 
+def test_the_swap_is_not_undone_by_calling_twice():
+    """The notebook cell this replaces mutates in place and is not idempotent.
+
+    ``22_Timeseries_LLM_experiments.ipynb`` cell 53 does the swap directly on
+    ``total_df``, so running the cell an even number of times swaps complexity 3
+    and 4 back and silently plots the wrong tier. ``average_by_complexity`` works
+    on a copy; this checks that, by calling it twice on one frame and demanding
+    the same answer.
+    """
+    predictions = load_predictions()
+    first = average_by_complexity(predictions)
+    second = average_by_complexity(predictions)
+    pd.testing.assert_frame_equal(first, second)
+
+
+# The values the published Figure 2 plots, read off the Chronos panel on page 9
+# of the article: the two similarity series fall from complexity 2 to 3 while the
+# edit distance stays flat.
+#
+# This is pinned because the panel has no committed artifact to diff against --
+# no code ever saved it -- and because the notebook's own stored images show
+# DIFFERENT numbers at complexity 3 (sort 3.90, gral 6.02, lev 8.46). Those are
+# the unswapped tier, i.e. the output of a session in which cell 53 had run an
+# even number of times. So the one reference that looks authoritative, the
+# committed notebook output, is the wrong one, and only the printed page and
+# these numbers agree.
+PUBLISHED_CHRONOS_ORIGINAL = {
+    1: {"sort_simi_percent": 12.94, "gral_simi_percent": 19.57, "levenshtein": 4.59},
+    2: {"sort_simi_percent": 2.70, "gral_simi_percent": 2.64, "levenshtein": 8.24},
+    3: {"sort_simi_percent": 1.11, "gral_simi_percent": 1.57, "levenshtein": 8.41},
+}
+
+
+def test_figure_two_matches_the_printed_panel_not_the_notebooks_stored_image():
+    from superarc.timeseries import HORIZONS, SERIES
+
+    averages = average_by_complexity(load_predictions())
+    panel = averages[
+        (averages["seq_type"] == "original")
+        & (averages["forecasting_method_name"] == "chronos")
+    ].set_index("complexity")
+
+    for level, expected in PUBLISHED_CHRONOS_ORIGINAL.items():
+        for name, template in SERIES.items():
+            columns = [template.format(h) for h in HORIZONS]
+            got = panel.loc[level, columns].mean()
+            assert got == pytest.approx(expected[name], abs=0.01), (level, name)
+
+    # The distinguishing feature: both similarity series keep falling at 3.
+    # Without the swap, gral_simi rises to 6.02 and the figure tells the
+    # opposite story about the hardest tier.
+    for name in ("sort_simi_percent", "gral_simi_percent"):
+        columns = [SERIES[name].format(h) for h in HORIZONS]
+        assert panel.loc[3, columns].mean() < panel.loc[2, columns].mean(), name
+
+
 def test_lag_llama_was_never_run_on_the_extended_pool():
     averages = average_by_complexity(load_predictions())
     combinations = set(zip(averages["forecasting_method_name"], averages["seq_type"]))

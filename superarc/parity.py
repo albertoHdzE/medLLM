@@ -49,9 +49,32 @@ PDF_COMPARISONS: dict[str, tuple[str, str]] = {}
 NEWLY_SAVED = {
     "figure01-middle.png": "Fig 1 middle  binary success, random sequences",
     "figure01-bottom.png": "Fig 1 bottom  BDM/Shannon/zip/lzw by complexity",
-    "figure02-chronos-original.png": "Fig 2  similarity, chronos (caption only in print)",
-    "figure02-timeGPT-1-original.png": "Fig 2  similarity, TimeGPT-1 (caption only in print)",
-    "figure02-lag-llama-original.png": "Fig 2  similarity, lag-llama (caption only in print)",
+    # The similarity panels ARE printed -- on page 9, under the caption numbered
+    # Fig. 6, which describes the integrated script analysis instead. An earlier
+    # note here claimed the image was never placed and only its caption was
+    # typeset; that was wrong, and came from trusting the caption numbering the
+    # rest of this module exists to distrust.
+    #
+    # The article shows them composed into one 2x2 grid under a shared title,
+    # with each panel titled by forecaster. No code ever did that: the notebook
+    # draws one plt.figure per panel and calls plt.show, and neither `suptitle`
+    # nor `subplots` appears anywhere in it. The grid was assembled by hand, so
+    # these three files are what the code produced, and the composition is not
+    # something to recover from history -- there is nothing there to recover.
+    # (Checked across all 185 .py/.ipynb blobs ever committed: exactly two
+    # mention "Average similarity", this module and that notebook.)
+    #
+    # The notebook DOES carry six rendered panels in its stored cell outputs,
+    # which look like the reference this entry says does not exist. They are
+    # not. They disagree with the printed page at complexity 3 -- stored
+    # gral_simi 6.02, printed and regenerated 1.57 -- because cell 53 swaps
+    # complexity 3 and 4 in place, so an even number of executions swaps them
+    # back. The committed output is from such a session. See
+    # tests/test_timeseries.py, which pins the printed values, and
+    # average_by_complexity, which does the swap on a copy.
+    "figure02-chronos-original.png": "Fig 2  similarity, chronos (printed p9, panel of a hand-composed grid)",
+    "figure02-timeGPT-1-original.png": "Fig 2  similarity, TimeGPT-1 (printed p9, panel of a hand-composed grid)",
+    "figure02-lag-llama-original.png": "Fig 2  similarity, lag-llama (printed p9, panel of a hand-composed grid)",
 }
 
 # Data-level checks. Comparing the numbers a figure is drawn from is stricter

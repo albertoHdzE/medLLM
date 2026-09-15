@@ -139,6 +139,23 @@ def average_by_complexity(predictions: pd.DataFrame) -> pd.DataFrame:
     order to the one the paper reports, and the published figure applies this
     swap. Done on a copy, because doing it in place -- as the notebook cell does
     -- silently swaps back when the cell is re-run.
+
+    The evidence for which tier is hardest is in the pool's generator,
+    ``04_Lag-Llama_experimentation.ipynb`` in the lab repository
+    (AlgoDynLab/SuperintelligenceTest), which is the Colab notebook that produced
+    the ``lag-llama_c*.csv`` files. It builds four lists:
+
+        original_l3   30 structured sequences -- squares, cubes, primes,
+                      repunits, perfect numbers; values up to 1111111111
+        original_l4   30 sequences, all strictly increasing, every value <= 500,
+                      none with a constant difference: sorted random draws
+
+    Random draws are the incompressible tier, so ``l4`` is the hardest and must
+    be plotted as complexity 3. Applying the swap once does that. It also makes
+    the figure say the right thing: similarity FALLS at complexity 3, because a
+    forecaster does worst on a random sequence. Without the swap it rises, which
+    is the shape stored in both repositories' committed notebook outputs and in
+    neither repository's printed paper.
     """
     frame = predictions.copy()
     frame["complexity"] = frame["complexity"].replace({3: 4, 4: 3})
