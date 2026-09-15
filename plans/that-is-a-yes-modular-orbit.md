@@ -140,8 +140,18 @@ library versions, and `requirements.txt` has been deleted, so nothing pins the e
 - `tests/test_multiFormula_analysis.py` imports `scripts.multiFormula_analysis`, which does not exist.
 - Four incompatible model-key conventions (`gpt_4o` / `chatgpt-4o` / `chatgpt_4o` / `gpt-4o`), with a
   hand-written 28-entry rename dict in each producer.
-- **Credentials:** `processing_answers.py:41-42` hold two Nixtla API keys, committed and in git history.
-  Deleting the lines will not remove them — **rotate them.**
+- **Credentials — URGENT, escalated 2026-09-15.** `processing_answers.py:41-42` held two Nixtla API
+  keys. They are out of this repo's working tree but remain in its git history, and **one of the two
+  is live in a PUBLIC repository right now**: `AlgoDynLab/SuperintelligenceTest`, branch `main`,
+  `processing_answers.py:41`, as a literal string, with `validate_api_key()` called on line 44.
+  Same key in both (SHA-256 prefix `238e02e763d7`, 86 chars); the other (`6c22d786…`, 256 chars) is
+  only in this repo's history.
+  No key is needed to reproduce anything — nothing imports `processing_answers`, both back ends are
+  `None`, and `superarc.parity` exits 0 without credentials. So this is purely an exposure problem:
+  **revoke both at dashboard.nixtla.io, check the dashboard for unexpected usage, then replace the
+  literal in the lab repo with `os.environ["NIXTLA_API_KEY"]`.** Editing or history-purging the file
+  is cleanup after rotation, never a substitute — the key has been world-readable and must be
+  treated as compromised.
 
 ## Existing work to reuse, not rebuild
 

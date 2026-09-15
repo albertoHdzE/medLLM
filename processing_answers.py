@@ -19,7 +19,16 @@ Three things used to run at import time and no longer do:
   Python tolerates but which made the import order impossible to reason about.
 * **A live Nixtla API key** sat in a commented-out block. Removed here, but note
   that removing it does not remove it from the history -- the key must be
-  rotated.
+  rotated. As of 2026-09-15 this is urgent rather than housekeeping: the same key
+  is still a literal string on the ``main`` branch of the PUBLIC repository
+  ``AlgoDynLab/SuperintelligenceTest`` (``processing_answers.py:41``, with
+  ``validate_api_key()`` called below it), so it has been world-readable and must
+  be treated as compromised. Two distinct keys appear in this repository's
+  history; one of them is the public one.
+
+Nothing here needs a credential to reproduce a published result. The forecasting
+experiment is closed, its outputs are the committed CSVs, and ``superarc.parity``
+regenerates every figure with both back ends set to ``None``.
 
 ``predict_timeGPT`` and ``predict_Chronos`` still refer to ``timegpt`` and
 ``pipeline``, which were already commented out before this change. They are kept
