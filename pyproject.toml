@@ -37,6 +37,21 @@ extend-exclude = '''
 )/
 '''
 
+[tool.ruff.lint.per-file-ignores]
+# superarc/languages.py is assembled from exact line ranges of
+# processing_answers.py and 24_PLOTS_paper.ipynb, so its bodies are
+# character-for-character the ones that produced Supplementary Figures 2 to 4.
+# Ruff's fixes for these rules would edit that code, and two of them would change
+# what it does: `frame["col"] == True` is a pandas boolean mask, not a truth test,
+# and rewriting it to `if frame["col"]` raises. The rest (unused `rects1`/`rects2`
+# handles, `f""` without placeholders, `l` as a loop variable) are cosmetic and
+# not worth diverging from the published source for.
+#
+# Declared here rather than as ~17 inline `noqa` comments so the verbatim bodies
+# stay verbatim. This file is the sole owner of these figures -- there is no
+# second copy that could drift by being exempted asymmetrically.
+"superarc/languages.py" = ["E712", "E713", "E741", "F541", "F841"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"

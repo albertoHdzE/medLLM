@@ -35,12 +35,25 @@ PRODUCERS = (
     ["-m", "superarc.timeseries"],
     ["-m", "superarc.complexity_measures"],
     ["-m", "superarc.compression_metrics"],
+    ["-m", "superarc.languages"],
 )
 
 # Compared after rasterising both sides, for figures whose published artifact was
-# only ever saved as PDF and SVG. Empty for now -- figure01 was the one entry and
-# moved to AUTHORISED_CHANGES when its palette was ruled on.
-PDF_COMPARISONS: dict[str, tuple[str, str]] = {}
+# only ever saved as PDF and SVG.
+#
+# The four polyglot-language panels below were unverified until 2026-09-15: their
+# producer read one input through an absolute path on another machine, so it could
+# not run here, and no gate covered them. They reproduce exactly.
+PDF_COMPARISONS: dict[str, tuple[str, str]] = {
+    "figure11-top.pdf": ("plots/highResolution/figure11-top.pdf",
+                         "SI Fig 2 top  executions and prints by language"),
+    "figure12-top.pdf": ("plots/highResolution/figure12-top.pdf",
+                         "SI Fig 3 top  correct prints heatmap"),
+    "figure12-bottom.pdf": ("plots/highResolution/figure12-bottom.pdf",
+                            "SI Fig 3 bottom  no-compression, log scale"),
+    "figure13.pdf": ("plots/highResolution/figure13.pdf",
+                     "SI Fig 4  no-compression by language and temperature"),
+}
 
 # Panels that are printed in the article but were never written to disk by any
 # code, so there is nothing to compare them against. They are still regenerated
@@ -204,6 +217,21 @@ AUTHORISED_CHANGES = {
         "generator and is unrecoverable; three labels now show their correctly "
         "rounded exact scores"
     ),
+    "figure11_bottom.pdf": (
+        "SI Fig 2 bottom  sequence overlap by language -- RESEEDED, values "
+        "unchanged: a supervenn panel whose inputs are sets of sequence STRINGS. "
+        "Python randomises string hashing per process, so set iteration order -- "
+        "and therefore the `minimize gaps` packing -- changed every run: three "
+        "separate processes disagreed with each other by 15.7%, 24.8% and 25.7% "
+        "on identical code and identical data. The published image came from one "
+        "unrecorded hash seed and cannot be recovered, exactly like the bootstrap "
+        "draw and Supplementary Figure 1. regenerate() now pins PYTHONHASHSEED=0, "
+        "under which two separate processes agree at 0.0000%, and the figure sits "
+        "19.2% from print. The DATA is identical: all seven set sizes match the "
+        "published figure (Mathematica 40, Python 52, Java 69, Matlab 72, R 59, "
+        "Cpp 45, ArnoldC 12), in the same row order, pinned in "
+        "tests/test_languages.py"
+    ),
     "figure10.png": (
         "SI Fig 1  formulae complexity -- AVERAGED OVER THE DRAW by author's "
         "ruling: 28% of answers are '***' (no formula produced) and were stood "
@@ -218,8 +246,15 @@ AUTHORISED_CHANGES = {
 
 
 def regenerate(out_dir: Path) -> list[str]:
-    """Run every producer with its output redirected to ``out_dir``."""
-    env = dict(os.environ, SUPERARC_PLOTS_DIR=str(out_dir))
+    """Run every producer with its output redirected to ``out_dir``.
+
+    ``PYTHONHASHSEED`` is pinned because one panel needs it. The supervenn figure
+    in :mod:`superarc.languages` lays out sets of sequence *strings*, and Python
+    randomises string hashing per process, so its packing varied by 15-26% between
+    runs of identical code on identical data. It cannot be set from inside the
+    producer -- the interpreter reads it at startup -- so it belongs here.
+    """
+    env = dict(os.environ, SUPERARC_PLOTS_DIR=str(out_dir), PYTHONHASHSEED="0")
     failures = []
     for command in PRODUCERS:
         proc = subprocess.run(
@@ -289,6 +324,18 @@ def check_figures(names, out_dir: Path | None = None):
         elif name in COMPARISONS:
             published, label = COMPARISONS[name]
             difference = pixel_difference(produced, REPO_ROOT / published)
+            if difference == 0:
+                rows.append({"figure": label, "status": "matches published",
+                             "detail": "0.0000% of pixels differ"})
+            elif difference is None:
+                rows.append({"figure": label, "status": "SIZE CHANGED", "detail": published})
+            else:
+                rows.append({"figure": label, "status": "DIFFERS",
+                             "detail": f"{difference:.4f}% of pixels differ"})
+        elif name in PDF_COMPARISONS:
+            published, label = PDF_COMPARISONS[name]
+            difference = pixel_difference(rasterise(produced),
+                                          rasterise(REPO_ROOT / published))
             if difference == 0:
                 rows.append({"figure": label, "status": "matches published",
                              "detail": "0.0000% of pixels differ"})
@@ -422,7 +469,13 @@ def check_determinism(first: Path, second: Path) -> list[str]:
         if not (a.exists() and b.exists()):
             failures.append(f"{produced}: missing from one of the two runs")
             continue
-        diff = pixel_difference(a, b)
+        # Some panels were only ever saved as PDF/SVG, so they have to be
+        # rasterised before they can be compared by pixels -- the same reason
+        # PDF_COMPARISONS exists.
+        if a.suffix == ".pdf":
+            diff = pixel_difference(rasterise(a), rasterise(b))
+        else:
+            diff = pixel_difference(a, b)
         ok = diff == 0
         print(f"  {produced:24s} {'stable' if ok else 'NOT REPRODUCIBLE':>18s}")
         if not ok:

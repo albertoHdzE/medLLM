@@ -83,6 +83,8 @@ OWNERS = {
         ("PLACEHOLDER_EXPECTATION = {", "superarc/compression_metrics.py"),
     "suffix-first, longest-name-wins column resolution":
         ("def resolve_column", "superarc/registry.py"),
+    "the polyglot language summary chain":
+        ('normalized_compressed_{}.csv', "superarc/languages.py"),
     "pairwise equivalence between a model's own programs":
         ("matching_comparisons / total_comparisons", "superarc/scripts.py"),
     "generated-program type classification":
@@ -110,6 +112,22 @@ KNOWN_DUPLICATES = {
         "31-1_multiScript_experiment.py held TWO that conflicted -- Figure 5 "
         "mapped `gemini-2.5-pro` to Gemini-2.5-Pro, Figure 6 mapped `gemini` to "
         "it.",
+    ),
+    # Keyed on the call rather than on the bare `sets_ordering='minimize gaps'`
+    # option: that string is discussed in notebooks/08's prose, and a guard that
+    # counts prose as a copy trains its reader to raise the expected number until
+    # it stops guarding anything.
+    "supervenn(sets, labels , sets_ordering=": (
+        2,
+        "owner is superarc/languages.plot_sequence_overlap; the second is "
+        "24_PLOTS_paper.ipynb, kept as the path that produced Supplementary "
+        "Figures 2-4. It is not a live second owner: it reads one input through "
+        "/Users/beto/Documents/Projects/medLLM/, an absolute path on another "
+        "machine, so it cannot run here at all -- which is why those five panels "
+        "had no gate until superarc/languages.py was written. Kept rather than "
+        "deleted because the published figures trace to that name. The lab's "
+        "copy (AlgoDynLab/SuperintelligenceTest, 05_PLOTS_paper.ipynb) carries "
+        "the identical defect.",
     ),
     "def compare_sequences": (
         2,
