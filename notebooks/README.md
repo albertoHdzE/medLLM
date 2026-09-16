@@ -60,9 +60,28 @@ The editable install is what lets `import superarc` work from this subdirectory.
 Without it the first cell fails, and adding `sys.path` hacks to every notebook is
 the wrong fix.
 
-Note that the pre-existing `medllm_py` kernel points at the pyenv interpreter,
-which is missing `altair` and other packages the producers need. Use
-`SuperARC (venv)`.
+### Two kernels that look right and are not
+
+**`.venv` is the wrong one.** There are two virtualenvs in this repository:
+
+| directory | Python | `import superarc` |
+|---|---|---|
+| `venv/` | 3.13 | works — the project is installed editable here |
+| `.venv/` | 3.14 | **fails** — a separate environment, the project was never installed into it |
+
+Selecting `.venv` gives `ModuleNotFoundError: No module named 'superarc'` on the
+first cell of every notebook. The name is one dot away from the right one and
+editors offer it first, so this is easy to hit.
+
+`medllm_py` is the other trap: it points at the pyenv interpreter, which is
+missing `altair` and other packages the producers need.
+
+**Use `SuperARC (venv)`.** If it is not offered, register it with the two
+commands above. To check which interpreter a running kernel is actually on:
+
+    import sys; print(sys.executable)
+
+It must end in `medLLM/venv/bin/python`.
 
 ## Outputs are committed
 
