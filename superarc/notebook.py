@@ -50,3 +50,16 @@ def figure(name: str, width: int = PREVIEW_WIDTH):
     from . import plots_dir
 
     return preview(plots_dir() / name, width=width)
+
+
+def preview_pdf(path: str | Path, width: int = PREVIEW_WIDTH, dpi: int = 100):
+    """Embed page 1 of a PDF.
+
+    The family-evolution panels are saved as PDF and SVG and never as PNG, so
+    :func:`preview` has nothing to open. Rendering goes through the same
+    ``rasterise`` the parity gate uses, rather than a second copy of it, so what
+    a notebook displays is what the gate compared.
+    """
+    from .parity import rasterise
+
+    return preview(rasterise(Path(path), dpi=dpi), width=width)

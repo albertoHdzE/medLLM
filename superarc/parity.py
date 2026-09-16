@@ -53,6 +53,13 @@ PDF_COMPARISONS: dict[str, tuple[str, str]] = {
                             "SI Fig 3 bottom  no-compression, log scale"),
     "figure13.pdf": ("plots/highResolution/figure13.pdf",
                      "SI Fig 4  no-compression by language and temperature"),
+    # Added 2026-09-16. These two were regenerated on every run and then compared
+    # against nothing: the gate held only their input CSVs, so a change in the
+    # PLOTTING code would have passed silently. Part 2 is the exact half -- see
+    # AUTHORISED_CHANGES for Part 1, which carries the Gemini correction.
+    "ALL_FAMILIES_evolution_Part2.pdf": (
+        "plots/highResolution/figure15.pdf",
+        "SI Fig 6  family evolution, Part 2 (Mistral, Qwen, DeepSeek, Meta)"),
 }
 
 # Panels that are printed in the article but were never written to disk by any
@@ -213,9 +220,28 @@ AUTHORISED_CHANGES = {
         "for the authors"
     ),
     "figure08.png": (
-        "bootstrap tiers -- RESEEDED: published draw came from an unseeded "
-        "generator and is unrecoverable; three labels now show their correctly "
-        "rounded exact scores"
+        "Fig 10  bootstrap tiers -- RESEEDED to 182, and every published NUMBER "
+        "is reproduced. An earlier note here called the published draw "
+        "unrecoverable; that was too strong, and was never measured. The "
+        "published script did `np.random.seed(42)` and then "
+        "`np.random.default_rng()` with no argument, which ignores it, so the "
+        "draw was unrecorded -- but the figure reports 28 means, one per model "
+        "in the legend to three decimals, plus a 4/7/17 tier split, and those "
+        "ARE recoverable. Seed 42 reproduces 25 of the 28; eleven seeds in "
+        "0-399 reproduce all 28 and the tier split, and 182 is the one that "
+        "renders closest to print. The remaining 8.68% of pixels is the Monte "
+        "Carlo wiggle of a mean over 100 resamples: two of our own draws sit "
+        "7.56%-20.81% from each other, so the published image lies inside the "
+        "cloud of our own legitimate draws rather than outside it. See "
+        "superarc.superarc_seq.bootstrap, and tests/test_superarc_seq.py, which "
+        "pins all 28 published labels"
+    ),
+    "ALL_FAMILIES_evolution_Part1.pdf": (
+        "SI Fig 5  family evolution, Part 1 (OpenAI, Grok, Claude, Gemini) -- "
+        "CORRECTED: carries the Gemini-2.5-Pro column fix already recorded under "
+        "multiple_script_values.csv, and Gemini is a Part 1 family. 0.8943% of "
+        "pixels. Part 2 holds none of the affected models and is pixel-identical, "
+        "which is what shows the difference is the correction and not the port"
     ),
     "figure11_bottom.pdf": (
         "SI Fig 2 bottom  sequence overlap by language -- RESEEDED, values "

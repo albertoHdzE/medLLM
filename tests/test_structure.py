@@ -85,6 +85,10 @@ OWNERS = {
         ("def resolve_column", "superarc/registry.py"),
     "the polyglot language summary chain":
         ('normalized_compressed_{}.csv', "superarc/languages.py"),
+    "the ordering of model families":
+        ("FAMILY_ORDER: tuple[str, ...] = (", "superarc/registry.py"),
+    "the family-evolution figures":
+        ("def plot_evolution_subset", "superarc/evolution.py"),
     "pairwise equivalence between a model's own programs":
         ("matching_comparisons / total_comparisons", "superarc/scripts.py"),
     "generated-program type classification":
@@ -138,15 +142,25 @@ KNOWN_DUPLICATES = {
         "them would silently move one of the two experiments. Pinned in "
         "tests/test_scripts.py::test_compare_sequences.",
     ),
-    "FAMILY_ORDER": (
-        2,
-        "superarc/registry.py orders families and derives within-family order "
-        "from Model.order; 35_summary_statistics.py carries a dict that spells "
-        "both out. They are NOT the same shape, and they disagree -- the local "
-        "one says 'Deepseek' where the registry says 'DeepSeek', and omits "
-        "'Cursor' entirely. Not collapsed blind, because the within-family "
-        "ordering sets the layout of the evolution figures. Collapses with "
-        "notebook 06, after the two orderings are diffed elementwise.",
+    # COLLAPSED 2026-09-16. Was: two FAMILY_ORDERs, one in superarc/registry.py
+    # and one hand-written in 35_summary_statistics.py, which disagreed. The
+    # elementwise diff this entry demanded before collapsing is now
+    # tests/test_evolution.py::test_the_two_orderings_agree_once_the_phantoms_are_removed,
+    # kept as an assertion rather than as a note: six of the eight families were
+    # character-for-character identical, and the three differences were two
+    # phantom names ('Grok', 'DeepSeek-R1-0525' -- in no dataset, and shifting
+    # every later rank uniformly, so the drawn order was unchanged) and a family
+    # key spelt 'Deepseek'. The spelling turned out to be load-bearing: it is
+    # what the Supplementary Information PRINTS, so it survives as
+    # evolution.PUBLISHED_FAMILY_LABEL, applied at the point of drawing.
+    #
+    # The hand-written dict itself survives once, in that test, as the record of
+    # what was collapsed. A second occurrence would mean it grew back.
+    "'Deepseek': [": (
+        1,
+        "the pre-collapse ordering, kept in tests/test_evolution.py so the diff "
+        "that licensed the collapse is checked rather than remembered. The live "
+        "ordering is derived from superarc/registry.py.",
     ),
 }
 

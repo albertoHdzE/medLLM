@@ -52,6 +52,16 @@ extend-exclude = '''
 # second copy that could drift by being exempted asymmetrically.
 "superarc/languages.py" = ["E712", "E713", "E741", "F541", "F841"]
 
+# superarc/evolution.py is assembled the same way, from exact line ranges of
+# 35_summary_statistics.py, so its bodies are character-for-character the ones
+# that produced Supplementary Figures 5 and 6. Two one-line `if ...: continue` /
+# `if ...: return` statements. Cosmetic, and both inside plotting bodies whose
+# every character is pinned by a pixel comparison against the published figure.
+"superarc/evolution.py" = ["E701"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+markers = [
+    "slow: runs a producer at full size. Deselect with -m 'not slow'.",
+]

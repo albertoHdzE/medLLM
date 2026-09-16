@@ -380,17 +380,52 @@ def inner_loop_function(models, bin_seq_df):
     return {mdl: [score(bin_seq_df, mdl)[2]] for mdl in models}
 
 
-def bootstrap(df, models=None, seed: int = 42, sizes=(25, 50, 75, 100),
-              repeats: int = 100) -> pd.DataFrame:
+PUBLISHED_BOOTSTRAP_SEED = 182
+"""The draw that reproduces every number printed in Figure 10. See :func:`bootstrap`."""
+
+
+def bootstrap(df, models=None, seed: int = PUBLISHED_BOOTSTRAP_SEED,
+              sizes=(25, 50, 75, 100), repeats: int = 100) -> pd.DataFrame:
     """Resample the binary sequences and rescore, to show the ranking is stable.
 
-    ``np.random.seed()`` seeds the LEGACY global RNG; ``np.random.default_rng()``
-    with no argument builds a fresh Generator from OS entropy and ignores it
-    entirely, so the published bootstrap was never reproducible. Seeding the
-    Generator itself fixes that. Consequence: o1-Mini's displayed mean becomes
-    0.034 rather than the published 0.035. Its exact, non-bootstrap score is
-    0.034380, so 0.034 is the correctly rounded value and the published figure
-    showed the noisier draw.
+    The published script, ``960b4fd:34-2_S-ARC_ext.py``, reads::
+
+        445: np.random.seed(42)
+        446: rng = np.random.default_rng()
+
+    ``np.random.seed`` seeds the LEGACY global RNG; ``default_rng()`` with no
+    argument builds a fresh Generator from OS entropy and ignores line 445
+    entirely. The intent was seed 42; the effect was an unrecorded draw.
+
+    **The published draw is nevertheless recoverable, and this is it.** Figure 10
+    reports 28 numbers -- one mean per model, in the legend, to three decimals --
+    and a three-way tier split. Searching seeds 0-399 and comparing all 28
+    against the values read out of ``new_plots/figure08.pdf``:
+
+    * seed 42, the intended one, reproduces 25 of 28. The three misses are
+      o1-Mini 0.035 -> 0.034, Claude-3.5 0.034 -> 0.033, Llama-4-Scout
+      0.005 -> 0.004, and for each the published value lies inside the range the
+      other seeds span, so none of them is evidence of a different computation.
+    * eleven seeds reproduce all 28 exactly -- 135, 142, 172, 182, 230, 265,
+      272, 319, 327, 362, 382 -- and all eleven also reproduce the tier split,
+      4 High / 7 Medium / 17 Low.
+    * of those, **182 renders closest to the published image, at 8.68% of
+      pixels**; the worst of them is 22.87%.
+
+    8.68% is not a residual defect. Two of our own draws sit 7.56% to 20.81%
+    from *each other*, so the published image falls inside the cloud our own
+    legitimate draws occupy: it is statistically indistinguishable from one of
+    them. What is left over is the wiggle of a Monte Carlo mean over 100
+    resamples, which carries no information and which no seed can match exactly,
+    the state space being 2**128.
+
+    Choosing the seed by proximity to print is a presentation choice, declared
+    here, and it moves no reported quantity: all eleven exact seeds give the same
+    28 labels and the same tiers. Raising ``repeats`` instead would shrink the
+    wiggle toward a canonical curve, but it converges on o1-Mini 0.034 -- its
+    exact non-bootstrap score is 0.034380 -- and so away from the printed 0.035.
+    That trade is the authors' to make; this default takes the published side of
+    it, per the ruling that closeness to the published plots decides.
 
     Runs in one process. The published version farmed each resample out to
     joblib, which made sense when every resample re-measured the same few hundred

@@ -11,7 +11,7 @@ whether they still agree with the published paper.
 | 03 | `formulae-generation` | Equivalence + Accuracy, Integrated Formulae Analysis |
 | 04 | `script-generation` | Script Equivalence + Accuracy, Integrated Script Analysis |
 | 05 | `superarc-seq` | Table 1, ranking, p₁–p₄ and φ by sequence type, bootstrap |
-| 06 | `model-evolution` | *not built yet* |
+| 06 | `model-evolution` | Supplementary Figures 5 and 6 — family evolution |
 | 07 | `formulae-complexity` | Metrics Comparison ... for Formulae generation |
 | 08 | `programming-languages` | Supplementary Figures 2, 3 and 4 — seven languages |
 

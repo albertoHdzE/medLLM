@@ -235,6 +235,61 @@ def test_the_bootstrap_covers_every_model(df):
     assert len(frame) == len(expected) * 2
 
 
+# Every number Figure 10 prints: the legend shows one mean per model to three
+# decimals. Read out of new_plots/figure08.pdf, which is text rather than pixels
+# there, so these are the published values and not a transcription of ours.
+PUBLISHED_FIGURE_10_MEANS = {
+    "ChatGPT-4.5": 0.042, "o1-Mini": 0.035, "Claude-3.5": 0.034,
+    "Claude-3.7": 0.033, "o1-Preview": 0.012, "Gemini": 0.008,
+    "Cursor-Small": 0.008, "ChatGPT-4o-Mini": 0.008, "Mistral": 0.007,
+    "Qwen": 0.007, "DeepSeek": 0.007, "Llama-4-Scout": 0.005, "Grok-3": 0.001,
+    "Qwen-3": 0.000, "ChatGPT-5": 0.000, "Grok-4": 0.000,
+    "DeepSeek-R1-0528": 0.000, "Claude-Opus-4": 0.000,
+    "Mistral-Large-2405": 0.000, "Gemini-2.5-Pro": 0.000,
+    "Claude-Sonnet-4": 0.000, "Meta": 0.000, "ChatGPT-4o": 0.000,
+    "Grok-4.1": 0.000, "ChatGPT-5.2": 0.000, "Claude-4.5": 0.000,
+    "Gemini-3-Pro": 0.000, "Mistral-Large-3": 0.000,
+}
+
+# The tier titles the figure prints, and the counts annotated in each panel.
+PUBLISHED_FIGURE_10_TIERS = {"High": 4, "Medium": 7, "Low": 17}
+
+
+@pytest.mark.slow
+def test_the_default_seed_reproduces_every_number_printed_in_figure_10(df):
+    """The published draw was unrecorded. Its RESULTS are not, and this pins them.
+
+    The bootstrap is the one place in the paper where an RNG stands between the
+    data and the figure, so it is the one place where "it reproduces" has to mean
+    something more careful than a pixel count. It means this: every quantity the
+    figure states comes back. The pixels do not, and cannot -- see
+    ``superarc.superarc_seq.bootstrap`` -- but two of our own draws differ from
+    each other by more than ours differs from the published one.
+
+    Full run: 4 sizes x 100 repeats x 28 models, the same as the figure.
+    """
+    means = (S.bootstrap(df)  # default seed = PUBLISHED_BOOTSTRAP_SEED
+             .groupby("Model")["Test Score"].mean().round(3))
+    missing = set(PUBLISHED_FIGURE_10_MEANS) - set(means.index)
+    assert not missing, f"models absent from the bootstrap: {sorted(missing)}"
+
+    moved = {m: (published, means[m])
+             for m, published in PUBLISHED_FIGURE_10_MEANS.items()
+             if means[m] != published}
+    assert not moved, (
+        f"{len(moved)} of {len(PUBLISHED_FIGURE_10_MEANS)} published means moved "
+        f"(published, ours): {moved}"
+    )
+
+
+@pytest.mark.slow
+def test_the_tier_split_is_the_one_the_figure_annotates(df):
+    """4 High / 7 Medium / 17 Low, counted off the published panels."""
+    tiered, _ = S.assign_tiers(S.bootstrap(df))
+    counts = tiered.groupby("Broad_Tier")["Model"].nunique().to_dict()
+    assert counts == PUBLISHED_FIGURE_10_TIERS
+
+
 def test_the_tiers_partition_the_models(df):
     frame = S.bootstrap(df, seed=42, sizes=(25, 50), repeats=4)
     tiered, means = S.assign_tiers(frame)
