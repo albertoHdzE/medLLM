@@ -1,71 +1,184 @@
-# medLLM: Comprehensive Evaluation Framework for Large Language Models
+# SuperARC — working repository
 
-## Abstract
+Code and data behind:
 
-This repository constitutes a multi-faceted research initiative dedicated to the rigorous, empirical evaluation of Large Language Models (LLMs) across complex cognitive and computational domains. While originating as an architecture for medical domain adaptation, the scope of this repository has expanded significantly. It now provides a robust analytical framework for assessing abstract mathematical reasoning, generalized programmatic generation, zero-shot time-series forecasting, and the longitudinal progression of model families toward Artificial Super Intelligence (ASI) benchmarks.
+> **SuperARC: a test for artificial superintelligence based on compressed modelling,
+> recursive prediction and problem complexity**
+> Alberto Hernández-Espinosa, Luan Ozelim, Felipe S. Abrahão & Hector Zenil
+> *Nature Communications* (2026) — received 23 June 2025, accepted 8 May 2026
+>
+> **Read it: https://www.nature.com/articles/s41467-026-73289-5**
+> DOI: [10.1038/s41467-026-73289-5](https://doi.org/10.1038/s41467-026-73289-5)
 
-## Core Research Vectors
+## Which repository is this?
 
-### 1. Clinical and Medical Domain Adaptation
-Initial paradigms within this project assess the viability of specialized foundation models localized to medical corpora. The repository features complete experimental pipelines for causal language modeling, fine-tuning, and robust querying. 
-* **Models Analyzed**: BioGPT, ClinicalGPT, MedLLaMA, and DoctorGPT.
-* **Methodology**: Optimization of models on contextual question answering and diagnostic inference against benchmarks derived from curated datasets (e.g., PubMedQA).
+**This is the working repository.** It is where the analysis is developed,
+corrected and extended, and it moves. Figures here may be ahead of what was
+printed, and where they are, the difference is recorded and explained rather than
+quietly applied — see [Corrections to the published figures](#corrections-to-the-published-figures).
 
-### 2. Algorithmic Sequence Generation and Mathematical Reasoning
-A primary focus of our current empirical work lies in decoupling mere pattern memorization from genuine algorithmic reasoning. State-of-the-art models (including Claude Opus 4, Gemini 2.5 Pro, Deepseek R1, and LLaMA 4 Scout) are subjected to advanced sequence extrapolation tests.
-* **Mathematical Formula Synthesis**: Evaluating model capacity to derive closed-form algebraic expressions for complex deterministic series.
-* **Polyglot Code Generation**: Systematic validation of generated computational approaches across languages including Python, C++, Mathematica, MATLAB, JavaScript, R, and esoteric languages such as ArnoldC.
-* **Validation Engine**: Responses are not merely token-matched; they are compiled, executed, and mathematically verified for algebraic equivalence and programmatic correctness through our custom `search_engine` validation suite.
+**The official repository is [`AlgoDynLab/SuperintelligenceTest`](https://github.com/AlgoDynLab/SuperintelligenceTest)**,
+maintained by the **Algorithmic Dynamics Lab, Center of Molecular Medicine,
+Karolinska Institute & King's College London**. That is the repository the paper
+points to and the one to cite or fork if you want the published state.
 
-### 3. Zero-Shot Time-Series Forecasting
-Rigorous experiments testing the bounds of temporal foundation models against both deterministic mathematical sequences and highly stochastic processes (e.g., random binary sequences).
-* **Analyzed Architectures**: TimeGPT, Lag-Llama, Chronos, and MOMENT.
-* **Focus**: Measuring parameter efficiency, lag predictability, compression limitations, and comparative evaluations against standard classical autoregressive methodologies.
+If you are reproducing the paper, start there. If you want to see how the results
+were checked, re-derived and extended after publication, you are in the right
+place.
 
-### 4. Longitudinal Progression toward ASI Benchmarks
-We propose and implement a quantitative framework dedicated to measuring the architectural evolution of model families (Claude, Gemini, Mistral, Qwen, Deepseek). 
-* **Weighted Euclidean Distance**: A specific multidimensional metric system measuring deviance from theoretically perfect Artificial Super Intelligence baselines.
-* **Key Findings**: Identification of uniformity in performance ceilings and the revelation of architectural regressions in next-generation generalized models, highlighting constraints in current evaluation methodologies and training distributions.
+---
 
-## Repository Architecture
-
-This codebase is structured to facilitate high-throughput, reproducible academic research:
-
-* **`/data/`**: Centralized storage for large-scale evaluation results, simulation matrices, and structured medical JSON inputs.
-* **`/search_engine/`**: A proprietary algorithmic evaluation engine capable of mathematical expression evaluation, symbolic logic verification, and programmatic execution.
-* **`/plots/`**: Contains high-resolution, peer-review-ready visualizations (PDF/SVG) detailing robustness analyses, dimensionality clustering, and complexity thresholds.
-* **Foundational Scripts**: Highly automated execution pipelines (`formula_eval_agent.py`, `simulate_new_llms.py`, `full_analysis.py`) designed to interface with model APIs asynchronously and measure outputs stochastically.
-* **Experimental Notebooks**: Over 30 serialized Jupyter notebooks containing the theoretical derivations, hyperparameter optimizations, and visualization logic utilized throughout the project lifecycle.
-
-## Reproducibility and Usage
-
-The repository is built to support immediate extension by external researchers.
-
-### Environment Initialization
+## Reproduce everything, in one command
 
 ```bash
-git clone https://github.com/albertoHdzE/medLLM.git
-cd medLLM
-pip install -r requirements.txt
+python -m superarc.cli --out outputs/v2-2026-09
 ```
 
-### Analytical Execution
+Regenerates every published figure and table into `outputs/`, plus a
+`manifest.json` recording the SHA-256 of every input dataset, the models found in
+each, the installed package versions, the Python version and the git commit.
+A figure without that is not reproducible, only re-drawable.
 
-To invoke the standalone analysis detailing the progression of model generations toward the ASI baseline, execute the following module:
+**No credential is needed.** The forecasting experiment is closed and its results
+are committed CSVs; both back ends stay `None`. See `.env.example` if you want to
+*re-run* the forecasts, which is not part of reproducing the paper.
+
+## Prove nothing moved
 
 ```bash
-python simple_model_analysis.py
+python -m superarc.parity        # regenerate, compare against the published artifacts
+python -m superarc.baseline verify   # no published value has moved
+pytest                           # 212 tests
 ```
 
-Results, including statistical deltas and regressive indicators, are actively piped to terminal outputs and localized log directories.
+`parity` is deliberately a separate command from `cli`: one produces a new
+version, the other proves the old one did not change. It rasterises and compares
+pixel by pixel — PDF and SVG both embed a creation timestamp, so bytes never
+match even when content does — and every figure lands in exactly one of four
+states:
 
-## Scientific Integrity and Validation
+| state | meaning |
+|---|---|
+| `IDENTICAL` | regenerates pixel for pixel |
+| `authorised` | deliberately differs; the reason is recorded in `superarc/parity.py` |
+| `newly saved` | the code drew it and never wrote it to disk; no reference exists |
+| `NOT PRODUCED` | a failure |
 
-All quantitative results within this repository adhere strictly to rigorous academic standards. Trivial syntax emulation is heavily penalized in the evaluation scripts; models must exhibit true isomorphic logic mapped to test sequences to achieve passing correctness Boolean flags. Codebase metrics reflect zero tolerance for data contamination or superficial heuristic pattern matching.
+Corrected and newly-saved figures are additionally held to run-to-run
+determinism, so an unintended change on top of an authorised one is still caught.
 
-## Academic References
+## Layout
 
-The theoretical foundation, SuperARC benchmark methodology, and associated evaluation datasets utilized within this framework are derived from and correspond with the following literature and official implementation:
+```
+superarc/           the package — all logic lives here
+  registry.py         one model registry; four datasets name the same model four ways
+  table1.py           the SuperARC-seq score φ
+  parity.py           the acceptance gate, and the record of every authorised change
+  cli.py              one-command regeneration + manifest
+  baseline.py         frozen published values and artifact hashes
+  formulae.py  scripts.py  superarc_seq.py  timeseries.py
+  languages.py  evolution.py  complexity_measures.py  compression_metrics.py
+  sandbox.py          stdlib-only executor for model-generated Python
+notebooks/          eight verification drivers; they import, display and plot, never compute
+tests/              212 tests, including structural guards against duplicated logic
+doc/                the published article, supplementary information and peer review
+plots/ new_plots/   the published artifacts — the reference, never written to
+outputs/            git-ignored; where regeneration goes
+```
 
-* **Paper**: [Can Complexity and Uncomputability Explain Intelligence? SuperARC: A Test for Artificial Super Intelligence Based on Recursive Compression](https://arxiv.org/abs/2503.16743)
-* **Official Repository**: [AlgoDynLab/SuperintelligenceTest](https://github.com/AlgoDynLab/SuperintelligenceTest)
+The four top-level scripts with numeric names — `30-1_multiFormula_experiment.py`,
+`31-1_multiScript_experiment.py`, `34-2_S-ARC_ext.py`, `35_summary_statistics.py` —
+are the names that produced the published figures. They are kept as forwarders
+onto the package so that every result in the paper still traces to the name it was
+produced under.
+
+## Install
+
+```bash
+python -m venv venv && ./venv/bin/pip install -r requirements.txt
+./venv/bin/pip install -e . --no-deps
+```
+
+Python 3.13. `requirements.txt` is the curated set, and the one to use —
+`setuptools>=70,<81` is pinned there and is load-bearing: `pybdm` imports
+`pkg_resources` at module load, `joblib`'s worker processes do not inherit a
+monkey-patched shim, and setuptools 84 removed `pkg_resources` outright, which
+breaks the bootstrap behind Figure 10. `requirements.lock.txt` is the full
+134-package capture of the environment the reproducibility audit ran in; it does
+*not* constrain setuptools, so use it to match that environment exactly, not on
+its own.
+
+Figures 5 and 6 execute model-generated Python, so their values depend on this
+environment. Do not bump these without re-running `python -m superarc.parity`.
+
+For the notebooks, register the kernel and select **SuperARC (venv)**:
+
+```bash
+./venv/bin/python -m ipykernel install --user --name superarc --display-name "SuperARC (venv)"
+```
+
+See `notebooks/README.md` — there is a `.venv/` in this repository that is *not*
+the project environment, and selecting it fails on the first cell.
+
+## Corrections to the published figures
+
+Reproducing the figures exactly turned up defects in the code that drew them.
+Each is recorded in full in `superarc/parity.py`, with what moved and by how much.
+In summary:
+
+- **Figures 3 and 4** — model columns were matched by prefix, so five models
+  absorbed a longer-named model's answers.
+- **Figures 5 and 6** — accuracy selected columns with a substring test; and 216
+  cells holding the string `"*not found*"` were indexed as if they were a list of
+  eleven programs, so a missing answer became eleven wrong ones.
+- **Figure 6, and Supplementary Figure 5** — the bar labelled Gemini-2.5-Pro was
+  drawn from the `gemini` column, understating its volume ninefold (82 vs 750).
+- **Figure 8** — the reshape deciding which row each model occupies used
+  `order='F'`; 173 of 448 points showed another model's value.
+- **Figure 10** — the bootstrap called `np.random.seed(42)` and then
+  `np.random.default_rng()`, which ignores it. All 28 published means are
+  recovered; see the note in `superarc/superarc_seq.py`.
+
+Two further things a reader should know:
+
+**Figure identity is by title, never by number.** In the published PDF the caption
+printed under a figure sometimes describes a different one — pages 5, 8, 9, 13 and
+15 are offset. `superarc/parity.py` holds the mapping from content to producer.
+
+**Two panels cannot be recovered and are not claimed to be.** Supplementary
+Figure 1 substitutes an unseeded random string for missing answers, and the lower
+panel of Supplementary Figure 2 is packed using Python's per-process string hash.
+Both are seeded now; neither published image is recoverable, and the underlying
+data is pinned in tests instead.
+
+## Method, in one paragraph
+
+Models are asked to extend integer sequences of increasing complexity, and to
+produce a *generating model* — a formula, or a program — rather than the next
+terms. An answer that reproduces the sequence is proof; an answer that does not is
+ambiguous rather than false. Scoring is by algorithmic complexity (BDM/CTM) rather
+than by string match, which is what makes the test human-agnostic: printing the
+sequence back scores as incompressible, and is worth a hundredth of a real answer.
+
+Model answers are **never repaired**. An error made by a model is data — it is the
+model's intelligence under evaluation, so a hallucination or a syntax error is
+passed through as given. Translation into an executable form is allowed; silent
+fixing is not, and no code in this repository generates, simulates or completes a
+model's answer.
+
+## Citation
+
+```bibtex
+@article{HernandezEspinosa2026SuperARC,
+  title   = {SuperARC: a test for artificial superintelligence based on
+             compressed modelling, recursive prediction and problem complexity},
+  author  = {Hern{\'a}ndez-Espinosa, Alberto and Ozelim, Luan and
+             Abrah{\~a}o, Felipe S. and Zenil, Hector},
+  journal = {Nature Communications},
+  year    = {2026},
+  doi     = {10.1038/s41467-026-73289-5},
+  url     = {https://www.nature.com/articles/s41467-026-73289-5}
+}
+```
+
+The preprint that preceded it: [arXiv:2503.16743](https://arxiv.org/abs/2503.16743).
