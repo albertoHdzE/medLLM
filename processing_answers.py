@@ -17,14 +17,17 @@ Three things used to run at import time and no longer do:
   :func:`load_moment_pipeline` now.
 * **The module imported itself** (``from processing_answers import *``), which
   Python tolerates but which made the import order impossible to reason about.
-* **A live Nixtla API key** sat in a commented-out block. Removed here, but note
-  that removing it does not remove it from the history -- the key must be
-  rotated. As of 2026-09-15 this is urgent rather than housekeeping: the same key
-  is still a literal string on the ``main`` branch of the PUBLIC repository
-  ``AlgoDynLab/SuperintelligenceTest`` (``processing_answers.py:41``, with
-  ``validate_api_key()`` called below it), so it has been world-readable and must
-  be treated as compromised. Two distinct keys appear in this repository's
-  history; one of them is the public one.
+* **A live Nixtla API key** sat in a commented-out block. It is read from the
+  environment now -- see :mod:`superarc.credentials` and ``.env.example`` -- but
+  note that removing a secret from the working tree does not remove it from the
+  history, and this history is public: ``origin/master`` of this repository
+  carries both keys as literal strings. As of 2026-09-15 this is urgent rather
+  than housekeeping: the 86-character one is also on the ``main`` branch of the
+  PUBLIC repository ``AlgoDynLab/SuperintelligenceTest``
+  (``processing_answers.py:41``, with ``validate_api_key()`` called below it), so
+  it has been world-readable and must be treated as compromised. **Both must be
+  revoked at dashboard.nixtla.io.** Loading the replacement through ``.env`` is
+  what stops it happening again; it is not what fixes it having happened.
 
 Nothing here needs a credential to reproduce a published result. The forecasting
 experiment is closed, its outputs are the committed CSVs, and ``superarc.parity``
@@ -108,14 +111,35 @@ def load_moment_pipeline():
 
 
 # The forecasting back ends. Both were commented out before this change; the
-# experiments are closed and their results are the committed CSVs.
+# experiments are closed and their results are the committed CSVs, and both stay
+# None unless something is configured, so importing this module never reaches the
+# network and `superarc.parity` is unaffected.
 #
-#     timegpt = NixtlaClient(api_key=...)   # key removed -- rotate it
+# The TimeGPT client used to be built from a key pasted into line 41 of this
+# file. It is built from the environment now -- see superarc.credentials, and
+# .env.example for how to supply one. The original literal is still in the public
+# git history and must be revoked regardless.
+#
 #     pipeline = ChronosPipeline.from_pretrained(
 #         "amazon/chronos-t5-small", device_map="mps", torch_dtype=torch.bfloat16
 #     )
 timegpt = None
 pipeline = None
+
+
+def get_timegpt():
+    """The TimeGPT client, built on first use from ``NIXTLA_API_KEY``.
+
+    Returns ``None`` when no key is configured, which is the state every
+    reproduction of the paper runs in. Caches into the module-level ``timegpt``
+    so the historical call sites that read that name keep working.
+    """
+    global timegpt
+    if timegpt is None:
+        from superarc.credentials import nixtla_client
+
+        timegpt = nixtla_client(required=False)
+    return timegpt
 
 
 def check_no_alphabetical_characters_all_string_sequences(list_str_squences):
@@ -184,16 +208,16 @@ def predict_timeGPT(numerical_context_list, prediction_length):
     2. Uses TimeGPT to forecast future values if sequence is long enough
     3. Rounds predictions to integers
     """
-    if timegpt is None:
-        raise RuntimeError(
-            "TimeGPT is not configured. The forecasting experiment is closed and "
-            "its results are the committed timeGPT_*.csv; re-running it needs a "
-            "Nixtla API key set on the module-level `timegpt` client."
-        )
+    client = get_timegpt()
+    if client is None:
+        from superarc.credentials import nixtla_api_key
+
+        # Raises with the instructions, rather than restating them here.
+        nixtla_api_key(required=True)
     tiny_df = get_datetime_values(numerical_context_list)
 
     if len(tiny_df) > 2:
-        timegpt_fcst_df = timegpt.forecast(tiny_df, h=prediction_length, model='timegpt-1-long-horizon')
+        timegpt_fcst_df = client.forecast(tiny_df, h=prediction_length, model='timegpt-1-long-horizon')
         forecasting = list(timegpt_fcst_df["TimeGPT"].values)
         forecasting = [int(round(x)) for x in forecasting]
         return forecasting
